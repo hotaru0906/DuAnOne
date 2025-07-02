@@ -1,0 +1,264 @@
+fileFormatVersion: 2
+guid: 4e5465c0d8ef1e046a54d1c58928bb52
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Blue Corset Long Sleeves_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f75df082519f004eb08a11865adfa07
+      internalID: 1212271859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Corset Long Sleeves_1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5ee1f806a89c954cb4d88f80b003232
+      internalID: 217920473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Corset Long Sleeves_2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a898526debee010419bbfce5c5121eeb
+      internalID: 86605477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Corset Long Sleeves_3
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c865b2d47cd39344f85acf1f8d1bc083
+      internalID: 330397960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blue Corset Long Sleeves_4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fc46846163cce34ea3568a4f205dc30
+      internalID: 1950199167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Blue Corset Long Sleeves_0: 1212271859
+      Blue Corset Long Sleeves_1: 217920473
+      Blue Corset Long Sleeves_10: 937414493
+      Blue Corset Long Sleeves_11: 1299466313
+      Blue Corset Long Sleeves_12: -1729843813
+      Blue Corset Long Sleeves_13: 1668487890
+      Blue Corset Long Sleeves_14: 1259711715
+      Blue Corset Long Sleeves_15: -104415029
+      Blue Corset Long Sleeves_16: 61744179
+      Blue Corset Long Sleeves_17: -1416903352
+      Blue Corset Long Sleeves_18: 308742781
+      Blue Corset Long Sleeves_19: -1854598164
+      Blue Corset Long Sleeves_2: 86605477
+      Blue Corset Long Sleeves_20: 1696372273
+      Blue Corset Long Sleeves_21: -1282363522
+      Blue Corset Long Sleeves_22: 557533663
+      Blue Corset Long Sleeves_23: -1462142178
+      Blue Corset Long Sleeves_24: 928918089
+      Blue Corset Long Sleeves_25: -1776334542
+      Blue Corset Long Sleeves_26: 1523474266
+      Blue Corset Long Sleeves_27: 2062535778
+      Blue Corset Long Sleeves_28: 1165964065
+      Blue Corset Long Sleeves_29: 617711106
+      Blue Corset Long Sleeves_3: 330397960
+      Blue Corset Long Sleeves_30: 1825952760
+      Blue Corset Long Sleeves_31: -1825277148
+      Blue Corset Long Sleeves_32: -1327560283
+      Blue Corset Long Sleeves_33: 102260986
+      Blue Corset Long Sleeves_34: -2065909359
+      Blue Corset Long Sleeves_35: 403609402
+      Blue Corset Long Sleeves_36: 1741664859
+      Blue Corset Long Sleeves_37: -918464731
+      Blue Corset Long Sleeves_38: 679326022
+      Blue Corset Long Sleeves_39: 1260893594
+      Blue Corset Long Sleeves_4: 1950199167
+      Blue Corset Long Sleeves_40: 651119802
+      Blue Corset Long Sleeves_41: -1459457481
+      Blue Corset Long Sleeves_42: 927945799
+      Blue Corset Long Sleeves_43: -2139278641
+      Blue Corset Long Sleeves_44: -1728164502
+      Blue Corset Long Sleeves_5: 812804337
+      Blue Corset Long Sleeves_6: 636522226
+      Blue Corset Long Sleeves_7: 551186194
+      Blue Corset Long Sleeves_8: -768740080
+      Blue Corset Long Sleeves_9: 2047691436
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

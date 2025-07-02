@@ -1,0 +1,264 @@
+fileFormatVersion: 2
+guid: 347a72a5e94b89e4f93bf24ca322a38e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Bronze Pickaxe_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1d57f75c60d8bb41bca027a305a7d7e
+      internalID: 759576867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bronze Pickaxe_1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ce2b2d78b633724bb33d26a8e3c6dfc
+      internalID: -1983483232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bronze Pickaxe_2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97447aaf0e746e94fa512510d254c4f8
+      internalID: 43532027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bronze Pickaxe_3
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6442f4dadd067134ba4ac3fc3ab403af
+      internalID: -1119447857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bronze Pickaxe_4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1e2900fb6e0b1d4ebfc12e34053c85b
+      internalID: -400260187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Bronze Pickaxe_0: 759576867
+      Bronze Pickaxe_1: -1983483232
+      Bronze Pickaxe_10: -245409827
+      Bronze Pickaxe_11: -324756821
+      Bronze Pickaxe_12: 1920366081
+      Bronze Pickaxe_13: -1040173803
+      Bronze Pickaxe_14: -1467256515
+      Bronze Pickaxe_15: -1571599364
+      Bronze Pickaxe_16: 1868467974
+      Bronze Pickaxe_17: 1101141553
+      Bronze Pickaxe_18: 2067563962
+      Bronze Pickaxe_19: 1383692049
+      Bronze Pickaxe_2: 43532027
+      Bronze Pickaxe_20: 1209745610
+      Bronze Pickaxe_21: 1067343192
+      Bronze Pickaxe_22: -193727566
+      Bronze Pickaxe_23: 1574654243
+      Bronze Pickaxe_24: -1872882276
+      Bronze Pickaxe_25: -906865337
+      Bronze Pickaxe_26: -308898017
+      Bronze Pickaxe_27: 1923532292
+      Bronze Pickaxe_28: -2104915513
+      Bronze Pickaxe_29: 1775826275
+      Bronze Pickaxe_3: -1119447857
+      Bronze Pickaxe_30: -1354693853
+      Bronze Pickaxe_31: 368821524
+      Bronze Pickaxe_32: 718321379
+      Bronze Pickaxe_33: -1899024968
+      Bronze Pickaxe_34: 1883366623
+      Bronze Pickaxe_35: -2136619357
+      Bronze Pickaxe_36: -240313684
+      Bronze Pickaxe_37: -1735032579
+      Bronze Pickaxe_38: -747609496
+      Bronze Pickaxe_39: 189000121
+      Bronze Pickaxe_4: -400260187
+      Bronze Pickaxe_40: -471363822
+      Bronze Pickaxe_41: 1108886540
+      Bronze Pickaxe_42: 2060603887
+      Bronze Pickaxe_43: -2047526765
+      Bronze Pickaxe_44: 94329168
+      Bronze Pickaxe_5: -961680445
+      Bronze Pickaxe_6: -1152886928
+      Bronze Pickaxe_7: 1505450458
+      Bronze Pickaxe_8: -63122107
+      Bronze Pickaxe_9: -1891862008
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
