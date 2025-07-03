@@ -6,12 +6,12 @@ public class TestPlayer : MonoBehaviour
 {
     public float speed = 5f;
     private Rigidbody2D rb;
+    private NPC nearbyNPC = null;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    // player movement flatform
     void Update()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
@@ -19,7 +19,6 @@ public class TestPlayer : MonoBehaviour
         Vector2 movement = new Vector2(moveHorizontal, 0);
         rb.velocity = movement * speed;
 
-        // Flip the player sprite based on movement direction
         if (moveHorizontal < 0)
         {
             transform.localScale = new Vector3(1, 1, 1);
@@ -27,6 +26,29 @@ public class TestPlayer : MonoBehaviour
         else if (moveHorizontal > 0)
         {
             transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && nearbyNPC != null)
+        {
+            nearbyNPC.Interact();
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        NPC npc = other.GetComponent<NPC>();
+        if (npc != null && npc.canInteract)
+        {
+            nearbyNPC = npc;
+            Debug.Log("Press E to interact");
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.GetComponent<NPC>() == nearbyNPC)
+        {
+            nearbyNPC = null;
         }
     }
 }
