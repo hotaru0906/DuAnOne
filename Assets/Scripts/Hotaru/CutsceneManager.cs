@@ -1,54 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class CutsceneManager : MonoBehaviour
 {
-    public Image blackScreen;               // Màn hình đen dùng để fade
-    public Image cutsceneImage;             // Ảnh cutscene hiển thị
-    public Sprite[] cutsceneSprites;        // 4 ảnh PNG
-    public float fadeDuration = 1f;         // Thời gian fade
-    public string nextSceneName = "GameScene"; // Tên scene cần chuyển tới
+    public enum CutsceneStepType { Dialogue, Image }
 
-    private int currentIndex = 0;
-    private bool isTransitioning = false;
+    [System.Serializable]
+    public class CutsceneStep
+    {
+        public CutsceneStepType type;
+        public List<string> dialogueLines;
+        public Sprite image;
+    }
+
+    public List<CutsceneStep> steps;
+    public Image cutsceneImage;
+    public Image blackScreen;
+    public string nextSceneName = "GameScene";
+    public float fadeDuration = 1f;
+
+    private int stepIndex = 0;
+    private bool isWaitingForInput = false;
 
     void Start()
     {
-        blackScreen.gameObject.SetActive(true);
-        blackScreen.color = new Color(0, 0, 0, 1);  // bắt đầu với màn hình đen
+        blackScreen.color = Color.black;
+        cutsceneImage.enabled = false;
         StartCoroutine(FadeIn());
-        ShowImage(0);
-    }
-
-    void Update()
-    {
-        if (isTransitioning) return;
-
-        if (Input.anyKeyDown || Input.GetMouseButtonDown(0))
-        {
-            currentIndex++;
-
-            if (currentIndex < cutsceneSprites.Length)
-            {
-                ShowImage(currentIndex);
-            }
-            else
-            {
-                StartCoroutine(FadeOutAndLoadScene());
-            }
-        }
-    }
-
-    void ShowImage(int index)
-    {
-        cutsceneImage.sprite = cutsceneSprites[index];
     }
 
     IEnumerator FadeIn()
     {
-        isTransitioning = true;
         float t = 0;
         while (t < fadeDuration)
         {
@@ -57,13 +42,63 @@ public class CutsceneManager : MonoBehaviour
             blackScreen.color = new Color(0, 0, 0, alpha);
             yield return null;
         }
-        blackScreen.color = new Color(0, 0, 0, 0);
-        isTransitioning = false;
+
+        blackScreen.color = Color.clear;
+        PlayNextStep();
+    }
+
+    void Update()
+    {
+        if (isWaitingForInput && (Input.anyKeyDown || Input.GetMouseButtonDown(0)))
+        {
+            isWaitingForInput = false;
+            PlayNextStep();
+        }
+    }
+
+    void PlayNextStep()
+    {
+        if (stepIndex >= steps.Count)
+        {
+            StartCoroutine(FadeOutAndLoadScene());
+            return;
+        }
+
+        CutsceneStep step = steps[stepIndex];
+
+        // Không tăng stepIndex ngay lập tức!
+        // Chỉ tăng sau khi bước hiện tại hoàn tất
+
+        if (step.type == CutsceneStepType.Dialogue)
+        {
+            cutsceneImage.enabled = false;
+            DialogueManager.Instance.StartDialogue(step.dialogueLines);
+            stepIndex++; // Tăng sau khi gọi thoại
+        }
+        else if (step.type == CutsceneStepType.Image)
+        {
+            cutsceneImage.enabled = true;
+            cutsceneImage.sprite = step.image;
+            isWaitingForInput = true;
+            stepIndex++; // Tăng sau khi hiện ảnh
+        }
+    }
+
+
+    public void OnDialogueEnded()
+    {
+        // Chờ 1 frame để tránh skip ngay lập tức do phím còn đang giữ
+        StartCoroutine(DelayPlayNextStep());
+    }
+
+    IEnumerator DelayPlayNextStep()
+    {
+        yield return null; // chờ 1 frame
+        PlayNextStep();    // gọi bước tiếp theo (ảnh sẽ hiện ra và chờ input mới)
     }
 
     IEnumerator FadeOutAndLoadScene()
     {
-        isTransitioning = true;
         float t = 0;
         blackScreen.gameObject.SetActive(true);
         while (t < fadeDuration)
@@ -73,8 +108,7 @@ public class CutsceneManager : MonoBehaviour
             blackScreen.color = new Color(0, 0, 0, alpha);
             yield return null;
         }
-        blackScreen.color = new Color(0, 0, 0, 1);
-        yield return new WaitForSeconds(0.3f); // chờ tí cho đẹp
+
         SceneManager.LoadScene(nextSceneName);
     }
 }

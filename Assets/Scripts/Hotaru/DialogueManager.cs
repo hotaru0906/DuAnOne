@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
     private Queue<string> sentences;
     public GameObject dialogueBox; // Kéo Dialogue Box vào đây trong Inspector
-    public Text dialogueText;
+    public TextMeshProUGUI dialogueText;
     public float typeSpeed = 0.03f;
     private bool isTyping = false;
-    
+
     // Reference to current NPC in dialogue
     private MonoBehaviour currentNPC;
 
@@ -40,6 +41,17 @@ public class DialogueManager : MonoBehaviour
         currentNPC = npc;
         StartDialogue(lines);
     }
+    void Update()
+    {
+        if (dialogueBox.activeInHierarchy)
+        {
+            if (Input.anyKeyDown || Input.GetMouseButtonDown(0))
+            {
+                DisplayNextSentence();
+            }
+        }
+    }
+
 
     public void DisplayNextSentence()
     {
@@ -77,10 +89,14 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
-        if (dialogueBox != null)
-            dialogueBox.SetActive(false);
-            
-        // Notify NPC that dialogue has ended
+        dialogueBox.SetActive(false);
+
+        CutsceneManager cutscene = FindObjectOfType<CutsceneManager>();
+        if (cutscene != null)
+        {
+            cutscene.OnDialogueEnded();
+        }
+
         if (currentNPC != null)
         {
             currentNPC.SendMessage("OnDialogueEnded", SendMessageOptions.DontRequireReceiver);
