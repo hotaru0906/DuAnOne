@@ -22,7 +22,6 @@ public class NPC : MonoBehaviour
 
     [Header("Flip Settings")]
     public bool invertFlip = false;
-    //
     private bool movingRight = false;
     private float nextDirectionChangeTime;
     private Rigidbody2D rb;
@@ -90,7 +89,6 @@ public class NPC : MonoBehaviour
 
     void FlipSprite()
     {
-
         if (!invertFlip)
         {
             if (movingRight && transform.localScale.x < 0)
@@ -151,7 +149,6 @@ public class NPC : MonoBehaviour
         if (weaponAni != null)
             weaponAni.Play(stateName);
     }
-
     void SetWalkAnimation(bool isWalking)
     {
         SetMovementAnimation(isWalking);
@@ -189,12 +186,10 @@ public class NPC : MonoBehaviour
             }
         }
     }
-    // Public method to toggle walk animation
     public void SetCanWalk(bool canWalkState)
     {
         canWalk = canWalkState;
         
-        // Update animation immediately based on current state
         if (canMove)
         {
             SetMovementAnimation(true);
