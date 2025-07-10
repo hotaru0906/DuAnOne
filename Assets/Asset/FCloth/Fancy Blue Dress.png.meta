@@ -1,0 +1,264 @@
+fileFormatVersion: 2
+guid: d3172af7441c3d2418e366a33ea87ff5
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Fancy Blue Dress_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d91bd6dcff96faa48b60022d76b85364
+      internalID: -606295143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fancy Blue Dress_1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37d85ea3b846ec546954db80df920e5c
+      internalID: -932667249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fancy Blue Dress_2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf92043eff6ec094daee5ef9a6781778
+      internalID: 1359613795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fancy Blue Dress_3
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07d6514307f68434088f775a572ffb56
+      internalID: 1824404277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fancy Blue Dress_4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e5e2a6c56726e04ba07875672fd9581
+      internalID: -1037424338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Fancy Blue Dress_0: -606295143
+      Fancy Blue Dress_1: -932667249
+      Fancy Blue Dress_10: 355029173
+      Fancy Blue Dress_11: 807178088
+      Fancy Blue Dress_12: -415419221
+      Fancy Blue Dress_13: -178374118
+      Fancy Blue Dress_14: 662043344
+      Fancy Blue Dress_15: 744240777
+      Fancy Blue Dress_16: 1773520456
+      Fancy Blue Dress_17: 297118564
+      Fancy Blue Dress_18: -859930167
+      Fancy Blue Dress_19: 1637969624
+      Fancy Blue Dress_2: 1359613795
+      Fancy Blue Dress_20: 923147113
+      Fancy Blue Dress_21: -1864132406
+      Fancy Blue Dress_22: -1737336606
+      Fancy Blue Dress_23: -1495400647
+      Fancy Blue Dress_24: 860151642
+      Fancy Blue Dress_25: -2010202647
+      Fancy Blue Dress_26: -244392628
+      Fancy Blue Dress_27: 325380751
+      Fancy Blue Dress_28: -898382761
+      Fancy Blue Dress_29: 925082035
+      Fancy Blue Dress_3: 1824404277
+      Fancy Blue Dress_30: 365880632
+      Fancy Blue Dress_31: -2016529341
+      Fancy Blue Dress_32: -1384057338
+      Fancy Blue Dress_33: -1007758170
+      Fancy Blue Dress_34: -1715036862
+      Fancy Blue Dress_35: 446203322
+      Fancy Blue Dress_36: 2008167835
+      Fancy Blue Dress_37: 465772087
+      Fancy Blue Dress_38: 1394384723
+      Fancy Blue Dress_39: 526022606
+      Fancy Blue Dress_4: -1037424338
+      Fancy Blue Dress_40: -1700295542
+      Fancy Blue Dress_41: -1578497522
+      Fancy Blue Dress_42: 1229111217
+      Fancy Blue Dress_43: 556875954
+      Fancy Blue Dress_44: -693510708
+      Fancy Blue Dress_5: 43675188
+      Fancy Blue Dress_6: -631294483
+      Fancy Blue Dress_7: 135582319
+      Fancy Blue Dress_8: 1830007132
+      Fancy Blue Dress_9: -1243194551
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

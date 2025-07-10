@@ -5,15 +5,18 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - CanJump
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - Ground
   - 
+  - NPC
+  - Player
   - 
   - 
   - 
@@ -39,6 +42,24 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG3
+    uniqueID: 1755989509
+    locked: 0
+  - name: BG2
+    uniqueID: 1115407175
+    locked: 0
+  - name: BG1
+    uniqueID: 2611094489
+    locked: 0
+  - name: ForeGround
+    uniqueID: 4077478553
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: shawdon
+    uniqueID: 1597278155
+    locked: 0
+  - name: Player
+    uniqueID: 1417640909
     locked: 0
