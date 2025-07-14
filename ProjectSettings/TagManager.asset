@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Ground
   - CanJump
+  - Attack1
+  - Attack2
+  - Attack3
+  - Attack3.1
   layers:
   - Default
   - TransparentFX
@@ -17,8 +21,6 @@ TagManager:
   - 
   - NPC
   - Player
-  - 
-  - 
   - 
   - 
   - 
