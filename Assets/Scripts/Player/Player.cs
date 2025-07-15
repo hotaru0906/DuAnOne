@@ -13,36 +13,42 @@ public class Player : MonoBehaviour
     public int attack1Damage = 10;
     public int attack2Damage = 15;
     public int attack3Damage = 20;
-    public int skill1Damage = 20; 
-    
+    public int skill1Damage = 20;
+
     [Header("Movement Settings")]
     public float Run = 10f;
     public float jumpForce = 10f;
-    
+
     [Header("Dash Settings")]
     public float dashForce = 10f;
     public float dashDuration = 0.15f;
-    
+
     [Header("Attack Settings")]
     public float attackTime = 0f;
     public float attackDuration = 0.5f;
     public float comboResetTime = 0.5f;
-    
+    public bool canSpawnBullet = false;
+
     [Header("Ground Check Settings")]
     public bool isGrounded = false;
-    
+
     [Header("HitBox References")]
     public GameObject dashHitBox;
     public GameObject Attack1HitBox;
     public GameObject Attack2HitBox;
     public GameObject Attack3HitBox;
+    public GameObject Attack4HitBox;
     public GameObject skill1GroundHitBox;
-    
+
     [Header("Component References")]
     public Rigidbody2D rb;
     public Animator animator;
     public BoxCollider2D boxCollider;
-    
+    public GameObject skill3BulletPrefab;
+
+    [Header("Bullet Settings")]
+    public Transform bulletSpawnPoint; // Vị trí bắn đạn
+
     // Private State Variables
     private int comboStep = 0;
     private float dashTime;
@@ -106,6 +112,10 @@ public class Player : MonoBehaviour
                 {
                     Attack3();
                 }
+                else if (comboStep == 3)
+                {
+                    Attack4();
+                }
             }
         }
 
@@ -124,7 +134,7 @@ public class Player : MonoBehaviour
             Dash();
         }
     }
-    
+
     // ==================== COLLISION DETECTION ====================
     void OnCollisionStay2D(Collision2D collision)
     {
@@ -150,19 +160,19 @@ public class Player : MonoBehaviour
             isGrounded = false;
         }
     }
-    
+
     // ==================== BASIC FUNCTIONS ====================
     void Flip()
     {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
-    
+
     // ==================== MOVEMENT & CONTROL ====================
     public void ControlDuringAttack()
     {
         if (isSkill2) return;
         if (isSkill1) return;
-        
+
         if (!isGrounded)
         {
             float moveHorizontal = Input.GetAxisRaw("Horizontal");
@@ -174,12 +184,12 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
     }
-    
+
     public void Control()
     {
         if (isSkill2) return;
         if (isSkill1) return;
-        
+
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         Vector2 movement = new Vector2(moveHorizontal, 0f);
         rb.velocity = new Vector2(movement.x * Run, rb.velocity.y);
@@ -199,13 +209,13 @@ public class Player : MonoBehaviour
                 animator.Play("Idle");
             }
         }
-        
+
         if (!isSkill1 && Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rb.velocity.y) < 0.001f)
         {
             isGrounded = false;
             rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
-        
+
         if (moveHorizontal > 0 && transform.localScale.x < 0)
         {
             Flip();
@@ -233,7 +243,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Player has died.");
     }
-    
+
     // ==================== DASH SYSTEM ====================
     public void Dash()
     {
@@ -245,7 +255,7 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(dashDirection * dashForce, 0f);
             animator.Play("Dash");
         }
-        
+
         if (isDashing)
         {
             dashTime -= Time.deltaTime;
@@ -257,7 +267,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    
+
     // ==================== ATTACK SYSTEM ====================
     public void Attack1()
     {
@@ -273,7 +283,7 @@ public class Player : MonoBehaviour
 
     public void Attack2()
     {
-        animator.Play("Attack2");  // ✅ Khôi phục về Play thay vì SetTrigger
+        animator.Play("Attack2");
         comboStep = 2;
         isAttacking = true;
         attackTime = attackDuration;
@@ -282,11 +292,23 @@ public class Player : MonoBehaviour
 
     public void Attack3()
     {
-        animator.Play("Attack3");  // ✅ Khôi phục về Play thay vì SetTrigger
-        comboStep = 0;
+        animator.Play("Attack3");
+        comboStep = 3;
         isAttacking = true;
         attackTime = attackDuration;
         comboTimer = 0f;
+    }
+
+    public void Attack4()
+    {
+        if (!isAttacking) // Prevent repeated calls
+        {
+            animator.Play("Attack4");
+            comboStep = 0; // Reset combo step
+            isAttacking = true;
+            attackTime = attackDuration;
+            comboTimer = comboResetTime;
+        }
     }
 
     // Animation Events
@@ -325,18 +347,28 @@ public class Player : MonoBehaviour
         if (Attack3HitBox != null)
             Attack3HitBox.SetActive(false);
     }
+    public void StartAttack4HitBox()
+    {
+        if (Attack4HitBox != null)
+            Attack4HitBox.SetActive(true);
+    }
+    public void EndAttack4HitBox()
+    {
+        if (Attack4HitBox != null)
+            Attack4HitBox.SetActive(false);
+    }
 
     public void EndAttackAnimation()
     {
         isAttacking = false;
     }
-    
+
     // ==================== SKILL SYSTEM ====================
     private void Skill1()
     {
         if (Input.GetKeyDown(KeyCode.K) && !isSkill1 && !isGrounded && !isAttacking)
         {
-            animator.SetTrigger("Skill1");
+            animator.Play("Skill1");
             isSkill1 = true;
             isSkill1InAir = true;
             rb.velocity = new Vector2(0f, rb.velocity.y);
@@ -357,16 +389,44 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void SpawnBullet()
+    {
+        if (canSpawnBullet && skill3BulletPrefab != null)
+        {
+            GameObject bulletObject = Instantiate(skill3BulletPrefab.gameObject, transform.position, Quaternion.identity);
+            Bullet bullet = bulletObject.GetComponent<Bullet>();
+            if (bullet != null)
+            {
+                bullet.SetDamage(50); // Set high damage for the bullet
+            }
+            Destroy(bulletObject, 3f); // Destroy the bullet's GameObject after 3 seconds
+        }
+        else
+        {
+            Debug.LogError("Skill3 Bullet Prefab is not assigned in the Inspector.");
+        }
+    }
+
     public void StartSkill1GroundHitBox()
     {
         if (skill1GroundHitBox != null)
+        {
             skill1GroundHitBox.SetActive(true);
+            Debug.Log("Skill1 Ground HitBox activated");
+        }
+        else
+        {
+            Debug.LogError("Skill1 Ground HitBox is not assigned in the Inspector.");
+        }
     }
 
     public void EndSkill1GroundHitBox()
     {
         if (skill1GroundHitBox != null)
+        {
             skill1GroundHitBox.SetActive(false);
+            Debug.Log("Skill1 Ground HitBox deactivated");
+        }
     }
 
     public void EndSkill1()
@@ -381,6 +441,24 @@ public class Player : MonoBehaviour
     public void EndSkill2()
     {
         isSkill2 = false;
+    }
+
+    public void SpawnBulletForAttack4()
+    {
+        if (canSpawnBullet && skill3BulletPrefab != null)
+        {
+            GameObject bullet = Instantiate(skill3BulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            if (bulletScript != null)
+            {
+                bulletScript.SetDamage(skill1Damage); // Gán sát thương cho viên đạn
+                bulletScript.SetDirection(transform.localScale.x); // Gán hướng bay của viên đạn
+            }
+        }
+        else
+        {
+            Debug.LogError("Skill3 Bullet Prefab is not assigned in the Inspector.");
+        }
     }
 }
 

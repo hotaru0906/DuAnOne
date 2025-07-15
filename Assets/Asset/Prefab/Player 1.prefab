@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 110638648192214195}
   - component: {fileID: 6083587090488566314}
-  - component: {fileID: 5292618478849181014}
   m_Layer: 0
-  m_Name: Skill 3
+  m_Name: Attack 4
   m_TagString: Attack3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,18 +94,6 @@ PolygonCollider2D:
       - {x: 0.03667313, y: -0.3252629}
       - {x: 0.1427586, y: -0.31557673}
   m_UseDelaunayMesh: 0
---- !u!114 &5292618478849181014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 108033633607278235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9baf948e64e6a394789518cd2d1921fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &648589702850107166
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7776899924697189971}
   - component: {fileID: 1358647778210264086}
-  - component: {fileID: 3475833414432948305}
+  - component: {fileID: 337196606765611827}
   m_Layer: 0
   m_Name: Attack2
   m_TagString: Attack1
@@ -191,7 +178,7 @@ PolygonCollider2D:
       - {x: 0.33100075, y: -0.16316447}
       - {x: 0.32854852, y: -0.010018363}
   m_UseDelaunayMesh: 0
---- !u!114 &3475833414432948305
+--- !u!114 &337196606765611827
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,7 +187,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 648589702850107166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4272a0307f05d554bb81981e76d711b8, type: 3}
+  m_Script: {fileID: 11500000, guid: b69cfcc736c8cb446aeb7847d316958e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1074018513871800733
@@ -303,7 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7529860342849000661}
   - component: {fileID: 5694575159343444420}
-  - component: {fileID: 4323979007760455382}
+  - component: {fileID: 3157875469194860281}
   m_Layer: 0
   m_Name: Attack3
   m_TagString: Attack2
@@ -379,7 +366,7 @@ PolygonCollider2D:
       - {x: 0.46287018, y: -0.10439398}
       - {x: 0.46153036, y: -0.06435025}
   m_UseDelaunayMesh: 0
---- !u!114 &4323979007760455382
+--- !u!114 &3157875469194860281
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -388,7 +375,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1103361043495785240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b69cfcc736c8cb446aeb7847d316958e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9baf948e64e6a394789518cd2d1921fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6731287114989901310
@@ -579,6 +566,37 @@ PolygonCollider2D:
       - {x: 0.3275866, y: -0.31986952}
       - {x: 0.2870017, y: -0.25400466}
   m_UseDelaunayMesh: 0
+--- !u!1 &8769999351556838743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7938565198065287582}
+  m_Layer: 0
+  m_Name: Dir
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7938565198065287582
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8769999351556838743}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.301, y: -0.127, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 232231424937910315}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8901919809820661256
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,6 +637,7 @@ Transform:
   - {fileID: 7776899924697189971}
   - {fileID: 7529860342849000661}
   - {fileID: 110638648192214195}
+  - {fileID: 7938565198065287582}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1288569007873573197
@@ -769,16 +788,20 @@ MonoBehaviour:
   dashDuration: 0.5
   attackTime: 0
   attackDuration: 0.5
-  comboResetTime: 0.5
+  comboResetTime: 1.2
+  canSpawnBullet: 1
   isGrounded: 0
   dashHitBox: {fileID: 6784327676643860378}
   Attack1HitBox: {fileID: 6731287114989901310}
   Attack2HitBox: {fileID: 648589702850107166}
   Attack3HitBox: {fileID: 1103361043495785240}
+  Attack4HitBox: {fileID: 108033633607278235}
   skill1GroundHitBox: {fileID: 1074018513871800733}
   rb: {fileID: 6176558446417859452}
   animator: {fileID: 1384104440704914830}
   boxCollider: {fileID: 3853270232027997280}
+  skill3BulletPrefab: {fileID: 211209768297838615, guid: 2510846d98dae4947884b228e9227112, type: 3}
+  bulletSpawnPoint: {fileID: 7938565198065287582}
 --- !u!95 &1384104440704914830
 Animator:
   serializedVersion: 5
