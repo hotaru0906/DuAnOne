@@ -3,58 +3,70 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
-
 public class Player : MonoBehaviour
 {
-    private int comboStep = 0;
-    public int Health = 100; // Sức khỏe của nhân vật
-    public int MaxHealth = 100; // Sức khỏe tối đa của nhân vật
-    public int damage = 10; // Sát thương của nhân vật
-    public int skill1Damage = 20; // Sát thương của skill 1 
+    [Header("Health Settings")]
+    public int Health = 100;
+    public int MaxHealth = 100;
+
+    [Header("Damage Settings")]
+    public int attack1Damage = 10;
+    public int attack2Damage = 15;
+    public int attack3Damage = 20;
+    public int skill1Damage = 20; 
+    
+    [Header("Movement Settings")]
+    public float Run = 10f;
+    public float jumpForce = 10f;
+    
+    [Header("Dash Settings")]
     public float dashForce = 10f;
     public float dashDuration = 0.15f;
-    public float groundCheckRadius = 0.2f;
+    
+    [Header("Attack Settings")]
     public float attackTime = 0f;
     public float attackDuration = 0.5f;
-    public float Walk = 5f;
-    public float jumpForce = 10f;
-    public float Run = 10f;
-    private float dashTime;
-    private float comboTimer = 0f;
     public float comboResetTime = 0.5f;
-    private bool isDashing = false;
-    private bool isAttacking = false;
-    private bool isSkill1 = false;
-    private bool isSkill2 = false;
+    
+    [Header("Ground Check Settings")]
     public bool isGrounded = false;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
+    
+    [Header("HitBox References")]
     public GameObject dashHitBox;
     public GameObject Attack1HitBox;
     public GameObject Attack2HitBox;
     public GameObject Attack3HitBox;
-    public GameObject Attack31HitBox;
-    public GameObject skill1HitBox;
+    public GameObject skill1GroundHitBox;
+    
+    [Header("Component References")]
     public Rigidbody2D rb;
     public Animator animator;
     public BoxCollider2D boxCollider;
+    
+    // Private State Variables
+    private int comboStep = 0;
+    private float dashTime;
+    private float comboTimer = 0f;
+    private bool isDashing = false;
+    private bool isAttacking = false;
+    private bool isSkill1 = false;
+    private bool isSkill2 = false;
+    private bool isSkill1InAir = false;
 
-
-
+    // ==================== UNITY LIFECYCLE ====================
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        dashTime = dashDuration; // Khởi tạo thời gian dash
-        isDashing = false; // Bắt đầu không trong trạng thái dash
-        Health = MaxHealth; // Khởi tạo sức khỏe nhân vật
+        dashTime = dashDuration;
+        isDashing = false;
+        Health = MaxHealth;
     }
-
 
     void Update()
     {
-        // Reset combo nếu không nhấn tiếp sau khi kết thúc Attack1 hoặc Attack2
-        if (!isAttacking && (comboStep == 1 || comboStep == 2))
+        // Cập nhật combo timer
+        if (comboTimer > 0)
         {
             comboTimer -= Time.deltaTime;
             if (comboTimer <= 0)
@@ -63,45 +75,41 @@ public class Player : MonoBehaviour
             }
         }
 
-        // Không kiểm tra grounded mỗi frame nữa, sẽ kiểm tra bằng OnCollision
-
-
-        if (!isDashing && !isAttacking)
+        // Movement control
+        if (!isDashing && !isAttacking && !isSkill1 && !isSkill2)
         {
             Control();
         }
-        else if (isAttacking)
+        else if (isAttacking && !isSkill1 && !isSkill2)
         {
-            rb.velocity = new Vector2(0f, rb.velocity.y);
+            ControlDuringAttack();
         }
-        else if (isSkill1)
+        else if (isSkill1 || isSkill2)
         {
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
 
+        // Attack input
         if (Input.GetKeyDown(KeyCode.J))
         {
-            // Chỉ cho phép thực hiện attack tiếp theo khi không đang attack và không đang dash
-            if (!isAttacking && !isDashing)
+            if (!isAttacking && !isDashing && !isSkill1 && !isSkill2)
             {
                 if (comboStep == 0)
                 {
                     Attack1();
-                    Debug.Log("Attack1");
                 }
                 else if (comboStep == 1)
                 {
                     Attack2();
-                    Debug.Log("Attack2");
                 }
                 else if (comboStep == 2)
                 {
                     Attack3();
-                    Debug.Log("Attack3");
                 }
             }
         }
-        // Ưu tiên kiểm tra trạng thái skill1 trước khi cho phép gọi Skill1
+
+        // Skill logic
         if (!isDashing && !isAttacking && !isSkill1)
         {
             Skill1();
@@ -111,20 +119,26 @@ public class Player : MonoBehaviour
             Skill2();
         }
 
-        Dash();
-    }
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (!isSkill1 && !isSkill2)
         {
-            isGrounded = true;
+            Dash();
         }
     }
-
+    
+    // ==================== COLLISION DETECTION ====================
     void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
+            if (isSkill1InAir)
+            {
+                isSkill1InAir = false;
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Skill1_Ground")) // Prevent repeated calls
+                {
+                    animator.Play("Skill1_Ground");
+                }
+                rb.gravityScale = 1f;
+            }
             isGrounded = true;
         }
     }
@@ -136,22 +150,40 @@ public class Player : MonoBehaviour
             isGrounded = false;
         }
     }
+    
+    // ==================== BASIC FUNCTIONS ====================
     void Flip()
     {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-
     }
+    
+    // ==================== MOVEMENT & CONTROL ====================
+    public void ControlDuringAttack()
+    {
+        if (isSkill2) return;
+        if (isSkill1) return;
+        
+        if (!isGrounded)
+        {
+            float moveHorizontal = Input.GetAxisRaw("Horizontal");
+            Vector2 movement = new Vector2(moveHorizontal, 0f);
+            rb.velocity = new Vector2(movement.x * Run, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0f, rb.velocity.y);
+        }
+    }
+    
     public void Control()
     {
         if (isSkill2) return;
         if (isSkill1) return;
-        // Di chuyển nhân vật
+        
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
-
         Vector2 movement = new Vector2(moveHorizontal, 0f);
-        rb.velocity = new Vector2(movement.x * Walk, rb.velocity.y);
+        rb.velocity = new Vector2(movement.x * Run, rb.velocity.y);
 
-        // Kiểm tra nếu nhân vật đang trên không thì play Jump
         if (Mathf.Abs(rb.velocity.y) > 0.01f)
         {
             animator.Play("Jump");
@@ -160,21 +192,20 @@ public class Player : MonoBehaviour
         {
             if (Mathf.Abs(movement.x) > 0.1 && !isDashing)
             {
-                // Nếu đang di chuyển thì play Run
                 animator.Play("Run");
             }
             else if (Mathf.Abs(movement.x) < 0.1f && !isDashing)
             {
-                // Nếu không di chuyển thì play Idle
                 animator.Play("Idle");
             }
-
-        }// Nhảy
-        if (!isSkill1 && Input.GetKey(KeyCode.Space) && Mathf.Abs(rb.velocity.y) < 0.001f)
+        }
+        
+        if (!isSkill1 && Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rb.velocity.y) < 0.001f)
         {
             isGrounded = false;
             rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
+        
         if (moveHorizontal > 0 && transform.localScale.x < 0)
         {
             Flip();
@@ -183,35 +214,30 @@ public class Player : MonoBehaviour
         {
             Flip();
         }
-        // Dash timer
-        if (isDashing)
-        {
-            dashTime -= Time.deltaTime;
-            if (dashTime <= 0)
-            {
-                isDashing = false;
-            }
-        }
-
     }
+
     public void TakeDamage(int damage)
     {
-        Health -= damage; // Giảm sức khỏe theo lượng sát thương
+        Health -= damage;
         if (Health <= 0)
         {
             animator.Play("Die");
-            Die(); // Gọi phương thức Die nếu sức khỏe <= 0
+        }
+        else
+        {
+            animator.Play("Hurt");
         }
     }
-    private void Die()
+
+    public void Die()
     {
         Debug.Log("Player has died.");
     }
     
-
+    // ==================== DASH SYSTEM ====================
     public void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) && !isDashing && isGrounded)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !isDashing && isGrounded && !isSkill1 && !isSkill2 && !isAttacking)
         {
             isDashing = true;
             dashTime = dashDuration;
@@ -219,10 +245,10 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(dashDirection * dashForce, 0f);
             animator.Play("Dash");
         }
+        
         if (isDashing)
         {
             dashTime -= Time.deltaTime;
-            // Giữ nguyên vận tốc dash trong suốt thời gian dash
             float dashDirection = Mathf.Sign(transform.localScale.x);
             rb.velocity = new Vector2(dashDirection * dashForce, 0f);
             if (dashTime <= 0)
@@ -231,226 +257,129 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-    private void StartDashHitBox()
-    {
-        boxCollider.enabled = false;
-        if (dashHitBox != null)
-            dashHitBox.SetActive(true);
-    }
-    private void EndDashHitBox()
-    {
-        boxCollider.enabled = true;
-        if (dashHitBox != null)
-            dashHitBox.SetActive(false);
-    }
-    private void JumpSkill1()
-    {
-        // if (rb.mass != 2.5f)
-        //     rb.mass = 2.5f;
-
-    }
-    private void EndSkill1()
-    {
-        if (rb.mass != 1f)
-            rb.mass = 1f;
-        rb.WakeUp();
-        Debug.Log("Skill 1 ended, mass = " + rb.mass);
-        if (isGrounded)
-        {
-            rb.velocity = new Vector2(0f, 0f); // Dừng chuyển động khi kết thúc skill
-        }
-        if (skill1HitBox != null)
-            skill1HitBox.SetActive(true);
-    }
-    private void EndSkill1HitBox()
-    {
-        if (skill1HitBox != null)
-            skill1HitBox.SetActive(false);
-    }
+    
+    // ==================== ATTACK SYSTEM ====================
     public void Attack1()
     {
-        animator.SetTrigger("Attack1");
-        comboStep = 1;
-        isAttacking = true;
-        comboTimer = comboResetTime;
-        StartCoroutine(WaitForAttack1End());
-    }
-
-    private IEnumerator WaitForAttack1End()
-    {
-        // Đợi cho đến khi animation Attack1 kết thúc
-        while (true)
+        if (!isAttacking) // Prevent repeated calls
         {
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            if (stateInfo.IsName("Attack1") && stateInfo.normalizedTime >= 1.0f)
-            {
-                break;
-            }
-            yield return null;
+            animator.Play("Attack1");
+            comboStep = 1;
+            isAttacking = true;
+            attackTime = attackDuration;
+            comboTimer = comboResetTime;
         }
-        // Khi animation Attack1 kết thúc, cho phép combo tiếp
-        isAttacking = false;
-        float wait = comboResetTime;
-        while (comboStep == 1 && wait > 0)
-        {
-            wait -= Time.deltaTime;
-            yield return null;
-        }
-        if (comboStep == 1) comboStep = 0;
-        // Không reset comboStep ở đây, giữ nguyên để nhận Attack2
-    }
-    private void StartAttack1HitBox()
-    {
-        Debug.Log("Start Attack1 HitBox");
-        //boxCollider.enabled = false;
-        if (Attack1HitBox != null)
-            Attack1HitBox.SetActive(true);
-    }
-    private void EndAttack1HitBox()
-    {
-        //boxCollider.enabled = true;
-        if (Attack1HitBox != null)
-            Attack1HitBox.SetActive(false);
     }
 
     public void Attack2()
     {
-        animator.ResetTrigger("Attack1");
-        animator.SetTrigger("Attack2");
+        animator.Play("Attack2");  // ✅ Khôi phục về Play thay vì SetTrigger
         comboStep = 2;
         isAttacking = true;
+        attackTime = attackDuration;
         comboTimer = comboResetTime;
-        StartCoroutine(WaitForAttack2End());
     }
 
-    private IEnumerator WaitForAttack2End()
+    public void Attack3()
     {
-        while (true)
-        {
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            if (stateInfo.IsName("Attack2") && stateInfo.normalizedTime >= 1.0f)
-            {
-                break;
-            }
-            yield return null;
-        }
-        float wait = comboResetTime;
-        isAttacking = false;
-        while (comboStep == 2 && wait > 0)
-        {
-            wait -= Time.deltaTime;
-            yield return null;
-        }
-        if (comboStep == 2) comboStep = 0;
+        animator.Play("Attack3");  // ✅ Khôi phục về Play thay vì SetTrigger
+        comboStep = 0;
+        isAttacking = true;
+        attackTime = attackDuration;
+        comboTimer = 0f;
     }
-    private void StartAttack2HitBox()
+
+    // Animation Events
+    public void StartAttack1HitBox()
     {
-        Debug.Log("Start Attack2 HitBox");
-        //boxCollider.enabled = false;
+        if (Attack1HitBox != null)
+            Attack1HitBox.SetActive(true);
+    }
+
+    public void EndAttack1HitBox()
+    {
+        if (Attack1HitBox != null)
+            Attack1HitBox.SetActive(false);
+    }
+
+    public void StartAttack2HitBox()
+    {
         if (Attack2HitBox != null)
             Attack2HitBox.SetActive(true);
     }
-    private void EndAttack2HitBox()
+
+    public void EndAttack2HitBox()
     {
-        //boxCollider.enabled = true;
         if (Attack2HitBox != null)
             Attack2HitBox.SetActive(false);
     }
-    public void Attack3()
+
+    public void StartAttack3HitBox()
     {
-        animator.ResetTrigger("Attack2");
-        animator.SetTrigger("Attack3");
-        comboStep = 3;
-        isAttacking = true;
-        comboTimer = comboResetTime;
-        StartCoroutine(WaitForAttack3End());
-    }
-    private void StartAttack3HitBox()
-    {
-        Debug.Log("Start Attack3 HitBox");
-        //boxCollider.enabled = false;
         if (Attack3HitBox != null)
             Attack3HitBox.SetActive(true);
     }
-    private void EndAttack3HitBox()
+
+    public void EndAttack3HitBox()
     {
-        //boxCollider.enabled = true;
         if (Attack3HitBox != null)
             Attack3HitBox.SetActive(false);
-        if (Attack31HitBox != null)
-            Attack31HitBox.SetActive(false);
     }
-    private void StartAttack31HitBox()
+
+    public void EndAttackAnimation()
     {
-        Debug.Log("Start Attack31 HitBox");
-        //boxCollider.enabled = false;
-        if (Attack31HitBox != null)
-            Attack31HitBox.SetActive(true);
+        isAttacking = false;
     }
     
-    private IEnumerator WaitForAttack3End()
-    {
-        while (true)
-        {
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            if (stateInfo.IsName("Attack3") && stateInfo.normalizedTime >= 1.0f)
-            {
-                break;
-            }
-            yield return null;
-        }
-        isAttacking = false;
-        // Reset comboStep về 0 sau khi kết thúc Attack3
-        comboStep = 0;
-    }
+    // ==================== SKILL SYSTEM ====================
     private void Skill1()
     {
-        // Chỉ cho phép dùng skill1 khi đang ở trên không và chưa active skill1
-        if (Input.GetKeyDown(KeyCode.K) && !isSkill1 && !isGrounded)
+        if (Input.GetKeyDown(KeyCode.K) && !isSkill1 && !isGrounded && !isAttacking)
         {
-            Debug.Log("Skill 1 activated");
             animator.SetTrigger("Skill1");
             isSkill1 = true;
+            isSkill1InAir = true;
             rb.velocity = new Vector2(0f, rb.velocity.y);
-            StartCoroutine(WaitForSkill1End());
+            rb.gravityScale = 2f; // Increase gravity scale for faster descent
         }
     }
-    private IEnumerator WaitForSkill1End()
-    {
-        while (true)
-        {
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            if (stateInfo.IsName("Skill1") && stateInfo.normalizedTime >= 1.0f)
-            {
-                break;
-            }
-            yield return null;
-        }
-        isSkill1 = false;
-    }
+
     private void Skill2()
     {
-        if (Input.GetKeyDown(KeyCode.L) && !isSkill1 && isGrounded)
+        if (Input.GetKeyDown(KeyCode.L) && !isSkill1 && !isSkill2 && !isAttacking && isGrounded)
         {
-            Debug.Log("Skill 2 activated");
-            animator.SetTrigger("Skill2");
-            isSkill2 = true;
-            rb.velocity = new Vector2(0f, rb.velocity.y);
-            StartCoroutine(WaitForSkill2End());
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Skill2")) // Prevent repeated calls
+            {
+                animator.Play("Skill2");
+                isSkill2 = true;
+                rb.velocity = new Vector2(0f, rb.velocity.y);
+            }
         }
     }
-    private IEnumerator WaitForSkill2End()
+
+    public void StartSkill1GroundHitBox()
     {
-        while (true)
-        {
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            if (stateInfo.IsName("Skill2") && stateInfo.normalizedTime >= 1.0f)
-            {
-                break;
-            }
-            yield return null;
-        }
+        if (skill1GroundHitBox != null)
+            skill1GroundHitBox.SetActive(true);
+    }
+
+    public void EndSkill1GroundHitBox()
+    {
+        if (skill1GroundHitBox != null)
+            skill1GroundHitBox.SetActive(false);
+    }
+
+    public void EndSkill1()
+    {
+        isSkill1 = false;
+        isSkill1InAir = false;
+        rb.gravityScale = 1f;
+        if (skill1GroundHitBox != null)
+            skill1GroundHitBox.SetActive(false);
+    }
+
+    public void EndSkill2()
+    {
         isSkill2 = false;
     }
 }

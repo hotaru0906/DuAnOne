@@ -10,6 +10,8 @@ TagManager:
   - Attack2
   - Attack3
   - Attack3.1
+  - Boss
+  - Enemy
   layers:
   - Default
   - TransparentFX

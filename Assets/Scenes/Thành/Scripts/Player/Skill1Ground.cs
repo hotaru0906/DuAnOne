@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack31 : MonoBehaviour
+public class Skill1Ground : MonoBehaviour
 {
     private Player player;
     
@@ -30,8 +30,8 @@ public class Attack31 : MonoBehaviour
                 var takeDamageMethod = enemy.GetType().GetMethod("TakeDamage");
                 if (takeDamageMethod != null)
                 {
-                    takeDamageMethod.Invoke(enemy, new object[] { player.attack3Damage });
-                    Debug.Log("Enemy hit by Attack31, dealt " + player.attack3Damage + " damage.");
+                    takeDamageMethod.Invoke(enemy, new object[] { player.skill1Damage });
+                    Debug.Log("Enemy hit by Skill1 Ground, dealt " + player.skill1Damage + " damage.");
                 }
             }
         }
@@ -41,32 +41,32 @@ public class Attack31 : MonoBehaviour
             Boss1 boss1 = other.GetComponent<Boss1>();
             if (boss1 != null)
             {
-                boss1.TakeDamage(player.attack3Damage);
-                Debug.Log("Boss1 hit by Attack31, dealt " + player.attack3Damage + " damage.");
+                boss1.TakeDamage(player.skill1Damage);
+                Debug.Log("Boss1 hit by Skill1 Ground, dealt " + player.skill1Damage + " damage.");
                 return;
             }
             
             Boss2 boss2 = other.GetComponent<Boss2>();
             if (boss2 != null)
             {
-                boss2.TakeDamage(player.attack3Damage);
-                Debug.Log("Boss2 hit by Attack31, dealt " + player.attack3Damage + " damage.");
+                boss2.TakeDamage(player.skill1Damage);
+                Debug.Log("Boss2 hit by Skill1 Ground, dealt " + player.skill1Damage + " damage.");
                 return;
             }
             
             Boss3 boss3 = other.GetComponent<Boss3>();
             if (boss3 != null)
             {
-                boss3.TakeDamage(player.attack3Damage);
-                Debug.Log("Boss3 hit by Attack31, dealt " + player.attack3Damage + " damage.");
+                boss3.TakeDamage(player.skill1Damage);
+                Debug.Log("Boss3 hit by Skill1 Ground, dealt " + player.skill1Damage + " damage.");
                 return;
             }
             
             Boss4 boss4 = other.GetComponent<Boss4>();
             if (boss4 != null)
             {
-                boss4.TakeDamage(player.attack3Damage);
-                Debug.Log("Boss4 hit by Attack31, dealt " + player.attack3Damage + " damage.");
+                boss4.TakeDamage(player.skill1Damage);
+                Debug.Log("Boss4 hit by Skill1 Ground, dealt " + player.skill1Damage + " damage.");
                 return;
             }
         }

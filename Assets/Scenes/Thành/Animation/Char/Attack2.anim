@@ -21,15 +21,11 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 1028728242, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
+      value: {fileID: 1472869412, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
     - time: 0.125
-      value: {fileID: 1581774747, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
+      value: {fileID: -681329509, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
     - time: 0.25
-      value: {fileID: 1752908038, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
-    - time: 0.375
-      value: {fileID: -1393834852, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
-    - time: 0.5
-      value: {fileID: 726291177, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
+      value: {fileID: 1028728242, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -52,17 +48,15 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
+    - {fileID: 1472869412, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
+    - {fileID: -681329509, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
     - {fileID: 1028728242, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
-    - {fileID: 1581774747, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
-    - {fileID: 1752908038, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
-    - {fileID: -1393834852, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
-    - {fileID: 726291177, guid: 78d1ec6f9c6d095489609234cef1fb13, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.625
+    m_StopTime: 0.375
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -83,14 +77,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.125
-    functionName: StartAttack2HitBox
+    functionName: StartAttack1HitBox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
-    functionName: EndAttack2HitBox
+  - time: 0.25
+    functionName: EndAttack1HitBox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

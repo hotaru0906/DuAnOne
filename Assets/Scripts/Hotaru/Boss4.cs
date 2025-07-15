@@ -40,7 +40,6 @@ public class Boss4 : MonoBehaviour
     public string walkAnimationName = "Boss4_Walk";
     public string idleAnimationName = "Boss4_Idle";
     public string attackAnimationName = "Boss4_Attack";
-    public string hitAnimationName = "Boss4_Hit";
     public string deathAnimationName = "Boss4_Death";
     public Animator animator;
     
@@ -49,7 +48,6 @@ public class Boss4 : MonoBehaviour
     private bool isAttacking = false;
     private bool isUsingSkill1 = false;
     private bool isUsingSkill2 = false;
-    private bool isHit = false;
     private bool isDashing = false; // Trạng thái đang dash
     private bool facingRight = true;
     private float lastAttackTime = 0f;
@@ -98,12 +96,12 @@ public class Boss4 : MonoBehaviour
             // Kiểm tra Skill 1 cooldown (ưu tiên cao nhất)
             CheckSkill1();
             
-            // Logic di chuyển và tấn công bình thường (khi không dùng skill và không bị hit)
-            if (canMove && !isAttacking && !isUsingSkill1 && !isUsingSkill2 && !isHit && !isDashing)
+            // Logic di chuyển và tấn công bình thường (khi không dùng skill)
+            if (canMove && !isAttacking && !isUsingSkill1 && !isUsingSkill2 && !isDashing)
             {
                 HandleMovement();
             }
-            else if (!isMoving && !isAttacking && !isUsingSkill1 && !isUsingSkill2 && !isHit && !isDashing)
+            else if (!isMoving && !isAttacking && !isUsingSkill1 && !isUsingSkill2 && !isDashing)
             {
                 PlayIdleAnimation();
             }
@@ -119,7 +117,7 @@ public class Boss4 : MonoBehaviour
         bool healthThresholdMet = CheckHealthThresholds();
         
         // Sử dụng skill nếu đủ điều kiện
-        if ((cooldownReady || healthThresholdMet) && !isUsingSkill1 && !isAttacking && !isHit && !isDead && !isUsingSkill2)
+        if ((cooldownReady || healthThresholdMet) && !isUsingSkill1 && !isAttacking && !isDead && !isUsingSkill2)
         {
             StartCoroutine(UseSkill1());
         }
@@ -264,8 +262,8 @@ public class Boss4 : MonoBehaviour
     
     void HandleAttack()
     {
-        // Kiểm tra cooldown tấn công (chỉ tấn công khi không dùng skill, không hit và không dead)
-        if (Time.time - lastAttackTime >= attackCooldown && !isUsingSkill1 && !isUsingSkill2 && !isHit && !isDead && !isDashing)
+        // Kiểm tra cooldown tấn công (chỉ tấn công khi không dùng skill và không dead)
+        if (Time.time - lastAttackTime >= attackCooldown && !isUsingSkill1 && !isUsingSkill2 && !isDead && !isDashing)
         {
             // Chọn loại attack ngẫu nhiên (1, 2, 3)
             currentAttackType = Random.Range(1, 4);
@@ -500,14 +498,6 @@ public class Boss4 : MonoBehaviour
         }
     }
     
-    void PlayHitAnimationClip()
-    {
-        if (animator != null)
-        {
-            animator.Play(hitAnimationName);
-        }
-    }
-    
     void PlayDeathAnimation()
     {
         if (animator != null)
@@ -564,10 +554,6 @@ public class Boss4 : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
-        }
-        else
-        {
-            StartCoroutine(PlayHitAnimation());
         }
     }
     
@@ -631,38 +617,17 @@ public class Boss4 : MonoBehaviour
         return dashPosition;
     }
     
-    IEnumerator PlayHitAnimation()
-    {
-        isHit = true;
-        
-        // Dừng các action hiện tại
-        if (isMoving)
-        {
-            isMoving = false;
-        }
-        
-        // Chạy animation hit
-        PlayHitAnimationClip();
-        
-        // Đợi animation hit hoàn thành (điều chỉnh thời gian theo animation thực tế)
-        yield return new WaitForSeconds(0.5f);
-        
-        isHit = false;
-        
-        // Quay về idle nếu không có action khác
-        if (!isAttacking && !isUsingSkill1)
-        {
-            PlayIdleAnimation();
-        }
-    }
-    
     void Die()
     {
         isDead = true;
         isMoving = false;
         isAttacking = false;
         isUsingSkill1 = false;
-        isHit = false;
+        isUsingSkill2 = false;
+        isDashing = false;
+        
+        // Dừng tất cả coroutines để tránh xung đột
+        StopAllCoroutines();
         
         Debug.Log("Boss4 has died!");
         

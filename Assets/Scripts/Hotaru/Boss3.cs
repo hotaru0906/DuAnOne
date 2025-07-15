@@ -35,7 +35,6 @@ public class Boss3 : MonoBehaviour
     public string walkAnimationName = "Boss3_Walk";
     public string idleAnimationName = "Boss3_Idle";
     public string attackAnimationName = "Boss3_Attack";
-    public string hitAnimationName = "Boss3_Hit";
     public string deathAnimationName = "Boss3_Death";
     public Animator animator;
     
@@ -43,7 +42,6 @@ public class Boss3 : MonoBehaviour
     private bool isMoving = false;
     private bool isAttacking = false;
     private bool isUsingSkill1 = false;
-    private bool isHit = false;
     private bool facingRight = true;
     private float lastAttackTime = 0f;
     private float lastSkill1Time = 0f;
@@ -90,12 +88,12 @@ public class Boss3 : MonoBehaviour
             // Kiểm tra Skill 1 cooldown (ưu tiên cao nhất)
             CheckSkill1();
             
-            // Logic di chuyển và tấn công bình thường (khi không dùng skill và không bị hit)
-            if (canMove && !isAttacking && !isUsingSkill1 && !isHit)
+            // Logic di chuyển và tấn công bình thường (khi không dùng skill)
+            if (canMove && !isAttacking && !isUsingSkill1)
             {
                 HandleMovement();
             }
-            else if (!isMoving && !isAttacking && !isUsingSkill1 && !isHit)
+            else if (!isMoving && !isAttacking && !isUsingSkill1)
             {
                 PlayIdleAnimation();
             }
@@ -104,8 +102,8 @@ public class Boss3 : MonoBehaviour
     
     void CheckSkill1()
     {
-        // Kiểm tra xem đã đủ thời gian để dùng Skill 1 chưa (KHÔNG được dùng khi đang attack, hit hoặc dead)
-        if (Time.time - lastSkill1Time >= skill1Cooldown && !isUsingSkill1 && !isAttacking && !isHit && !isDead)
+        // Kiểm tra xem đã đủ thời gian để dùng Skill 1 chưa (KHÔNG được dùng khi đang attack hoặc dead)
+        if (Time.time - lastSkill1Time >= skill1Cooldown && !isUsingSkill1 && !isAttacking && !isDead)
         {
             StartCoroutine(UseSkill1());
         }
@@ -272,8 +270,8 @@ public class Boss3 : MonoBehaviour
     
     void HandleAttack()
     {
-        // Kiểm tra cooldown tấn công (chỉ tấn công khi không dùng skill, không hit và không dead)
-        if (Time.time - lastAttackTime >= attackCooldown && !isUsingSkill1 && !isHit && !isDead)
+        // Kiểm tra cooldown tấn công (chỉ tấn công khi không dùng skill và không dead)
+        if (Time.time - lastAttackTime >= attackCooldown && !isUsingSkill1 && !isDead)
         {
             StartCoroutine(PerformAttack());
         }
@@ -445,14 +443,6 @@ public class Boss3 : MonoBehaviour
         }
     }
     
-    void PlayHitAnimationClip()
-    {
-        if (animator != null)
-        {
-            animator.Play(hitAnimationName);
-        }
-    }
-    
     void PlayDeathAnimation()
     {
         if (animator != null)
@@ -498,35 +488,6 @@ public class Boss3 : MonoBehaviour
         {
             Die();
         }
-        else
-        {
-            StartCoroutine(PlayHitAnimation());
-        }
-    }
-    
-    IEnumerator PlayHitAnimation()
-    {
-        isHit = true;
-        
-        // Dừng các action hiện tại
-        if (isMoving)
-        {
-            isMoving = false;
-        }
-        
-        // Chạy animation hit
-        PlayHitAnimationClip();
-        
-        // Đợi animation hit hoàn thành (điều chỉnh thời gian theo animation thực tế)
-        yield return new WaitForSeconds(0.5f);
-        
-        isHit = false;
-        
-        // Quay về idle nếu không có action khác
-        if (!isAttacking && !isUsingSkill1)
-        {
-            PlayIdleAnimation();
-        }
     }
     
     void Die()
@@ -535,7 +496,9 @@ public class Boss3 : MonoBehaviour
         isMoving = false;
         isAttacking = false;
         isUsingSkill1 = false;
-        isHit = false;
+        
+        // Dừng tất cả coroutines để tránh xung đột
+        StopAllCoroutines();
         
         Debug.Log("Boss3 has died!");
         

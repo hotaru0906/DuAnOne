@@ -4,27 +4,71 @@ using UnityEngine;
 
 public class Attack2 : MonoBehaviour
 {
-    private int damage = 15;
-    private Rigidbody2D rb;
-
+    private Player player;
+    
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter2D(Collider2D attack2)
-    {
-        EnemyTest enemy = attack2.GetComponent<EnemyTest>();
-        if (enemy != null)
+        // Lấy reference tới Player component
+        player = GetComponentInParent<Player>();
+        if (player == null)
         {
-            enemy.TakeDamage(damage);
-            Debug.Log("Enemy hit by Attack2, dealt " + damage + " damage.");
+            player = FindObjectOfType<Player>();
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (player == null) return;
+        
+        if (other.CompareTag("Enemy"))
+        {
+            // Tìm component EnemyTest hoặc các enemy script khác
+            var enemy = other.GetComponent<MonoBehaviour>();
+            if (enemy != null)
+            {
+                // Thử gọi method TakeDamage nếu có
+                var takeDamageMethod = enemy.GetType().GetMethod("TakeDamage");
+                if (takeDamageMethod != null)
+                {
+                    takeDamageMethod.Invoke(enemy, new object[] { player.attack2Damage });
+                    Debug.Log("Enemy hit by Attack2, dealt " + player.attack2Damage + " damage.");
+                }
+            }
+        }
+        else if (other.CompareTag("Boss"))
+        {
+            // Hỗ trợ tất cả các loại Boss
+            Boss1 boss1 = other.GetComponent<Boss1>();
+            if (boss1 != null)
+            {
+                boss1.TakeDamage(player.attack2Damage);
+                Debug.Log("Boss1 hit by Attack2, dealt " + player.attack2Damage + " damage.");
+                return;
+            }
+            
+            Boss2 boss2 = other.GetComponent<Boss2>();
+            if (boss2 != null)
+            {
+                boss2.TakeDamage(player.attack2Damage);
+                Debug.Log("Boss2 hit by Attack2, dealt " + player.attack2Damage + " damage.");
+                return;
+            }
+            
+            Boss3 boss3 = other.GetComponent<Boss3>();
+            if (boss3 != null)
+            {
+                boss3.TakeDamage(player.attack2Damage);
+                Debug.Log("Boss3 hit by Attack2, dealt " + player.attack2Damage + " damage.");
+                return;
+            }
+            
+            Boss4 boss4 = other.GetComponent<Boss4>();
+            if (boss4 != null)
+            {
+                boss4.TakeDamage(player.attack2Damage);
+                Debug.Log("Boss4 hit by Attack2, dealt " + player.attack2Damage + " damage.");
+                return;
+            }
         }
     }
 }
