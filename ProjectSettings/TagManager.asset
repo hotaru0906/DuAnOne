@@ -12,6 +12,7 @@ TagManager:
   - Attack3.1
   - Boss
   - Enemy
+  - enermy
   layers:
   - Default
   - TransparentFX
