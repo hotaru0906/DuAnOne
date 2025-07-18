@@ -16,9 +16,9 @@ public class DialogueManager : MonoBehaviour
 
     // Reference to current NPC in dialogue
     private MonoBehaviour currentNPC;
-
     public AudioSource audioSource;
     public AudioClip typingSound;
+    public bool skipOnClick = true; // Cho phép bỏ qua đối thoại bằng click
 
     void Awake()
     {
@@ -46,7 +46,7 @@ public class DialogueManager : MonoBehaviour
     }
     void Update()
     {
-        if (dialogueBox.activeInHierarchy)
+        if (dialogueBox.activeInHierarchy && skipOnClick)
         {
             if (Input.anyKeyDown || Input.GetMouseButtonDown(0))
             {
@@ -119,5 +119,20 @@ public class DialogueManager : MonoBehaviour
             currentNPC.SendMessage("OnDialogueEnded", SendMessageOptions.DontRequireReceiver);
             currentNPC = null;
         }
+    }
+
+    public void CloseDialogueBox()
+    {
+        dialogueBox.SetActive(false);
+        StopAllCoroutines(); // Dừng mọi hoạt động gõ chữ
+        isTyping = false;
+        sentences.Clear(); // Xóa hàng đợi câu thoại
+
+        if (currentNPC != null)
+        {
+            currentNPC = null; // Đặt lại NPC hiện tại
+        }
+
+        Debug.Log("Dialogue box closed manually.");
     }
 }
