@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8350307105338453517}
   - component: {fileID: 6275910846932193514}
   - component: {fileID: 6947121305485268483}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 3645022989401655620}
   - component: {fileID: 9070172876568172132}
   - component: {fileID: 8716909368240548240}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,13 +224,13 @@ GameObject:
   - component: {fileID: 6747810163025802342}
   - component: {fileID: 5307214842229823125}
   - component: {fileID: 2690783252653597027}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &754422324481145319
 Transform:
   m_ObjectHideFlags: 0
@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 6643034170402998220}
   - component: {fileID: 5423322391437468138}
   - component: {fileID: 9116678514220733365}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 8054241220633706998}
   - component: {fileID: 1871252020672400812}
   - component: {fileID: 3872632681198423127}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pant
   m_TagString: Untagged
   m_Icon: {fileID: 0}

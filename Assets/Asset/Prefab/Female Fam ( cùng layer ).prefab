@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 472471591
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -978968712, guid: 3448b09d84da87547a3520dd51125a73, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -177,8 +177,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 472471591
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: -622991024, guid: 004e72fefeb12ef47bd238b1d09ae657, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -283,8 +283,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 472471591
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_Sprite: {fileID: 1546878771, guid: cc1ac6fe3e600634b95eb90b580162c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -389,8 +389,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 472471591
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: 2086563035, guid: 8b7105a77ce39294fbd47d27c2381242, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -495,8 +495,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 472471591
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -2103720686, guid: 3c12cf5fb6bf7644495d3248bd901e5d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -601,8 +601,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 472471591
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_Sprite: {fileID: 35430462, guid: 22d6c551dadad8a4ab32d9e0bdc75718, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -765,6 +765,10 @@ MonoBehaviour:
   canMove: 0
   canWalk: 0
   canRun: 0
+  minDirectionChangeTime: 5
+  maxDirectionChangeTime: 10
+  runDirectionChangeTime: 10
+  interactionDirectionChangeTime: 8
   canInteract: 1
   walkAnimationName: Walk
   runAnimationName: Run

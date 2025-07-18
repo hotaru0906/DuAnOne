@@ -33,7 +33,6 @@ public class Player : MonoBehaviour
     public bool isGrounded = false;
 
     [Header("HitBox References")]
-    public GameObject dashHitBox;
     public GameObject Attack1HitBox;
     public GameObject Attack2HitBox;
     public GameObject Attack3HitBox;
@@ -45,9 +44,14 @@ public class Player : MonoBehaviour
     public Animator animator;
     public BoxCollider2D boxCollider;
     public GameObject skill3BulletPrefab;
+    [Header("Audio Settings")]
+    public AudioSource audioSource;
+    public AudioClip attack1, attack2, attack3, attack4, skill1, skill2, fall, dashSound, moveSound, hitSound;
+    public AudioClip jumpSound;
+    private bool isPlayingMoveSound = false;
 
     [Header("Bullet Settings")]
-    public Transform bulletSpawnPoint; // Vị trí bắn đạn
+    public Transform bulletSpawnPoint;
 
     // Private State Variables
     private int comboStep = 0;
@@ -58,20 +62,40 @@ public class Player : MonoBehaviour
     private bool isSkill1 = false;
     private bool isSkill2 = false;
     private bool isSkill1InAir = false;
+    private bool isHit = false;
+    private bool isDeath = false;
+    public bool isInvincible = false; // Flag for invincibility
+    private Collider2D playerCollider;
 
     // ==================== UNITY LIFECYCLE ====================
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerCollider = GetComponent<Collider2D>(); // Lấy Collider của Player
+
         dashTime = dashDuration;
         isDashing = false;
         Health = MaxHealth;
+
+        // Bỏ qua va chạm với Enemy
+        GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
+        if (enemy != null)
+        {
+            Collider2D enemyCollider = enemy.GetComponent<Collider2D>();
+            if (enemyCollider != null)
+            {
+                Physics2D.IgnoreCollision(playerCollider, enemyCollider);
+            }
+        }
     }
 
     void Update()
     {
-        // Cập nhật combo timer
+        if (isDeath || isHit)
+        {
+            return; // Không xử lý nếu đang chết hoặc bị đánh
+        }
         if (comboTimer > 0)
         {
             comboTimer -= Time.deltaTime;
@@ -165,6 +189,7 @@ public class Player : MonoBehaviour
     void Flip()
     {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        // Do not stop the move sound when flipping
     }
 
     // ==================== MOVEMENT & CONTROL ====================
@@ -187,8 +212,7 @@ public class Player : MonoBehaviour
 
     public void Control()
     {
-        if (isSkill2) return;
-        if (isSkill1) return;
+        if (isSkill2 || isSkill1 || isHit) return; // Prevent movement if in skill or hurt state
 
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         Vector2 movement = new Vector2(moveHorizontal, 0f);
@@ -197,16 +221,19 @@ public class Player : MonoBehaviour
         if (Mathf.Abs(rb.velocity.y) > 0.01f)
         {
             animator.Play("Jump");
+            StopMoveSound();
         }
         else
         {
             if (Mathf.Abs(movement.x) > 0.1 && !isDashing)
             {
                 animator.Play("Run");
+                PlayMoveSound();
             }
             else if (Mathf.Abs(movement.x) < 0.1f && !isDashing)
             {
                 animator.Play("Idle");
+                StopMoveSound();
             }
         }
 
@@ -214,6 +241,13 @@ public class Player : MonoBehaviour
         {
             isGrounded = false;
             rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            StopMoveSound();
+
+            // Play jump sound
+            if (audioSource != null && jumpSound != null)
+            {
+                audioSource.PlayOneShot(jumpSound);
+            }
         }
 
         if (moveHorizontal > 0 && transform.localScale.x < 0)
@@ -226,46 +260,126 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void PlayMoveSound()
+    {
+        if (audioSource != null && moveSound != null && !isPlayingMoveSound && !isDashing)
+        {
+            audioSource.clip = moveSound;
+            audioSource.loop = true;
+            audioSource.Play();
+            isPlayingMoveSound = true;
+        }
+    }
+
+    private void StopMoveSound()
+    {
+        if (audioSource != null && isPlayingMoveSound)
+        {
+            audioSource.Stop();
+            isPlayingMoveSound = false;
+        }
+    }
+
     public void TakeDamage(int damage)
     {
+        if (isHit || isInvincible) return; // Prevent taking damage while already hit or invincible
+        isHit = true; // Set hit state to true
+
+        StartCoroutine(ActivateInvincibility(0.75f)); // Activate invincibility for 0.75 seconds
+        rb.velocity = Vector2.zero; // Stop player movement
+        Debug.Log($"Player took {damage} damage. Current Health: {Health}");
         Health -= damage;
+
+        // Play Hurt animation only if it's not already playing
+        if (animator != null && !animator.GetCurrentAnimatorStateInfo(0).IsName("Hurt") && !animator.IsInTransition(0))
+        {
+            Debug.Log("Playing Hurt animation.");
+            animator.Play("Hurt");
+
+            // Play hit sound
+            if (audioSource != null && hitSound != null)
+            {
+                audioSource.PlayOneShot(hitSound);
+            }
+        }
+
+
         if (Health <= 0)
         {
-            animator.Play("Die");
-        }
-        else
-        {
-            animator.Play("Hurt");
+            Debug.Log("Health is 0 or less. Calling Die method.");
+            Die();
         }
     }
 
     public void Die()
     {
+        isDeath = true;
+        if (animator != null)
+        {
+            animator.Play("Die");
+        }
+
+        rb.velocity = Vector2.zero; // Dừng chuyển động khi chết
         Debug.Log("Player has died.");
+    }
+    public void EndHit()
+    {
+        isHit = false;
+        isSkill1 = false; // Reset skill1 state
+        isSkill2 = false; // Reset skill2 state
+        isSkill1InAir = false; // Reset air skill state
+        rb.velocity = new Vector2(Run * Input.GetAxisRaw("Horizontal"), rb.velocity.y); // Restore movement speed
+    }
+    public void EndDeath()
+    {
+        isDeath = false;
+        Time.timeScale = 0f;
+        // code UI
     }
 
     // ==================== DASH SYSTEM ====================
     public void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) && !isDashing && isGrounded && !isSkill1 && !isSkill2 && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !isDashing && isGrounded && !isSkill1 && !isSkill2 && !isAttacking && !isInvincible)
         {
             isDashing = true;
             dashTime = dashDuration;
+            StartCoroutine(ActivateInvincibility(0.75f)); // Activate invincibility for 0.5 seconds during dash
             float dashDirection = Mathf.Sign(transform.localScale.x);
-            rb.velocity = new Vector2(dashDirection * dashForce, 0f);
+            rb.velocity = new Vector2(dashDirection * dashForce, rb.velocity.y); // Giữ nguyên vận tốc y
             animator.Play("Dash");
+            StopMoveSound();
         }
 
         if (isDashing)
         {
             dashTime -= Time.deltaTime;
             float dashDirection = Mathf.Sign(transform.localScale.x);
-            rb.velocity = new Vector2(dashDirection * dashForce, 0f);
+            rb.velocity = new Vector2(dashDirection * dashForce, rb.velocity.y); // Giữ nguyên vận tốc y
             if (dashTime <= 0)
             {
                 isDashing = false;
+                rb.velocity = Vector2.zero; // Stop movement after dash ends
             }
         }
+    }
+    void DashSound()
+    {
+        if (audioSource != null && dashSound != null)
+        {
+            audioSource.PlayOneShot(dashSound);
+        }
+    }
+    public void EndDash()
+    {
+        isDashing = false;
+    }
+
+    private IEnumerator ActivateInvincibility(float duration)
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(duration);
+        isInvincible = false;
     }
 
     // ==================== ATTACK SYSTEM ====================
@@ -316,6 +430,10 @@ public class Player : MonoBehaviour
     {
         if (Attack1HitBox != null)
             Attack1HitBox.SetActive(true);
+        if (audioSource != null && attack1 != null)
+        {
+            audioSource.PlayOneShot(attack1);
+        }
     }
 
     public void EndAttack1HitBox()
@@ -328,6 +446,10 @@ public class Player : MonoBehaviour
     {
         if (Attack2HitBox != null)
             Attack2HitBox.SetActive(true);
+        if (audioSource != null && attack2 != null)
+        {
+            audioSource.PlayOneShot(attack2);
+        }
     }
 
     public void EndAttack2HitBox()
@@ -340,6 +462,10 @@ public class Player : MonoBehaviour
     {
         if (Attack3HitBox != null)
             Attack3HitBox.SetActive(true);
+        if (audioSource != null && attack3 != null)
+        {
+            audioSource.PlayOneShot(attack3);
+        }
     }
 
     public void EndAttack3HitBox()
@@ -351,6 +477,10 @@ public class Player : MonoBehaviour
     {
         if (Attack4HitBox != null)
             Attack4HitBox.SetActive(true);
+        if (audioSource != null && attack4 != null)
+        {
+            audioSource.PlayOneShot(attack4);
+        }
     }
     public void EndAttack4HitBox()
     {
@@ -368,11 +498,19 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K) && !isSkill1 && !isGrounded && !isAttacking)
         {
-            animator.Play("Skill1");
-            isSkill1 = true;
-            isSkill1InAir = true;
-            rb.velocity = new Vector2(0f, rb.velocity.y);
-            rb.gravityScale = 2f; // Increase gravity scale for faster descent
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Skill1")) // Prevent repeated calls
+            {
+                animator.Play("Skill1");
+                isSkill1 = true;
+                isSkill1InAir = true;
+                isInvincible = true; // Activate invincibility during skill
+                rb.velocity = new Vector2(0f, rb.velocity.y);
+                rb.gravityScale = 2f;
+                if (audioSource != null && skill1 != null)
+                {
+                    audioSource.PlayOneShot(skill1);
+                }
+            }
         }
     }
 
@@ -384,7 +522,13 @@ public class Player : MonoBehaviour
             {
                 animator.Play("Skill2");
                 isSkill2 = true;
+                isInvincible = true; // Activate invincibility during skill
                 rb.velocity = new Vector2(0f, rb.velocity.y);
+                StopMoveSound();
+                if (audioSource != null && skill2 != null)
+                {
+                    audioSource.PlayOneShot(skill2);
+                }
             }
         }
     }
@@ -413,6 +557,10 @@ public class Player : MonoBehaviour
         {
             skill1GroundHitBox.SetActive(true);
             Debug.Log("Skill1 Ground HitBox activated");
+            if (audioSource != null && fall != null)
+            {
+                audioSource.PlayOneShot(fall);
+            }
         }
         else
         {
@@ -433,6 +581,7 @@ public class Player : MonoBehaviour
     {
         isSkill1 = false;
         isSkill1InAir = false;
+        isInvincible = false;
         rb.gravityScale = 1f;
         if (skill1GroundHitBox != null)
             skill1GroundHitBox.SetActive(false);
@@ -441,6 +590,7 @@ public class Player : MonoBehaviour
     public void EndSkill2()
     {
         isSkill2 = false;
+        isInvincible = false; // Deactivate invincibility after skill ends
     }
 
     public void SpawnBulletForAttack4()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy_Hai : MonoBehaviour
 {
     public Transform player;
     public Transform spawnPoint;

@@ -17,6 +17,9 @@ public class DialogueManager : MonoBehaviour
     // Reference to current NPC in dialogue
     private MonoBehaviour currentNPC;
 
+    public AudioSource audioSource;
+    public AudioClip typingSound;
+
     void Awake()
     {
         Instance = this;
@@ -78,10 +81,24 @@ public class DialogueManager : MonoBehaviour
         isTyping = true;
         dialogueText.text = "";
 
+        // Play typing sound
+        if (audioSource != null && typingSound != null)
+        {
+            audioSource.clip = typingSound;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
             yield return new WaitForSeconds(typeSpeed);
+        }
+
+        // Stop typing sound
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
         }
 
         isTyping = false;

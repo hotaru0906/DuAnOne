@@ -6,12 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class CutsceneManager : MonoBehaviour
 {
-    public enum CutsceneStepType { Dialogue, Image }
-
     [System.Serializable]
     public class CutsceneStep
     {
-        public CutsceneStepType type;
         public List<string> dialogueLines;
         public Sprite image;
     }
@@ -21,6 +18,7 @@ public class CutsceneManager : MonoBehaviour
     public Image blackScreen;
     public string nextSceneName = "GameScene";
     public float fadeDuration = 1f;
+    public Button skipButton; // Assign this in the Inspector
 
     private int stepIndex = 0;
     private bool isWaitingForInput = false;
@@ -30,6 +28,12 @@ public class CutsceneManager : MonoBehaviour
         blackScreen.color = Color.black;
         cutsceneImage.enabled = false;
         StartCoroutine(FadeIn());
+
+        // Add listener to skip button
+        if (skipButton != null)
+        {
+            skipButton.onClick.AddListener(SkipCutscene);
+        }
     }
 
     IEnumerator FadeIn()
@@ -65,29 +69,33 @@ public class CutsceneManager : MonoBehaviour
         }
 
         CutsceneStep step = steps[stepIndex];
+        stepIndex++; // Tăng luôn ở đầu
 
-        // Không tăng stepIndex ngay lập tức!
-        // Chỉ tăng sau khi bước hiện tại hoàn tất
-
-        if (step.type == CutsceneStepType.Dialogue)
-        {
-            cutsceneImage.enabled = false;
-            DialogueManager.Instance.StartDialogue(step.dialogueLines);
-            stepIndex++; // Tăng sau khi gọi thoại
-        }
-        else if (step.type == CutsceneStepType.Image)
+        // Hiện ảnh nếu có
+        if (step.image != null)
         {
             cutsceneImage.enabled = true;
             cutsceneImage.sprite = step.image;
+        }
+        else
+        {
+            cutsceneImage.enabled = false;
+        }
+
+        // Hiện thoại nếu có
+        if (step.dialogueLines != null && step.dialogueLines.Count > 0)
+        {
+            DialogueManager.Instance.StartDialogue(step.dialogueLines);
+            // Chờ DialogueManager gọi lại OnDialogueEnded()
+        }
+        else
+        {
+            // Không có thoại → chờ input
             isWaitingForInput = true;
-            stepIndex++; // Tăng sau khi hiện ảnh
         }
     }
-
-
     public void OnDialogueEnded()
     {
-        // Chờ 1 frame để tránh skip ngay lập tức do phím còn đang giữ
         StartCoroutine(DelayPlayNextStep());
     }
 
@@ -110,5 +118,11 @@ public class CutsceneManager : MonoBehaviour
         }
 
         SceneManager.LoadScene(nextSceneName);
+    }
+
+    public void SkipCutscene()
+    {
+        StopAllCoroutines(); // Stop any ongoing coroutines
+        StartCoroutine(FadeOutAndLoadScene()); // Directly fade out and load the next scene
     }
 }
