@@ -19,20 +19,19 @@ public class Attack3 : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (player == null) return;
-        
+
         if (other.CompareTag("Enemy"))
         {
-            // Tìm component EnemyTest hoặc các enemy script khác
-            var enemy = other.GetComponent<MonoBehaviour>();
+            // Tìm component Enemy script
+            var enemy = other.GetComponent<Enemy>();
             if (enemy != null)
             {
-                // Thử gọi method TakeDamage nếu có
-                var takeDamageMethod = enemy.GetType().GetMethod("TakeDamage");
-                if (takeDamageMethod != null)
-                {
-                    takeDamageMethod.Invoke(enemy, new object[] { player.attack3Damage });
-                    Debug.Log("Enemy hit by Attack3, dealt " + player.attack3Damage + " damage.");
-                }
+                enemy.TakeDamage(player.attack3Damage);
+                Debug.Log($"Enemy {other.name} hit by Attack3, dealt {player.attack3Damage} damage.");
+            }
+            else
+            {
+                Debug.LogWarning($"Enemy {other.name} does not have an Enemy script attached.");
             }
         }
         else if (other.CompareTag("Boss"))
@@ -45,7 +44,7 @@ public class Attack3 : MonoBehaviour
                 Debug.Log("Boss1 hit by Attack3, dealt " + player.attack3Damage + " damage.");
                 return;
             }
-            
+
             Boss2 boss2 = other.GetComponent<Boss2>();
             if (boss2 != null)
             {
@@ -53,7 +52,7 @@ public class Attack3 : MonoBehaviour
                 Debug.Log("Boss2 hit by Attack3, dealt " + player.attack3Damage + " damage.");
                 return;
             }
-            
+
             Boss3 boss3 = other.GetComponent<Boss3>();
             if (boss3 != null)
             {
@@ -61,7 +60,7 @@ public class Attack3 : MonoBehaviour
                 Debug.Log("Boss3 hit by Attack3, dealt " + player.attack3Damage + " damage.");
                 return;
             }
-            
+
             Boss4 boss4 = other.GetComponent<Boss4>();
             if (boss4 != null)
             {

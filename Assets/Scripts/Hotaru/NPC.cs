@@ -30,8 +30,6 @@ public class NPC : MonoBehaviour
 
     [Header("Jump Settings")]
     public float jumpForce = 10f;
-    public LayerMask groundLayerMask = 1; // Layer của ground để check grounded
-    public float groundCheckDistance = 0.1f; // Khoảng cách check ground
 
     [Header("Flip Settings")]
     public bool invertFlip = false;
@@ -43,7 +41,18 @@ public class NPC : MonoBehaviour
     private bool isGrounded = true;
     private bool isJumping = false;
     private bool isFalling = false;
-    private bool canJumpTrigger = false; // Có thể nhảy khi chạm CanJump trigger
+    private bool canJumpTrigger = false;
+    private Transform player; // Reference to the Player transform
+
+    [Header("Obstacle Jump Settings")]
+    public Transform frontCheckPoint; // Điểm kiểm tra phía trước để raycast
+    public float obstacleCheckDistance = 0.5f; // Khoảng cách raycast kiểm tra chướng ngại
+    public float obstacleHeightCheck = 1f; // Chiều cao kiểm tra phía trên chướng ngại
+    public LayerMask obstacleLayer; // Layer for obstacles
+
+    private float patrolFlipTimer;
+    private float patrolFlipInterval;
+    private bool isMoving = false;
 
 
     void Start()
@@ -59,6 +68,20 @@ public class NPC : MonoBehaviour
         {
             Debug.LogWarning($"One or more Animator components not found on {gameObject.name}. Animation will not work.");
         }
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
+        if (player != null)
+        {
+            Collider2D playerCollider = player.GetComponent<Collider2D>();
+            Collider2D enemyCollider = GetComponent<Collider2D>();
+            if (playerCollider != null && enemyCollider != null)
+            {
+                Physics2D.IgnoreCollision(enemyCollider, playerCollider);
+            }
+        } 
 
         if (canMove)
         {
@@ -73,35 +96,40 @@ public class NPC : MonoBehaviour
 
     void Update()
     {
-        CheckGrounded();
         HandleJumpAndFall();
-        
+        CheckObstacleAndJump(); // Thêm kiểm tra chướng ngại và nhảy
+
         if (canMove)
-            HandleMovement();
+        {
+            HandleMovement(); // Đảm bảo phương thức di chuyển được gọi
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y); // Dừng NPC nếu không thể di chuyển
+        }
     }
 
     void HandleMovement()
     {
-        if (!canRun && Time.time >= nextDirectionChangeTime)
+        patrolFlipTimer -= Time.deltaTime;
+
+        if (patrolFlipTimer <= 0f)
         {
-            movingRight = !movingRight;
-            SetNextDirectionChangeTime();
+            movingRight = !movingRight; // Đổi hướng di chuyển
             FlipSprite();
-        }
-        else if (canRun)
-        {
-            if (Time.time >= nextDirectionChangeTime)
-            {
-                movingRight = !movingRight;
-                nextDirectionChangeTime = Time.time + 2f;
-                FlipSprite();
-            }
+            patrolFlipInterval = Random.Range(3f, 5f);
+            patrolFlipTimer = patrolFlipInterval;
         }
 
-        float currentSpeed = canRun ? runSpeed : moveSpeed;
-        float moveDirection = movingRight ? 1f : -1f;
-        Vector2 movement = Vector2.right * moveDirection * currentSpeed;
-        rb.velocity = new Vector2(movement.x, rb.velocity.y);
+        // Di chuyển theo hướng hiện tại
+        Vector2 moveDirection = movingRight ? Vector2.right : Vector2.left;
+        rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
+
+        if (!isMoving)
+        {
+            SetMovementAnimation(true); // Bật animation di chuyển
+            isMoving = true;
+        }
     }
 
     void SetNextDirectionChangeTime()
@@ -233,29 +261,18 @@ public class NPC : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnCollisionStay2D(Collision2D collision)
     {
-        if (other.CompareTag("Player") && canInteract)
+        if(collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log($"Player is near {gameObject.name} - Can interact!");
+            isGrounded = true; // Reset grounded state when on ground
         }
     }
-
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionExit2D(Collision2D collision)
     {
-        if (other.CompareTag("CanJump"))
+        if(collision.gameObject.CompareTag("Ground"))
         {
-            canJumpTrigger = true;
-            Debug.Log($"NPC {gameObject.name}: Entered CanJump trigger - {other.gameObject.name}");
-        }
-    }
-    
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("CanJump"))
-        {
-            canJumpTrigger = false;
-            Debug.Log($"NPC {gameObject.name}: Exited CanJump trigger - {other.gameObject.name}");
+            isGrounded = false; // Reset grounded state when leaving ground
         }
     }
 
@@ -269,41 +286,8 @@ public class NPC : MonoBehaviour
         // Draw movement range (optional)
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, 0.5f);
-        
-        // Draw ground check ray
-        Gizmos.color = isGrounded ? Color.green : Color.red;
-        Vector3 rayStart = transform.position;
-        Vector3 rayEnd = rayStart + Vector3.down * groundCheckDistance;
-        Gizmos.DrawLine(rayStart, rayEnd);
-        
-        // Draw jump status
-        if (isJumping)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireCube(transform.position + Vector3.up * 0.5f, Vector3.one * 0.3f);
-        }
-        else if (isFalling)
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawWireCube(transform.position + Vector3.down * 0.5f, Vector3.one * 0.3f);
-        }
     }
 
-    void CheckGrounded()
-    {
-        // Raycast xuống dưới để check xem có đang ở trên ground không
-        Vector2 rayOrigin = new Vector2(transform.position.x, transform.position.y);
-        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, groundCheckDistance, groundLayerMask);
-        
-        bool wasGrounded = isGrounded;
-        isGrounded = hit.collider != null;
-        
-        // Debug ground check
-        if (wasGrounded != isGrounded)
-        {
-            Debug.Log($"NPC {gameObject.name}: Grounded = {isGrounded}");
-        }
-    }
 
     void HandleJumpAndFall()
     {
@@ -381,5 +365,25 @@ public class NPC : MonoBehaviour
             weaponAni.Play(stateName);
         
         Debug.Log($"NPC {gameObject.name}: Playing {stateName} animation");
+    }
+
+    void CheckObstacleAndJump()
+    {
+        Vector2 direction = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+
+        // Raycast ngang để kiểm tra chướng ngại
+        RaycastHit2D wallHit = Physics2D.Raycast(frontCheckPoint.position, direction, obstacleCheckDistance, obstacleLayer);
+
+        if (wallHit.collider != null && isGrounded)
+        {
+            // Kiểm tra xem phía trên có trống không để nhảy
+            Vector2 upwardStart = wallHit.collider.bounds.center + new Vector3(0, wallHit.collider.bounds.extents.y + 0.1f, 0);
+            RaycastHit2D ceilingHit = Physics2D.Raycast(upwardStart, Vector2.up, obstacleHeightCheck, obstacleLayer);
+
+            if (ceilingHit.collider == null)
+            {
+                PerformJump();
+            }
+        }
     }
 }

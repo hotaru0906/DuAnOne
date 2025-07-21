@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1726121202314061739}
   - component: {fileID: 4369251105806412264}
   - component: {fileID: 706566198432044968}
+  - component: {fileID: 3040210723681399423}
   - component: {fileID: 559149168752579715}
   m_Layer: 10
   m_Name: Skeleton
@@ -234,6 +235,20 @@ PolygonCollider2D:
       - {x: -0.08322155, y: -0.23063019}
       - {x: 0.030113772, y: -0.231347}
   m_UseDelaunayMesh: 0
+--- !u!114 &3040210723681399423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4293791949893127160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a310f7a7bda4342a38fdc7f8a590a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToDeactivate: {fileID: 559149168752579715}
+  hasBeenActivated: 0
 --- !u!114 &559149168752579715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,6 +286,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   jumpForce: 2.5
+  coinPrefab: {fileID: 5191125823337282758, guid: dcae3e26a436f5948b32756c9fc22c36, type: 3}
 --- !u!1 &7570353199679803487
 GameObject:
   m_ObjectHideFlags: 0

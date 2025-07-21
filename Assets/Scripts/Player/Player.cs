@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     [Header("Audio Settings")]
     public AudioSource audioSource;
     public AudioClip attack1, attack2, attack3, attack4, skill1, skill2, fall, dashSound, moveSound, hitSound;
-    public AudioClip jumpSound;
+    public AudioClip jumpSound, coinSound;
     private bool isPlayingMoveSound = false;
 
     [Header("Bullet Settings")]
@@ -185,6 +185,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Coin"))
+        {
+            audioSource.PlayOneShot(coinSound);
+        }
+    }
+
     // ==================== BASIC FUNCTIONS ====================
     void Flip()
     {
@@ -285,8 +293,13 @@ public class Player : MonoBehaviour
         if (isHit || isInvincible) return; // Prevent taking damage while already hit or invincible
         isHit = true; // Set hit state to true
 
-        StartCoroutine(ActivateInvincibility(0.75f)); // Activate invincibility for 0.75 seconds
+        // Reset các trạng thái khác để tránh xung đột
+        isAttacking = false;
+        isSkill1 = false;
+        isSkill2 = false;
         rb.velocity = Vector2.zero; // Stop player movement
+
+        StartCoroutine(ActivateInvincibility(0.75f)); // Activate invincibility for 0.75 seconds
         Debug.Log($"Player took {damage} damage. Current Health: {Health}");
         Health -= damage;
 
@@ -327,7 +340,7 @@ public class Player : MonoBehaviour
         isHit = false;
         isSkill1 = false; // Reset skill1 state
         isSkill2 = false; // Reset skill2 state
-        isSkill1InAir = false; // Reset air skill state
+        isAttacking = false; // Reset attacking state
         rb.velocity = new Vector2(Run * Input.GetAxisRaw("Horizontal"), rb.velocity.y); // Restore movement speed
     }
     public void EndDeath()

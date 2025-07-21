@@ -10,13 +10,15 @@ public class NPCDialogue : MonoBehaviour
     public GameObject objectToActivate; // GameObject sẽ được bật sau khi hội thoại kết thúc
 
     private bool isPlayerInRange = false; // Kiểm tra nếu player đang trong vùng tương tác
+    private bool isDialogueActive = false; // Kiểm tra nếu đối thoại đang diễn ra
 
     void Update()
     {
         // Kiểm tra nếu player nhấn phím "E" để bắt đầu đối thoại
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
+        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E) && !isDialogueActive)
         {
             StartDialogue();
+            Invoke(nameof(ActivateObject), 2f);
         }
     }
 
@@ -24,6 +26,7 @@ public class NPCDialogue : MonoBehaviour
     {
         if (DialogueManager.Instance != null)
         {
+            isDialogueActive = true; // Đánh dấu đối thoại đang diễn ra
             DialogueManager.Instance.StartDialogue(dialogueLines, this);
         }
     }
@@ -41,10 +44,12 @@ public class NPCDialogue : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = false;
+            isDialogueActive = false; // Đánh dấu đối thoại đã kết thúc
             if (DialogueManager.Instance != null)
             {
                 DialogueManager.Instance.CloseDialogueBox();
             }
+            objectToActivate.SetActive(false); // Tắt GameObject nếu player rời khỏi vùng tương tác
         }
     }
 
@@ -53,10 +58,28 @@ public class NPCDialogue : MonoBehaviour
     {
         Debug.Log("Dialogue with NPC ended.");
 
+        isDialogueActive = false; // Đánh dấu đối thoại đã kết thúc
+
         if (objectToActivate != null)
         {
-            objectToActivate.SetActive(true); // Bật GameObject
-            Debug.Log($"Activated GameObject: {objectToActivate.name}");
+            Debug.Log($"objectToActivate is assigned: {objectToActivate.name}");
+            Debug.Log($"objectToActivate active state before: {objectToActivate.activeSelf}");
+
+            // Kích hoạt GameObject sau 2 giây
+            
+        }
+        else
+        {
+            Debug.LogWarning("objectToActivate is not set in the Inspector.");
+        }
+    }
+
+    private void ActivateObject()
+    {
+        if (objectToActivate != null)
+        {
+            objectToActivate.SetActive(true);
+            Debug.Log($"objectToActivate active state after: {objectToActivate.activeSelf}");
         }
     }
 }

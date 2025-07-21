@@ -106,6 +106,8 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
+        Debug.Log("EndDialogue called. All sentences have been displayed.");
+
         dialogueBox.SetActive(false);
 
         CutsceneManager cutscene = FindObjectOfType<CutsceneManager>();
@@ -116,6 +118,7 @@ public class DialogueManager : MonoBehaviour
 
         if (currentNPC != null)
         {
+            Debug.Log("Calling OnDialogueEnded on currentNPC.");
             currentNPC.SendMessage("OnDialogueEnded", SendMessageOptions.DontRequireReceiver);
             currentNPC = null;
         }

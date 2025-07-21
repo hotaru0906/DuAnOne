@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6063888321071381437}
   - component: {fileID: 7575318192702221491}
   - component: {fileID: 6830533261430792504}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: "Female Fam ( kh\xE1c layer )"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,6 +38,7 @@ Transform:
   - {fileID: 747536193170410897}
   - {fileID: 8070075491710996219}
   - {fileID: 2118352971603995487}
+  - {fileID: 5687902258730435013}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6063888321071381437
@@ -146,11 +147,13 @@ MonoBehaviour:
   hatAni: {fileID: 888477437317415107}
   weaponAni: {fileID: 1225166787016576758}
   jumpForce: 5
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  groundCheckDistance: 0.56
   invertFlip: 1
+  frontCheckPoint: {fileID: 5687902258730435013}
+  obstacleCheckDistance: 0.25
+  obstacleHeightCheck: 0.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1 &2179228355304736319
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +165,7 @@ GameObject:
   - component: {fileID: 2118352971603995487}
   - component: {fileID: 3633603751500405520}
   - component: {fileID: 888477437317415107}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Farming Hat M_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +226,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 472471591
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: -622991024, guid: 004e72fefeb12ef47bd238b1d09ae657, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -268,7 +271,7 @@ GameObject:
   - component: {fileID: 1892829212189443890}
   - component: {fileID: 8166326798067055863}
   - component: {fileID: 1225166787016576758}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Basket_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +332,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 472471591
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 3
   m_Sprite: {fileID: 1546878771, guid: cc1ac6fe3e600634b95eb90b580162c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -374,7 +377,7 @@ GameObject:
   - component: {fileID: 8070075491710996219}
   - component: {fileID: 8768207773899001538}
   - component: {fileID: 3036169096860926684}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Female Hair15_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,7 +438,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 472471591
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: -2103720686, guid: 3c12cf5fb6bf7644495d3248bd901e5d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -480,7 +483,7 @@ GameObject:
   - component: {fileID: 2639058165900928624}
   - component: {fileID: 5042971653452088694}
   - component: {fileID: 6534398257799891035}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Female Skin2_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -541,7 +544,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 472471591
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -978968712, guid: 3448b09d84da87547a3520dd51125a73, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -586,7 +589,7 @@ GameObject:
   - component: {fileID: 747536193170410897}
   - component: {fileID: 9102110578419957120}
   - component: {fileID: 7017049625042898892}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Short Skirt_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,7 +650,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 472471591
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: 2086563035, guid: 8b7105a77ce39294fbd47d27c2381242, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -692,7 +695,7 @@ GameObject:
   - component: {fileID: 5453837219891806192}
   - component: {fileID: 3328816507397546453}
   - component: {fileID: 3573732728173629639}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Blue Bodice Mid Sleeves_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,7 +756,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 472471591
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 3
   m_Sprite: {fileID: 35430462, guid: 22d6c551dadad8a4ab32d9e0bdc75718, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -787,3 +790,34 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &8236810740711786571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5687902258730435013}
+  m_Layer: 0
+  m_Name: Check
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5687902258730435013
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236810740711786571}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.25, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5120347678485376675}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

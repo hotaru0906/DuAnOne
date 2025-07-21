@@ -19,20 +19,19 @@ public class Attack1 : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (player == null) return;
-        
+
         if (other.CompareTag("Enemy"))
         {
-            // Tìm component EnemyTest hoặc các enemy script khác
-            var enemy = other.GetComponent<MonoBehaviour>();
+            // Tìm component Enemy script
+            var enemy = other.GetComponent<Enemy>();
             if (enemy != null)
             {
-                // Thử gọi method TakeDamage nếu có
-                var takeDamageMethod = enemy.GetType().GetMethod("TakeDamage");
-                if (takeDamageMethod != null)
-                {
-                    takeDamageMethod.Invoke(enemy, new object[] { player.attack1Damage });
-                    Debug.Log("Enemy hit by Attack1, dealt " + player.attack1Damage + " damage.");
-                }
+                enemy.TakeDamage(player.attack1Damage);
+                Debug.Log($"Enemy {other.name} hit by Attack1, dealt {player.attack1Damage} damage.");
+            }
+            else
+            {
+                Debug.LogWarning($"Enemy {other.name} does not have an Enemy script attached.");
             }
         }
         else if (other.CompareTag("Boss"))

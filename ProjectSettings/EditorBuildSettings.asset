@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Ingame/MainMenu.unity
+    guid: 7515d8dd1cd018741b07e61db13ba3ed
+  - enabled: 1
     path: Assets/Scenes/Ingame/CutScene1.unity
     guid: 84eb6a0c9b0d7084f95143ce6c2d0c05
   - enabled: 1
     path: Assets/Scenes/Ingame/Castle.unity
     guid: 2a34b03c00b8bc74b95df20fe1ac5386
+  - enabled: 1
+    path: Assets/Scenes/Ingame/Village.unity
+    guid: f953bb4b9c010f9468260d4560237081
+  - enabled: 1
+    path: Assets/Scenes/Ingame/Forest.unity
+    guid: 063eb1f8af36117408daf2848ae5f724
   m_configObjects: {}

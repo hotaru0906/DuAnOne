@@ -158,6 +158,9 @@ public class Boss2 : MonoBehaviour
             GameObject spawnedObject = Instantiate(skill1Prefab, spawnPosition, Quaternion.identity);
             
             Debug.Log($"Boss2 Skill 1: Summoned object below player at {spawnPosition}");
+
+            // Tắt hitbox sau một khoảng thời gian ngắn
+            StartCoroutine(DisableHitboxAfterDelay(0.1f));
         }
         else
         {

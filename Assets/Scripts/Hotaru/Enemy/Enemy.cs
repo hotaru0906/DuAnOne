@@ -38,6 +38,9 @@ public class Enemy : MonoBehaviour
     public LayerMask obstacleLayer; // Layer for obstacles
     public float jumpForce = 5f; // Force for jumping over obstacles
 
+    [Header("Item Settings")]
+    public GameObject coinPrefab;
+
     private Transform player;
     private bool isMoving = false;
     private bool isAttacking = false;
@@ -90,6 +93,14 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if (!enabled)
+        {
+            Debug.Log("Enemy script is disabled.");
+            return;
+        }
+
+        Debug.Log($"Enemy Update: enabled = {enabled}, canMove = {canMove}");
+
         if (player != null && !isDead)
         {
             if (currentHealth <= maxHealth * 0.2f) // Below 20% health
@@ -367,6 +378,20 @@ public class Enemy : MonoBehaviour
     public void DestroyEnemy()
     {
         Destroy(gameObject);
+
+        if (coinPrefab != null)
+        {
+            GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            Rigidbody2D coinRb = coin.GetComponent<Rigidbody2D>();
+
+            if (coinRb != null)
+            {
+                // Áp dụng lực ngẫu nhiên lên trên và sang trái hoặc phải
+                float randomXForce = Random.Range(-2f, 2f); // Lực ngang ngẫu nhiên
+                float upwardForce = Random.Range(3f, 5f);   // Lực lên trên
+                coinRb.AddForce(new Vector2(randomXForce, upwardForce), ForceMode2D.Impulse);
+            }
+        }
     }
 
     void OnDrawGizmosSelected()
@@ -409,14 +434,14 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true; // Reset grounded state when on ground
         }
     }
     void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false; // Reset grounded state when leaving ground
         }
