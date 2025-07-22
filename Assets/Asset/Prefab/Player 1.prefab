@@ -704,6 +704,11 @@ MonoBehaviour:
   Attack3HitBox: {fileID: 1103361043495785240}
   Attack4HitBox: {fileID: 108033633607278235}
   skill1GroundHitBox: {fileID: 1074018513871800733}
+  str: 5
+  vit: 5
+  spd: 5
+  intStat: 5
+  crt: 5
   rb: {fileID: 6176558446417859452}
   animator: {fileID: 1384104440704914830}
   boxCollider: {fileID: 3853270232027997280}
@@ -722,6 +727,17 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: e2a6e6c29f3902b46b6b7fc4588b06a0, type: 3}
   coinSound: {fileID: 8300000, guid: e750e609d0a0f5846a0f9c9ffb3bca4a, type: 3}
   bulletSpawnPoint: {fileID: 7938565198065287582}
+  inventoryUI: {fileID: 0}
+  healthSlider: {fileID: 0}
+  manaSlider: {fileID: 0}
+  expSlider: {fileID: 0}
+  MaxMana: 100
+  Mana: 100
+  manaRegenRate: 0.01
+  level: 1
+  currentExp: 0
+  expToNextLevel: 20
+  statPoints: 0
   isInvincible: 0
 --- !u!95 &1384104440704914830
 Animator:

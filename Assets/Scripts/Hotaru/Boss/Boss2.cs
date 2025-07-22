@@ -34,6 +34,7 @@ public class Boss2 : MonoBehaviour
     public string hitAnimationName = "Boss1_Hit";
     public string deathAnimationName = "Boss1_Death";
     public Animator animator;
+    public int exp = 50; // Số kinh nghiệm khi đánh bại boss
     
     private Transform player;
     private bool isMoving = false;
@@ -417,21 +418,29 @@ public class Boss2 : MonoBehaviour
             Die();
         }
     }
-    
+
     void Die()
     {
         isDead = true;
         isMoving = false;
         isAttacking = false;
         isUsingSkill1 = false;
-        
+
         // Dừng tất cả coroutines để tránh xung đột
         StopAllCoroutines();
-        
+
         Debug.Log("Boss2 has died!");
-        
+
         // Chạy animation death
         PlayDeathAnimation();
+        if (player != null)
+        {
+            Player playerScript = player.GetComponent<Player>();
+            if (playerScript != null)
+            {
+                playerScript.GainExperience(exp);
+            }
+        }
     }
     
     // Animation Event Method: Destroy Boss (gọi từ animation event của death animation)
@@ -462,17 +471,17 @@ public class Boss2 : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Player playerScript = collision.GetComponent<Player>();
-            if (playerScript != null)
+            Player playerHealth = collision.GetComponent<Player>();
+            if (playerHealth != null)
             {
                 if (hitbox != null && hitbox.activeSelf) // During attack
                 {
-                    playerScript.TakeDamage(damage); // Deal damage when hitbox is active
+                    playerHealth.TakeDamage(damage); // Deal damage when hitbox is active
                     Debug.Log("Player hit by enemy attack.");
                 }
                 else // Collision with enemy body
                 {
-                    playerScript.TakeDamage(damage / 2); // Deal reduced damage for body collision
+                    playerHealth.TakeDamage(damage / 2); // Deal reduced damage for body collision
                     Debug.Log("Player collided with enemy.");
                 }
             }

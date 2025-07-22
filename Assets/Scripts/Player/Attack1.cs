@@ -44,7 +44,7 @@ public class Attack1 : MonoBehaviour
                 Debug.Log("Boss1 hit by Attack1, dealt " + player.attack1Damage + " damage.");
                 return;
             }
-            
+
             Boss2 boss2 = other.GetComponent<Boss2>();
             if (boss2 != null)
             {
@@ -52,7 +52,7 @@ public class Attack1 : MonoBehaviour
                 Debug.Log("Boss2 hit by Attack1, dealt " + player.attack1Damage + " damage.");
                 return;
             }
-            
+
             Boss3 boss3 = other.GetComponent<Boss3>();
             if (boss3 != null)
             {
@@ -60,7 +60,7 @@ public class Attack1 : MonoBehaviour
                 Debug.Log("Boss3 hit by Attack1, dealt " + player.attack1Damage + " damage.");
                 return;
             }
-            
+
             Boss4 boss4 = other.GetComponent<Boss4>();
             if (boss4 != null)
             {

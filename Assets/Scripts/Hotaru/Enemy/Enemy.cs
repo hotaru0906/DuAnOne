@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine; // Ensure UnityEngine namespace is included for Player class reference
 
 public class Enemy : MonoBehaviour
 {
@@ -40,6 +40,15 @@ public class Enemy : MonoBehaviour
 
     [Header("Item Settings")]
     public GameObject coinPrefab;
+
+    [Header("Sound Effects")]
+    public AudioClip walkSound;
+    public AudioClip hitSound;
+    public AudioClip attackSound;
+    public AudioSource audioSource;
+
+    [Header("Experience Settings")]
+    public int exp = 10; // Experience points granted to the player upon death
 
     private Transform player;
     private bool isMoving = false;
@@ -138,6 +147,12 @@ public class Enemy : MonoBehaviour
             if (isMoving)
             {
                 isMoving = false;
+
+                // Stop walk sound immediately
+                if (audioSource != null && audioSource.clip == walkSound)
+                {
+                    audioSource.Stop();
+                }
             }
 
             float directionX = player.position.x - transform.position.x;
@@ -159,6 +174,14 @@ public class Enemy : MonoBehaviour
                 {
                     PlayWalkAnimation();
                     isMoving = true;
+
+                    // Play walk sound immediately
+                    if (audioSource != null && walkSound != null)
+                    {
+                        audioSource.clip = walkSound;
+                        audioSource.loop = true;
+                        audioSource.Play();
+                    }
                 }
             }
             else
@@ -167,6 +190,12 @@ public class Enemy : MonoBehaviour
                 {
                     PlayIdleAnimation();
                     isMoving = false;
+
+                    // Stop walk sound immediately
+                    if (audioSource != null && audioSource.clip == walkSound)
+                    {
+                        audioSource.Stop();
+                    }
                 }
             }
         }
@@ -176,6 +205,12 @@ public class Enemy : MonoBehaviour
             {
                 PlayIdleAnimation();
                 isMoving = false;
+
+                // Stop walk sound immediately
+                if (audioSource != null && audioSource.clip == walkSound)
+                {
+                    audioSource.Stop();
+                }
             }
 
             // Handle patrol flip and obstacle detection
@@ -244,6 +279,12 @@ public class Enemy : MonoBehaviour
         lastAttackTime = Time.time;
 
         PlayAttackAnimation();
+
+        // Play attack sound immediately
+        if (audioSource != null && attackSound != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
 
         // Đợi một chút để animation bắt đầu (khoảng 30% animation)
         yield return new WaitForSeconds(attackAnimationDuration * 0.3f);
@@ -359,6 +400,12 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth); // Không cho âm
 
+        // Play hit sound immediately
+        if (audioSource != null && hitSound != null)
+        {
+            audioSource.PlayOneShot(hitSound);
+        }
+
         if (currentHealth <= 0)
         {
             Die();
@@ -373,6 +420,16 @@ public class Enemy : MonoBehaviour
 
         StopAllCoroutines();
         PlayDeathAnimation();
+
+        // Grant experience to the player
+        if (player != null)
+        {
+            Player playerScript = player.GetComponent<Player>();
+            if (playerScript != null)
+            {
+                playerScript.GainExperience(exp);
+            }
+        }
     }
 
     public void DestroyEnemy()

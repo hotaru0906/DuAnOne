@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -38,6 +39,12 @@ public class Player : MonoBehaviour
     public GameObject Attack3HitBox;
     public GameObject Attack4HitBox;
     public GameObject skill1GroundHitBox;
+    [Header("Stats Settings")]
+    public int str = 0; // Strength: increases attack damage
+    public int vit = 0; // Vitality: increases max health
+    public int spd = 0; // Speed: increases movement speed
+    public int intStat = 0; // Intelligence: increases skill and bullet damage
+    public int crt = 0; // Critical Rate: increases critical hit chance
 
     [Header("Component References")]
     public Rigidbody2D rb;
@@ -53,6 +60,25 @@ public class Player : MonoBehaviour
     [Header("Bullet Settings")]
     public Transform bulletSpawnPoint;
 
+    [Header("UI References")]
+    public GameObject inventoryUI;
+
+    [Header("UI Sliders")]
+    public Slider healthSlider;
+    public Slider manaSlider;
+    public Slider expSlider;
+
+    [Header("Mana Settings")]
+    public int MaxMana = 100;
+    public int Mana = 100;
+    public float manaRegenRate = 0.01f; // 1% of total mana per second
+
+    [Header("Experience Settings")]
+    public int level = 1;
+    public int currentExp = 0;
+    public int expToNextLevel = 20;
+    public int statPoints = 0; // Points available for stat allocation
+
     // Private State Variables
     private int comboStep = 0;
     private float dashTime;
@@ -66,6 +92,7 @@ public class Player : MonoBehaviour
     private bool isDeath = false;
     public bool isInvincible = false; // Flag for invincibility
     private Collider2D playerCollider;
+    private bool isInventoryOpen = false;
 
     // ==================== UNITY LIFECYCLE ====================
     void Start()
@@ -78,6 +105,23 @@ public class Player : MonoBehaviour
         isDashing = false;
         Health = MaxHealth;
 
+        // Initialize sliders if assigned
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = MaxHealth;
+            healthSlider.value = Health;
+        }
+        if (manaSlider != null)
+        {
+            manaSlider.maxValue = MaxMana;
+            manaSlider.value = Mana;
+        }
+        if (expSlider != null)
+        {
+            expSlider.maxValue = 100; // Example max value for experience
+            expSlider.value = 0; // Example starting value for experience
+        }
+
         // Bỏ qua va chạm với Enemy
         GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
         if (enemy != null)
@@ -88,6 +132,9 @@ public class Player : MonoBehaviour
                 Physics2D.IgnoreCollision(playerCollider, enemyCollider);
             }
         }
+
+        // Start mana regeneration coroutine
+        StartCoroutine(RegenerateMana());
     }
 
     void Update()
@@ -103,6 +150,12 @@ public class Player : MonoBehaviour
             {
                 comboStep = 0;
             }
+        }
+
+        // Inventory control
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ToggleInventory();
         }
 
         // Movement control
@@ -156,6 +209,20 @@ public class Player : MonoBehaviour
         if (!isSkill1 && !isSkill2)
         {
             Dash();
+        }
+
+        // Update sliders dynamically
+        if (healthSlider != null)
+        {
+            healthSlider.value = Health;
+        }
+        if (manaSlider != null)
+        {
+            // Update mana value here if you have a mana system
+        }
+        if (expSlider != null)
+        {
+            // Update experience value here if you have an experience system
         }
     }
 
@@ -303,6 +370,12 @@ public class Player : MonoBehaviour
         Debug.Log($"Player took {damage} damage. Current Health: {Health}");
         Health -= damage;
 
+        // Update health slider
+        if (healthSlider != null)
+        {
+            healthSlider.value = Health;
+        }
+
         // Play Hurt animation only if it's not already playing
         if (animator != null && !animator.GetCurrentAnimatorStateInfo(0).IsName("Hurt") && !animator.IsInTransition(0))
         {
@@ -315,7 +388,6 @@ public class Player : MonoBehaviour
                 audioSource.PlayOneShot(hitSound);
             }
         }
-
 
         if (Health <= 0)
         {
@@ -509,8 +581,14 @@ public class Player : MonoBehaviour
     // ==================== SKILL SYSTEM ====================
     private void Skill1()
     {
-        if (Input.GetKeyDown(KeyCode.K) && !isSkill1 && !isGrounded && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.K) && !isSkill1 && !isGrounded && !isAttacking && Mana >= 50)
         {
+            Mana -= 50;
+            if (manaSlider != null)
+            {
+                manaSlider.value = Mana;
+            }
+
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Skill1")) // Prevent repeated calls
             {
                 animator.Play("Skill1");
@@ -525,12 +603,22 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        else if (Mana < 50)
+        {
+            Debug.Log("Not enough mana for Skill1.");
+        }
     }
 
     private void Skill2()
     {
-        if (Input.GetKeyDown(KeyCode.L) && !isSkill1 && !isSkill2 && !isAttacking && isGrounded)
+        if (Input.GetKeyDown(KeyCode.L) && !isSkill1 && !isSkill2 && !isAttacking && isGrounded && Mana >= 25)
         {
+            Mana -= 25;
+            if (manaSlider != null)
+            {
+                manaSlider.value = Mana;
+            }
+
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Skill2")) // Prevent repeated calls
             {
                 animator.Play("Skill2");
@@ -543,6 +631,10 @@ public class Player : MonoBehaviour
                     audioSource.PlayOneShot(skill2);
                 }
             }
+        }
+        else if (Mana < 25)
+        {
+            Debug.Log("Not enough mana for Skill2.");
         }
     }
 
@@ -623,5 +715,68 @@ public class Player : MonoBehaviour
             Debug.LogError("Skill3 Bullet Prefab is not assigned in the Inspector.");
         }
     }
-}
 
+    private void ToggleInventory()
+    {
+        isInventoryOpen = !isInventoryOpen;
+        if (inventoryUI != null)
+        {
+            inventoryUI.SetActive(isInventoryOpen);
+        }
+        if (isInventoryOpen)
+        {
+            Debug.Log("Inventory opened.");
+        }
+        else
+        {
+            Debug.Log("Inventory closed.");
+        }
+    }
+
+    private IEnumerator RegenerateMana()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            Mana = Mathf.Min(Mana + Mathf.CeilToInt(MaxMana * manaRegenRate), MaxMana);
+            if (manaSlider != null)
+            {
+                manaSlider.value = Mana;
+            }
+        }
+    }
+
+    public void GainExperience(int exp)
+    {
+        currentExp += exp;
+        Debug.Log($"Gained {exp} EXP. Current EXP: {currentExp}/{expToNextLevel}");
+
+        while (currentExp >= expToNextLevel)
+        {
+            LevelUp();
+        }
+
+        // Update exp slider dynamically
+        if (expSlider != null)
+        {
+            expSlider.value = currentExp;
+        }
+    }
+
+    private void LevelUp()
+    {
+        currentExp -= expToNextLevel;
+        level++;
+        expToNextLevel += 20; // Increase EXP required for the next level
+        statPoints += 3; // Award 3 stat points
+
+        Debug.Log($"Leveled up to Level {level}! Stat points available: {statPoints}");
+
+        // Update exp slider dynamically
+        if (expSlider != null)
+        {
+            expSlider.maxValue = expToNextLevel;
+            expSlider.value = currentExp;
+        }
+    }
+}

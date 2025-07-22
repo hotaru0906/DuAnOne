@@ -38,6 +38,7 @@ public class Boss3 : MonoBehaviour
     public string attackAnimationName = "Boss3_Attack";
     public string deathAnimationName = "Boss3_Death";
     public Animator animator;
+    public int exp = 100; // Số kinh nghiệm khi đánh bại boss
     
     private Transform player;
     private bool isMoving = false;
@@ -496,21 +497,29 @@ public class Boss3 : MonoBehaviour
             Die();
         }
     }
-    
+
     void Die()
     {
         isDead = true;
         isMoving = false;
         isAttacking = false;
         isUsingSkill1 = false;
-        
+
         // Dừng tất cả coroutines để tránh xung đột
         StopAllCoroutines();
-        
+
         Debug.Log("Boss3 has died!");
-        
+
         // Chạy animation death
         PlayDeathAnimation();
+        if (player != null)
+        {
+            Player playerScript = player.GetComponent<Player>();
+            if (playerScript != null)
+            {
+                playerScript.GainExperience(exp);
+            }
+        }
     }
     
     // Animation Event Method: Destroy Boss (gọi từ animation event của death animation)

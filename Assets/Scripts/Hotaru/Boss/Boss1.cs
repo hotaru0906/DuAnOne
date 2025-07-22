@@ -33,6 +33,7 @@ public class Boss1 : MonoBehaviour
     public string skill1AnimationName = "Boss1_Skill";
     public string deathAnimationName = "Boss1_Death";
     public Animator animator;
+    public int exp = 50; // Số kinh nghiệm khi đánh bại boss
 
     private Transform player;
     private bool isMoving = false;
@@ -409,6 +410,14 @@ public class Boss1 : MonoBehaviour
 
         // Chạy animation death
         PlayDeathAnimation();
+        if (player != null)
+        {
+            Player playerScript = player.GetComponent<Player>();
+            if (playerScript != null)
+            {
+                playerScript.GainExperience(exp);
+            }
+        }
     }
 
     // Animation Event Method: Destroy Boss (gọi từ animation event của death animation)
@@ -438,17 +447,17 @@ public class Boss1 : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Player playerScript = collision.GetComponent<Player>();
-            if (playerScript != null)
+            Player playerHealth = collision.GetComponent<Player>();
+            if (playerHealth != null)
             {
                 if (hitbox != null && hitbox.activeSelf) // During attack
                 {
-                    playerScript.TakeDamage(damage); // Deal damage when hitbox is active
+                    playerHealth.TakeDamage(damage); // Deal damage when hitbox is active
                     Debug.Log("Player hit by enemy attack.");
                 }
                 else // Collision with enemy body
                 {
-                    playerScript.TakeDamage(damage / 2); // Deal reduced damage for body collision
+                    playerHealth.TakeDamage(damage / 2); // Deal reduced damage for body collision
                     Debug.Log("Player collided with enemy.");
                 }
             }

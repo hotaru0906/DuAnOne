@@ -43,6 +43,7 @@ public class Boss4 : MonoBehaviour
     public string attackAnimationName = "Boss4_Attack";
     public string deathAnimationName = "Boss4_Death";
     public Animator animator;
+    public int exp = 100; // Số kinh nghiệm khi đánh bại boss
     
     private Transform player;
     private bool isMoving = false;
@@ -623,7 +624,7 @@ public class Boss4 : MonoBehaviour
         
         return dashPosition;
     }
-    
+
     void Die()
     {
         isDead = true;
@@ -632,14 +633,22 @@ public class Boss4 : MonoBehaviour
         isUsingSkill1 = false;
         isUsingSkill2 = false;
         isDashing = false;
-        
+
         // Dừng tất cả coroutines để tránh xung đột
         StopAllCoroutines();
-        
+
         Debug.Log("Boss4 has died!");
-        
+
         // Chạy animation death
         PlayDeathAnimation();
+        if (player != null)
+        {
+            Player playerScript = player.GetComponent<Player>();
+            if (playerScript != null)
+            {
+                playerScript.GainExperience(exp);
+            }
+        }
     }
     
     // Animation Event Method: Destroy Boss (gọi từ animation event của death animation)
@@ -734,27 +743,27 @@ public class Boss4 : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Player playerScript = collision.GetComponent<Player>();
-            if (playerScript != null)
+            Player playerHealth = collision.GetComponent<Player>();
+            if (playerHealth != null)
             {
                 if (hitbox1 != null && hitbox1.activeSelf) // During attack
                 {
-                    playerScript.TakeDamage(damage1); // Deal damage when hitbox is active
+                    playerHealth.TakeDamage(damage1); // Deal damage when hitbox is active
                     Debug.Log("Player hit by enemy attack.");
                 }
                 else if (hitbox2 != null && hitbox2.activeSelf) // During attack
                 {
-                    playerScript.TakeDamage(damage2); // Deal damage when hitbox is active
+                    playerHealth.TakeDamage(damage2); // Deal damage when hitbox is active
                     Debug.Log("Player hit by enemy attack.");
                 }
                 else if (hitbox3 != null && hitbox3.activeSelf) // During attack
                 {
-                    playerScript.TakeDamage(damage3); // Deal damage when hitbox is active
+                    playerHealth.TakeDamage(damage3); // Deal damage when hitbox is active
                     Debug.Log("Player hit by enemy attack.");
                 }
                 else 
                 {
-                    playerScript.TakeDamage(damage1 / 2); // Deal reduced damage for body collision
+                    playerHealth.TakeDamage(damage1 / 2); // Deal reduced damage for body collision
                     Debug.Log("Player collided with enemy.");
                 }
             }

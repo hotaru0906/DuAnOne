@@ -72,8 +72,8 @@ public class Boss3Bullet : MonoBehaviour
         // Kiểm tra va chạm với player
         if (other.CompareTag("Player") && !hasHitPlayer)
         {
-            Player playerScript = other.GetComponent<Player>();
-            if (playerScript != null && playerScript.isInvincible)
+            Player playerHealth = other.GetComponent<Player>();
+            if (playerHealth != null && playerHealth.isInvincible)
             {
                 Debug.Log("Player is invincible. Bullet will not disappear or deal damage.");
                 return; // Không làm gì nếu player đang bất tử
@@ -92,7 +92,7 @@ public class Boss3Bullet : MonoBehaviour
     void DamagePlayer(GameObject player)
     {
         Debug.Log($"Boss3 Bullet hit Player! Damage: {damage}");
-        
+
         Player playerHealth = player.GetComponent<Player>();
         if (playerHealth != null)
         {
