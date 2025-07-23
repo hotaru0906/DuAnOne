@@ -1,0 +1,4074 @@
+fileFormatVersion: 2
+guid: 16511439a151f5c41a48b27871a10dfa
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 264
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8469672bcfc441c4abbd00571c71132d
+      internalID: -1698555353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 263
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8b6bc471b5f47a4699c7e55aa44e6e8
+      internalID: -20651652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_2
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 264
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a179175c0eb53a4c88464136e4814e5
+      internalID: 1003108563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_3
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 266
+        width: 21
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa8c3d1fb8870e64bb1579265ea0624b
+      internalID: 1563868082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_4
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 263
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0b98cd4f0a8e0542a316ee4ce7087aa
+      internalID: -1969754653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_5
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 263
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9df587fbce45a24fa3791bf731d5558
+      internalID: 2001187769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_6
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 262
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d36611de9723476419aa5d86ba24e7d8
+      internalID: 21947926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_7
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 265
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e906f2df91c4b6a49aee886ad21aaba8
+      internalID: 609738335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_8
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 258
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bb327d7c47cb014887b992cba80fca2
+      internalID: -1703154459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_9
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 262
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be3c273b8f10eb348bd552bc9ffae5af
+      internalID: -504219890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_10
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 260
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c9871f9d17bda04392fd35f5ad66fda
+      internalID: -2041086712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_11
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 267
+        width: 29
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21560eddd2b66ab41b34928932df2786
+      internalID: 1014534145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 264
+        width: 32
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 617985c2df5319245bd7699bbaa8ede8
+      internalID: -2115870815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_13
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 264
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d507b8ddde5680e479fe7b009912706a
+      internalID: 278802222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_14
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 264
+        width: 29
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a89d495caf0a5f4b81ae9e5d5d54e42
+      internalID: 1622371958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_15
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 262
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92a54223cb2269045a8496b65f3b86e4
+      internalID: -2000313467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_16
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 262
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c182113746e75b4fac6c1f7e5433757
+      internalID: 975296896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_17
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 262
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48f1df90c04d58a4c8f2bf8bc00795be
+      internalID: 1334812616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_18
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 259
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc87893147f722e4baa1e26de7f03279
+      internalID: 1344145593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_19
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 259
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6008f525fc05782478f0b7e3e4b4d3f1
+      internalID: 262044492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_20
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 232
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc9508bf29a367944b1dfee1278fba31
+      internalID: -967703641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_21
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 231
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4036ed307754c24686b5239f1332c32
+      internalID: 505793410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_22
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 232
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f65210a7d388934bbbe0b3ad0a77e83
+      internalID: 1023631398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_23
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 234
+        width: 21
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a051445e6bf04e44d93b6161778c5cfa
+      internalID: 1070632978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_24
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 231
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45cac3b22d6db9349a15008fc25c271d
+      internalID: 123963239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_25
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 231
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba36c502cc783d343955b583c7bd1ddf
+      internalID: 894071032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_26
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 230
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e8567355a87d374f864bd281cda28c8
+      internalID: 956562544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_27
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 233
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04508f566e766574ba8b9e18267b0325
+      internalID: 1810953955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_28
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 226
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d80b3464f8a88f409f8ef9eb118a487
+      internalID: -767702000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_29
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 230
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e33b925896a01844ab2bf4c3200ae57e
+      internalID: 955278695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_30
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 228
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4678f5cff87978847a0654d9b23d2d2a
+      internalID: 1089325747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_31
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 235
+        width: 29
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77848f2d056ce724faa952978109b249
+      internalID: 163969384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_32
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 232
+        width: 32
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3201e7b333e61c64ba9f1ee89ee00a63
+      internalID: 1691458154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_33
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 232
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51ad083a28cc71b4eb1e2141dd107a14
+      internalID: 159625320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_34
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 232
+        width: 29
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88b6d6bffd13bdd4487c70ed28ccc7fa
+      internalID: -1798940799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_35
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 230
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e3e2ed241f5cc34e8ffe76f945f5a8f
+      internalID: 532799231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_36
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 230
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afc8f029abaf0664a8a5236ec08c19df
+      internalID: -2113232522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_37
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 230
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d3b71511e801f443804b31bc362fac4
+      internalID: -102874363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_38
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 227
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3975bb1e347027c429737f841b480415
+      internalID: -1741300337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_39
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 227
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e63d7c420096c1479a56af52505def4
+      internalID: 1348053393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_40
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 200
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f276bf20f1cc354db14c99e74a3f3de
+      internalID: -1985899465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_41
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 199
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b47d1f6194d7604fb55ab3e86b7a4f4
+      internalID: 236747528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_42
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 200
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6379ff98ac26054448d304e0638613c9
+      internalID: 1677141718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_43
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 202
+        width: 21
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b0e93ae4e1448649b470c93962272d8
+      internalID: 1480798925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_44
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 199
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ff8b0cb77d6fde4d85488d28799d174
+      internalID: -1607460303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_45
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 199
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd259fad44a3a144cb770091b87c0047
+      internalID: -685716566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_46
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 198
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d407c7dd6d73764190a72649ec2c723
+      internalID: -105092208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_47
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 201
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cb089e9ed8ec0945acab8e1fb89b750
+      internalID: -1247587585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_48
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 194
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa50d2b2e2b36ec4094ab764e045887f
+      internalID: 131762450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_49
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 198
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fa133ad0a015de48bd9233ef1c6e07d
+      internalID: 1843771706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_50
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 196
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff506378ac67e1f4d93c1e57758a7a41
+      internalID: -1099736753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_51
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 203
+        width: 29
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aeff1c9987c31ee40ab88d9a30b8005e
+      internalID: 1325747145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_52
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 200
+        width: 32
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cab479134fa8c7439412e89b9a8b44f
+      internalID: -779085906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_53
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 200
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06e154dc5e742d54f84c65dda1a781a5
+      internalID: -1503570196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_54
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 200
+        width: 29
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef1dd8ffb089b294c859dd2949d61e17
+      internalID: 374499925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_55
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 198
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3da7419e334ef9c4680d865bdb54b460
+      internalID: -1865469257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_56
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 198
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad53a8647da07a548b3ece08e9f8219b
+      internalID: 1666242299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_57
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 198
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8976070be6a0e6f41a8c74c2ed60b0da
+      internalID: 1304019245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_58
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 195
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db5fb2a06065a2245afb2a5872158afa
+      internalID: 1494305817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_59
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 195
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e8c200b9acb25f4daa2c1321afdbf3f
+      internalID: 1516223091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_60
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 168
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32f5e9bd641832d4e8c002df05ccc023
+      internalID: 946760183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_61
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 167
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea252a8ad7ad91b4a943cb32258100eb
+      internalID: 663854819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_62
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 168
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51e50122f94dccc4ea70446604fd8839
+      internalID: -132316552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_63
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 170
+        width: 21
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12f252d69e28edd4cbe9afee5321a8aa
+      internalID: -1522783587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_64
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 167
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ca4435cd9bd07247a8e47c7233b63f6
+      internalID: -1461756372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_65
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 167
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89aa37bc1fb84524b8fab674f4afd961
+      internalID: 1189940457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_66
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 166
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d34f0d050be55ce40bd9f13df50a9a00
+      internalID: -1420437698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_67
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 169
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ef3aa8132de229469a6c327c6e6be2a
+      internalID: -702409399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_68
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 162
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cfd058089a518743be33b6483c97cc7
+      internalID: 1250570744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_69
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 166
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a31fbb5529546df45b349e06f0d91da7
+      internalID: -1620543778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_70
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 164
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39321bd0569ea40489dd7904c6174c64
+      internalID: 172263974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_71
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 171
+        width: 29
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 320f8600df0ac594a89cec5e48b5eb9b
+      internalID: 1531437084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_72
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 168
+        width: 32
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4a1f1dba8be04949bbf89626ef91c00
+      internalID: 1392005946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_73
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 168
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 356c9507a49bea943992b3b0de42d7d9
+      internalID: -1157967953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_74
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 168
+        width: 29
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd461f0680b6fe24e8c95fcb660d083c
+      internalID: -1847417612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_75
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 166
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 441b17aca1d668745a6b84ab584b37ed
+      internalID: 925673106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_76
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 166
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faf408a5d233e3f49879a6bb22fa57f3
+      internalID: 1979998673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_77
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 166
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e822b8cdf0a6d9449bcf737a62e6a90
+      internalID: -528226421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_78
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 163
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a2da8355d94e03479d0f69a7c349e1c
+      internalID: -2126838507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_79
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 163
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 384fbed2595d59e428b3cd19831eaadf
+      internalID: 1880279760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_80
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 136
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84342628a2866fc47ac901ceee9fb4b9
+      internalID: -312652681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_81
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 135
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f86f4a96dc36df047a37490fe88cf1ab
+      internalID: 471984339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_82
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 136
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a14c596ecec3b154eb285e66f9a35c79
+      internalID: 273916839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_83
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 138
+        width: 21
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f45df104ed9ddf14cbf21cc12e5a0da4
+      internalID: 638401187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_84
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 135
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77a7dbcae413e6948b8a89f76b9e26e3
+      internalID: -398681645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_85
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 135
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22239171fb5999f4cbfeff5297f51249
+      internalID: 750885280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_86
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 134
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 241e547b60511294fb7940ac26ee35df
+      internalID: 1975009813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_87
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 137
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e72f8159a693240448d164c0d4efd883
+      internalID: 884517493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_88
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 130
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 692fac546eeb7b44da6df5df1ce33285
+      internalID: -652663184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_89
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 134
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce792b049d3a7a2479d1fd3255226a73
+      internalID: 87391275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_90
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 132
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ddb118787020d54fb08ba2a76a6a7be
+      internalID: 979354949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_91
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 139
+        width: 29
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 681d6df39e0a4e646af6a2c320657562
+      internalID: 1104721851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_92
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 136
+        width: 32
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b81b471597129af439700c011b1e4e48
+      internalID: 135406904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_93
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 136
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 997023e4ec835cd43af4baba5dbfb703
+      internalID: -809625623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_94
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 136
+        width: 29
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d818ae9e9fd7cf8458f8c20e3489fcb8
+      internalID: 1180085330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_95
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 134
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a35b03cd15f0e2c489b870b7471fa004
+      internalID: 1803722791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_96
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 134
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5b572731dcdc844e83c4cc9862cc398
+      internalID: 728615276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_97
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 134
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f581cbe42850504c85d8139bbe71065
+      internalID: 1105054774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_98
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 131
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1743c1a4141a4cc4b8e6355c6e9cca3e
+      internalID: 1061060989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_99
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 131
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 018211822ca9e17458250411c2037205
+      internalID: -241152241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_100
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 104
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36147f3e9e210a74f9df6cf2af040211
+      internalID: -328457201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_101
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 103
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b178ba0d8c529934090992b337734c62
+      internalID: -355816436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_102
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 104
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb6c0de70e935a54ca9b2d736a1c1bee
+      internalID: -1890930404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_103
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 106
+        width: 21
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ce80362f0aaf7b43a07091ca595b7e0
+      internalID: 122083967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_104
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 103
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6aa0aca63a1f2ba4a85cd6fb0280e859
+      internalID: 1101953959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_105
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 103
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71b3b855adbe6654e99f7dc86dfd1dd4
+      internalID: -328324591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_106
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 102
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf63da0ad48a7d44fab0979f560c6003
+      internalID: 173358687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_107
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 105
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd2dd0a6b75507a4fa118ff34554ed3a
+      internalID: -226391264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_108
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 98
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8edcd8fd41d0c74b9cb57dd61df7e05
+      internalID: 1883764187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_109
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 102
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b11ecd6c80c63114c94fb91947adfdb5
+      internalID: 87544959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_110
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 100
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8008a3ebc2e00d848a30ddb259d7fecd
+      internalID: 1928014009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_111
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 107
+        width: 29
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4c2be2d6558f824b8b2576b4988dc7d
+      internalID: 472674892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_112
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 104
+        width: 32
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb0075ec4d6d989489beea86e4714504
+      internalID: -582706844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_113
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 104
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 570d2a9a43f4f2141a43d142b8275461
+      internalID: 2120224683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_114
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 104
+        width: 29
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64ece85400faf5f459c2a8b5f622a813
+      internalID: 737801128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_115
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 102
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 070b0b22ac322e749a4dd83cf3461234
+      internalID: 1472388960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_116
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 102
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60e1e8ec05c91674c9ebd89a31468946
+      internalID: 427385665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_117
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 102
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 496f79d244b75c94fb3a399dba3cc249
+      internalID: 1174822232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_118
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 99
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aff49fa49d8866f45978d399586e92fa
+      internalID: -2089250889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_119
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 99
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bde607eeba258e84487cf4a99ec9e09b
+      internalID: -1084258999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_120
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 72
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3967280006070a94d8207df0a996d8aa
+      internalID: 1995107316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_121
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 71
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 734becd52e4c4b84284fb7e43c96d1bb
+      internalID: 377499880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_122
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 72
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3ec63214f59ed845a0ca75b859ecd27
+      internalID: 1623876151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_123
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 74
+        width: 21
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ea4644a652544f4591887592b9e5ac7
+      internalID: 1348214951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_124
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 71
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1efdc3d5754b2594b979a30e3338a08e
+      internalID: 598454886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_125
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 71
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98433870edea0624a949b33d06ffc2be
+      internalID: 382374097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_126
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 70
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29d240c61fa623141b9b089c86981abf
+      internalID: -223105922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_127
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 73
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc71d679d2dab647b587183ce9e6af0
+      internalID: -977578691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_128
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 66
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d95be280b2aabe44b851c36842abb38
+      internalID: 1708469513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_129
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 70
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7d8d3bfdb758424cbc5b2249140617f
+      internalID: -1059755938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_130
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 68
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a51bac37189ee754cb60242966d6407e
+      internalID: -1408386135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_131
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 75
+        width: 29
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f903e9b5aeb302346a81791abd773a98
+      internalID: -2052884612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_132
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 72
+        width: 32
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 372ace8dd29f59f44907a6166616d956
+      internalID: -301775352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_133
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 72
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7758b812e863214c9bca0382bbfd82b
+      internalID: 1123149395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_134
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 72
+        width: 29
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10b754c5bb39d634ba416bbbe8dc9a09
+      internalID: 1611557663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_135
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 70
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 379d6d2d9041f164d976d9bfbb08366c
+      internalID: -1362870108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_136
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 70
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2441307b081660f419327430a76b4892
+      internalID: -1594059939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_137
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 70
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84668fe47adf841468f7188bc9bf274a
+      internalID: -2132680163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_138
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 67
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0635ac630e64ebe4895cd9565c36d6e1
+      internalID: 141788285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_139
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 67
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34124664460507a43be6467aa83c90c8
+      internalID: -279854834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_140
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 40
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 215cc6f39125b894396ac22abaf0aca4
+      internalID: -46129441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_141
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 39
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbf56d4eea8a52744821977c1b6afc9d
+      internalID: 633731378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_142
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 40
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4ff5883bd95fe64ca78403631ffa84f
+      internalID: 1381959895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_143
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 42
+        width: 21
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60d7da7fc33a66449a9b003c082ecfba
+      internalID: 98660103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_144
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 39
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9b74fbf487308e4c92a405cc2c40d0c
+      internalID: -1453895178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_145
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 39
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0af10e4ce23232e498f0cc2cfe10c46c
+      internalID: -1784919460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_146
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 38
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3bfe10415a873c409659667e3616edd
+      internalID: -1926340900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_147
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 41
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bc32b1a590bf924eb4e5f87ba934a08
+      internalID: -1265728072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_148
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 34
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a3fd842a5e17ac4e964cb71198ff89e
+      internalID: -1917460632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_149
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 38
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d3113bdf9c6d0a4ca86c105076cb29e
+      internalID: -765426780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_150
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 36
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a9c6f6641782224c8cfa4a8cbf591f4
+      internalID: 1857796014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_151
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 43
+        width: 29
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e8f70a7136c20f48bb240c3186d47c6
+      internalID: -1656774907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_152
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 40
+        width: 32
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 615ee224388a69941aa2805a943f70f9
+      internalID: 1810826673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_153
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 40
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65a4330fac8bdbc40b5ddcd9256e9318
+      internalID: -669704202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_154
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 40
+        width: 29
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 615f3009158430f46873b574ea16d3f2
+      internalID: -2026455953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_155
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 38
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eada8ab4110cfb44c97d7106b623a715
+      internalID: -1542850128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_156
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 38
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dba6b348f714ea94ea21663fc01ff07a
+      internalID: -1009672820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_157
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 38
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db9566a73a79ad744ac4b7178017f541
+      internalID: 1691078102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_158
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 35
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0348a12dbaed5245b039b957dc00bdb
+      internalID: -1035619985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_159
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 35
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4beaf2ab92dc9940a4ace0af948fdf6
+      internalID: 1362201952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_160
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 8
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3d8a78154aadc941a136cb181be8d02
+      internalID: 1843674358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_161
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 7
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2f4a2cbb8830794b998e1d3fd2367eb
+      internalID: -1827653912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_162
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 8
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd52c4e101a37bb44a2a7575cd530a97
+      internalID: -637861957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_163
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 10
+        width: 21
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7124e12649f4b0a4287d92e8f1990a74
+      internalID: 1470811874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_164
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 7
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50b90eded6aec3e4387197154b27ea64
+      internalID: 1367419911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_165
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 7
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa84c1b2a2fef0749a869a2c914a6803
+      internalID: 1489056468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_166
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 6
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3519ef34b268aaa42a2d9368bae8e881
+      internalID: -420193187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_167
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 9
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 782ecbc92dd47f540b7512e71609d3dd
+      internalID: -56872224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_168
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 2
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b7d705fdca8233448308aac87578194
+      internalID: 476622287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_169
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 6
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24079943ed4e61f4fb109ce8f05eec9e
+      internalID: -1174578944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_170
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 4
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0ad843ada06d73439b436243ac0b0d6
+      internalID: 2034406872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_171
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 11
+        width: 29
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a72ff5671188849468ee383cc5d0b0df
+      internalID: -1535845615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_172
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 8
+        width: 32
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1523c3b053484dd43a0d3be2de99f2a1
+      internalID: -231925694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_173
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 8
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 020f94972eb4a904a8c5f1dc872716a2
+      internalID: 1342469352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_174
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 8
+        width: 29
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fd0a89d4ac451344811c0ae2f7c8bd3
+      internalID: -1866798696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_175
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 6
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ad0b143a0dc6964eb8e5a0be3932d7f
+      internalID: 15104978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_176
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 6
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2564a1407224ec6439240104d9b61984
+      internalID: -1713956113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_177
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 6
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c9978d5e8b261f40a449036927df138
+      internalID: 109506883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_178
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 3
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bc7b0731a83db64fb5e57702e4defb9
+      internalID: -1319957055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock 32x32 Part 2_179
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 3
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32f7ba7cc36524d4a83461fbfab1652e
+      internalID: -950106210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Rock 32x32 Part 2_0: -1698555353
+      Rock 32x32 Part 2_1: -20651652
+      Rock 32x32 Part 2_10: -2041086712
+      Rock 32x32 Part 2_100: -328457201
+      Rock 32x32 Part 2_101: -355816436
+      Rock 32x32 Part 2_102: -1890930404
+      Rock 32x32 Part 2_103: 122083967
+      Rock 32x32 Part 2_104: 1101953959
+      Rock 32x32 Part 2_105: -328324591
+      Rock 32x32 Part 2_106: 173358687
+      Rock 32x32 Part 2_107: -226391264
+      Rock 32x32 Part 2_108: 1883764187
+      Rock 32x32 Part 2_109: 87544959
+      Rock 32x32 Part 2_11: 1014534145
+      Rock 32x32 Part 2_110: 1928014009
+      Rock 32x32 Part 2_111: 472674892
+      Rock 32x32 Part 2_112: -582706844
+      Rock 32x32 Part 2_113: 2120224683
+      Rock 32x32 Part 2_114: 737801128
+      Rock 32x32 Part 2_115: 1472388960
+      Rock 32x32 Part 2_116: 427385665
+      Rock 32x32 Part 2_117: 1174822232
+      Rock 32x32 Part 2_118: -2089250889
+      Rock 32x32 Part 2_119: -1084258999
+      Rock 32x32 Part 2_12: -2115870815
+      Rock 32x32 Part 2_120: 1995107316
+      Rock 32x32 Part 2_121: 377499880
+      Rock 32x32 Part 2_122: 1623876151
+      Rock 32x32 Part 2_123: 1348214951
+      Rock 32x32 Part 2_124: 598454886
+      Rock 32x32 Part 2_125: 382374097
+      Rock 32x32 Part 2_126: -223105922
+      Rock 32x32 Part 2_127: -977578691
+      Rock 32x32 Part 2_128: 1708469513
+      Rock 32x32 Part 2_129: -1059755938
+      Rock 32x32 Part 2_13: 278802222
+      Rock 32x32 Part 2_130: -1408386135
+      Rock 32x32 Part 2_131: -2052884612
+      Rock 32x32 Part 2_132: -301775352
+      Rock 32x32 Part 2_133: 1123149395
+      Rock 32x32 Part 2_134: 1611557663
+      Rock 32x32 Part 2_135: -1362870108
+      Rock 32x32 Part 2_136: -1594059939
+      Rock 32x32 Part 2_137: -2132680163
+      Rock 32x32 Part 2_138: 141788285
+      Rock 32x32 Part 2_139: -279854834
+      Rock 32x32 Part 2_14: 1622371958
+      Rock 32x32 Part 2_140: -46129441
+      Rock 32x32 Part 2_141: 633731378
+      Rock 32x32 Part 2_142: 1381959895
+      Rock 32x32 Part 2_143: 98660103
+      Rock 32x32 Part 2_144: -1453895178
+      Rock 32x32 Part 2_145: -1784919460
+      Rock 32x32 Part 2_146: -1926340900
+      Rock 32x32 Part 2_147: -1265728072
+      Rock 32x32 Part 2_148: -1917460632
+      Rock 32x32 Part 2_149: -765426780
+      Rock 32x32 Part 2_15: -2000313467
+      Rock 32x32 Part 2_150: 1857796014
+      Rock 32x32 Part 2_151: -1656774907
+      Rock 32x32 Part 2_152: 1810826673
+      Rock 32x32 Part 2_153: -669704202
+      Rock 32x32 Part 2_154: -2026455953
+      Rock 32x32 Part 2_155: -1542850128
+      Rock 32x32 Part 2_156: -1009672820
+      Rock 32x32 Part 2_157: 1691078102
+      Rock 32x32 Part 2_158: -1035619985
+      Rock 32x32 Part 2_159: 1362201952
+      Rock 32x32 Part 2_16: 975296896
+      Rock 32x32 Part 2_160: 1843674358
+      Rock 32x32 Part 2_161: -1827653912
+      Rock 32x32 Part 2_162: -637861957
+      Rock 32x32 Part 2_163: 1470811874
+      Rock 32x32 Part 2_164: 1367419911
+      Rock 32x32 Part 2_165: 1489056468
+      Rock 32x32 Part 2_166: -420193187
+      Rock 32x32 Part 2_167: -56872224
+      Rock 32x32 Part 2_168: 476622287
+      Rock 32x32 Part 2_169: -1174578944
+      Rock 32x32 Part 2_17: 1334812616
+      Rock 32x32 Part 2_170: 2034406872
+      Rock 32x32 Part 2_171: -1535845615
+      Rock 32x32 Part 2_172: -231925694
+      Rock 32x32 Part 2_173: 1342469352
+      Rock 32x32 Part 2_174: -1866798696
+      Rock 32x32 Part 2_175: 15104978
+      Rock 32x32 Part 2_176: -1713956113
+      Rock 32x32 Part 2_177: 109506883
+      Rock 32x32 Part 2_178: -1319957055
+      Rock 32x32 Part 2_179: -950106210
+      Rock 32x32 Part 2_18: 1344145593
+      Rock 32x32 Part 2_19: 262044492
+      Rock 32x32 Part 2_2: 1003108563
+      Rock 32x32 Part 2_20: -967703641
+      Rock 32x32 Part 2_21: 505793410
+      Rock 32x32 Part 2_22: 1023631398
+      Rock 32x32 Part 2_23: 1070632978
+      Rock 32x32 Part 2_24: 123963239
+      Rock 32x32 Part 2_25: 894071032
+      Rock 32x32 Part 2_26: 956562544
+      Rock 32x32 Part 2_27: 1810953955
+      Rock 32x32 Part 2_28: -767702000
+      Rock 32x32 Part 2_29: 955278695
+      Rock 32x32 Part 2_3: 1563868082
+      Rock 32x32 Part 2_30: 1089325747
+      Rock 32x32 Part 2_31: 163969384
+      Rock 32x32 Part 2_32: 1691458154
+      Rock 32x32 Part 2_33: 159625320
+      Rock 32x32 Part 2_34: -1798940799
+      Rock 32x32 Part 2_35: 532799231
+      Rock 32x32 Part 2_36: -2113232522
+      Rock 32x32 Part 2_37: -102874363
+      Rock 32x32 Part 2_38: -1741300337
+      Rock 32x32 Part 2_39: 1348053393
+      Rock 32x32 Part 2_4: -1969754653
+      Rock 32x32 Part 2_40: -1985899465
+      Rock 32x32 Part 2_41: 236747528
+      Rock 32x32 Part 2_42: 1677141718
+      Rock 32x32 Part 2_43: 1480798925
+      Rock 32x32 Part 2_44: -1607460303
+      Rock 32x32 Part 2_45: -685716566
+      Rock 32x32 Part 2_46: -105092208
+      Rock 32x32 Part 2_47: -1247587585
+      Rock 32x32 Part 2_48: 131762450
+      Rock 32x32 Part 2_49: 1843771706
+      Rock 32x32 Part 2_5: 2001187769
+      Rock 32x32 Part 2_50: -1099736753
+      Rock 32x32 Part 2_51: 1325747145
+      Rock 32x32 Part 2_52: -779085906
+      Rock 32x32 Part 2_53: -1503570196
+      Rock 32x32 Part 2_54: 374499925
+      Rock 32x32 Part 2_55: -1865469257
+      Rock 32x32 Part 2_56: 1666242299
+      Rock 32x32 Part 2_57: 1304019245
+      Rock 32x32 Part 2_58: 1494305817
+      Rock 32x32 Part 2_59: 1516223091
+      Rock 32x32 Part 2_6: 21947926
+      Rock 32x32 Part 2_60: 946760183
+      Rock 32x32 Part 2_61: 663854819
+      Rock 32x32 Part 2_62: -132316552
+      Rock 32x32 Part 2_63: -1522783587
+      Rock 32x32 Part 2_64: -1461756372
+      Rock 32x32 Part 2_65: 1189940457
+      Rock 32x32 Part 2_66: -1420437698
+      Rock 32x32 Part 2_67: -702409399
+      Rock 32x32 Part 2_68: 1250570744
+      Rock 32x32 Part 2_69: -1620543778
+      Rock 32x32 Part 2_7: 609738335
+      Rock 32x32 Part 2_70: 172263974
+      Rock 32x32 Part 2_71: 1531437084
+      Rock 32x32 Part 2_72: 1392005946
+      Rock 32x32 Part 2_73: -1157967953
+      Rock 32x32 Part 2_74: -1847417612
+      Rock 32x32 Part 2_75: 925673106
+      Rock 32x32 Part 2_76: 1979998673
+      Rock 32x32 Part 2_77: -528226421
+      Rock 32x32 Part 2_78: -2126838507
+      Rock 32x32 Part 2_79: 1880279760
+      Rock 32x32 Part 2_8: -1703154459
+      Rock 32x32 Part 2_80: -312652681
+      Rock 32x32 Part 2_81: 471984339
+      Rock 32x32 Part 2_82: 273916839
+      Rock 32x32 Part 2_83: 638401187
+      Rock 32x32 Part 2_84: -398681645
+      Rock 32x32 Part 2_85: 750885280
+      Rock 32x32 Part 2_86: 1975009813
+      Rock 32x32 Part 2_87: 884517493
+      Rock 32x32 Part 2_88: -652663184
+      Rock 32x32 Part 2_89: 87391275
+      Rock 32x32 Part 2_9: -504219890
+      Rock 32x32 Part 2_90: 979354949
+      Rock 32x32 Part 2_91: 1104721851
+      Rock 32x32 Part 2_92: 135406904
+      Rock 32x32 Part 2_93: -809625623
+      Rock 32x32 Part 2_94: 1180085330
+      Rock 32x32 Part 2_95: 1803722791
+      Rock 32x32 Part 2_96: 728615276
+      Rock 32x32 Part 2_97: 1105054774
+      Rock 32x32 Part 2_98: 1061060989
+      Rock 32x32 Part 2_99: -241152241
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
