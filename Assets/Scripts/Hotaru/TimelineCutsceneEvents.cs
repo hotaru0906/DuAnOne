@@ -14,21 +14,84 @@ public class TimelineCutsceneEvents : MonoBehaviour
     }
     public List<DialogueBlock> dialogues;
     public List<CinemachineVirtualCamera> cameras;
-    public GameObject player;
-    public GameObject statusUI; // UI trạng thái
+    public GameObject player, boss;
+    public GameObject statusUI;
+    public GameObject UIGameObject;
+    public GameObject box1, box2;
     public PlayableDirector timeline;
+
+    public List<GameObject> npcs; // Danh sách các NPC cần bật
 
     private int currentIndex = 0;
     private bool waitingForStatus = false;
 
     public void DisablePlayerControl()
     {
-        player.GetComponent<TestPlayer>().enabled = false;
+        // Disable the Player script
+        player.GetComponent<Player>().enabled = false;
+
+        // Stop the player's movement
+        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+        // Set the player's animation to Idle
+        Animator animator = player.GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.Play("Idle");
+        }
+
+        // Stop the player's movement sound
+        Player playerScript = player.GetComponent<Player>();
+        if (playerScript != null)
+        {
+            playerScript.StopMoveSound();
+        }
     }
 
     public void EnablePlayerControl()
     {
-        player.GetComponent<TestPlayer>().enabled = true;
+        //player.GetComponent<TestPlayer>().enabled = true;
+        player.GetComponent<Player>().enabled = true;
+    }
+    public void EnableNPCControl()
+    {
+        foreach (GameObject npc in npcs)
+        {
+            if (npc != null)
+            {
+                NPC npcScript = npc.GetComponent<NPC>();
+                if (npcScript != null)
+                {
+                    npcScript.SetCanMove(true);
+                }
+            }
+        }
+    }
+    public void DisableUI()
+    {
+        if (statusUI != null)
+        {
+            statusUI.SetActive(false);
+        }
+        if (UIGameObject != null)
+        {
+            UIGameObject.SetActive(false);
+        }
+    }
+    public void EnableUI()
+    {
+        if (statusUI != null)
+        {
+            statusUI.SetActive(true);
+        }
+        if (UIGameObject != null)
+        {
+            UIGameObject.SetActive(true);
+        }
     }
 
     public void PlayNextDialogue()
@@ -95,5 +158,36 @@ public class TimelineCutsceneEvents : MonoBehaviour
             DialogueManager.Instance.CloseDialogueBox();
         }
     }
-    
+    public void BattleHitbox()
+    {
+        if (box1 != null)
+        {
+            box1.SetActive(true);
+        }
+        if (box2 != null)
+        {
+            box2.SetActive(true);
+        }
+    }
+    public void BossActive()
+    {
+        boss.GetComponent<Boss2>().enabled = true;
+    }
+
+    public void ChangeBGM(AudioClip newBGM)
+    {
+        if (BGMController.Instance != null && BGMController.Instance.bgmSource != null)
+        {
+            // Stop the current BGM
+            BGMController.Instance.bgmSource.Stop();
+
+            // Set and play the new BGM
+            BGMController.Instance.bgmSource.clip = newBGM;
+            BGMController.Instance.bgmSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("BGMController or its AudioSource is not set up correctly.");
+        }
+    }
 }

@@ -55,6 +55,9 @@ public class NPC : MonoBehaviour
     private bool isMoving = false;
 
 
+    [Header("Direction Settings")]
+    public bool moveRight = true; // Determines movement direction
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -111,23 +114,37 @@ public class NPC : MonoBehaviour
 
     void HandleMovement()
     {
+        if (canRun)
+        {
+            // Nếu đang chạy, chỉ di chuyển theo một hướng cố định
+            Vector2 moveDirection = moveRight ? Vector2.right : Vector2.left;
+            rb.velocity = new Vector2(moveDirection.x * runSpeed, rb.velocity.y);
+
+            if (!isMoving)
+            {
+                SetMovementAnimation(true); // Bật animation chạy
+                isMoving = true;
+            }
+            return; // Không thực hiện các logic khác khi đang chạy
+        }
+
         patrolFlipTimer -= Time.deltaTime;
 
         if (patrolFlipTimer <= 0f)
         {
-            movingRight = !movingRight; // Đổi hướng di chuyển
+            moveRight = !moveRight; // Toggle movement direction
             FlipSprite();
             patrolFlipInterval = Random.Range(3f, 5f);
             patrolFlipTimer = patrolFlipInterval;
         }
 
-        // Di chuyển theo hướng hiện tại
-        Vector2 moveDirection = movingRight ? Vector2.right : Vector2.left;
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
+        // Move based on direction
+        Vector2 patrolDirection = moveRight ? Vector2.right : Vector2.left;
+        rb.velocity = new Vector2(patrolDirection.x * moveSpeed, rb.velocity.y);
 
         if (!isMoving)
         {
-            SetMovementAnimation(true); // Bật animation di chuyển
+            SetMovementAnimation(true); // Enable movement animation
             isMoving = true;
         }
     }
@@ -139,6 +156,8 @@ public class NPC : MonoBehaviour
 
     void FlipSprite()
     {
+        movingRight = moveRight; // Update movingRight based on moveRight
+
         if (!invertFlip)
         {
             if (movingRight && transform.localScale.x < 0)
@@ -172,18 +191,21 @@ public class NPC : MonoBehaviour
     {
         string stateName;
 
-        if (!isMoving || !canWalk)
+        if (!isMoving)
         {
-            // If not moving or canWalk is false, use idle animation
-            stateName = idleAnimationName;
+            stateName = idleAnimationName; // Use idle animation when not moving
         }
         else if (canRun)
         {
-            stateName = runAnimationName;
+            stateName = runAnimationName; // Use run animation when canRun is true
+        }
+        else if (canWalk)
+        {
+            stateName = walkAnimationName; // Use walk animation when canWalk is true
         }
         else
         {
-            stateName = walkAnimationName;
+            stateName = idleAnimationName; // Default to idle animation
         }
 
         if (bodyAni != null)
@@ -222,15 +244,14 @@ public class NPC : MonoBehaviour
     public void SetCanRun(bool canRunState)
     {
         canRun = canRunState;
-        if (canMove)
+        if (canRun)
+        {
+            StartCoroutine(RunAndDestroy());
+        }
+        else if (canMove)
         {
             SetMovementAnimation(true);
-
-            if (canRun)
-            {
-                nextDirectionChangeTime = Time.time;
-            }
-            else
+            if (!canRun) // Chỉ gọi SetNextDirectionChangeTime khi không chạy
             {
                 SetNextDirectionChangeTime();
             }
@@ -273,6 +294,13 @@ public class NPC : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false; // Reset grounded state when leaving ground
+        }
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("DeadEnd"))
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -385,5 +413,28 @@ public class NPC : MonoBehaviour
                 PerformJump();
             }
         }
+    }
+
+    private IEnumerator RunAndDestroy()
+    {
+        float runDuration = 10f; // Duration to run before destroying
+        float elapsedTime = 0f;
+
+        while (elapsedTime < runDuration)
+        {
+            Vector2 moveDirection = Vector2.left; // Always run to the left
+            rb.velocity = new Vector2(moveDirection.x * runSpeed, rb.velocity.y); // Use runSpeed for running
+
+            // Play running animation
+            if (canRun)
+            {
+                SetMovementAnimation(true);
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(gameObject); // Destroy the NPC after running for 10 seconds
     }
 }

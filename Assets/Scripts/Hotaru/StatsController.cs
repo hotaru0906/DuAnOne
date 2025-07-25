@@ -37,6 +37,15 @@ public class StatsController : MonoBehaviour
         UpdateUI(); // Initialize UI with current values
     }
 
+    void Update()
+    {
+        if (player != null)
+        {
+            points = player.statPoints; // Synchronize points with Player's statPoints
+            UpdateUI(); // Update the UI to reflect the current points
+        }
+    }
+
     public void AddPointToStat(string stat)
     {
         if (points <= 0)
