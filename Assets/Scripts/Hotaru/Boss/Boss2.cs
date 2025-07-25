@@ -433,6 +433,7 @@ public class Boss2 : MonoBehaviour
 
         // Chạy animation death
         PlayDeathAnimation();
+
         if (player != null)
         {
             Player playerScript = player.GetComponent<Player>();

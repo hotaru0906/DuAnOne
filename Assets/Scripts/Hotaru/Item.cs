@@ -20,7 +20,7 @@ public class Item : MonoBehaviour
             {
                 Physics2D.IgnoreCollision(enemyCollider, playerCollider);
             }
-        } 
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)

@@ -68,6 +68,9 @@ public class Player : MonoBehaviour
     public Slider manaSlider;
     public Slider expSlider;
 
+    [Header("UI Text References")]
+    public TMPro.TMP_Text levelText; // Reference to the UI text for displaying the player's level
+
     [Header("Mana Settings")]
     public int MaxMana = 100;
     public int Mana = 100;
@@ -78,6 +81,11 @@ public class Player : MonoBehaviour
     public int currentExp = 0;
     public int expToNextLevel = 20;
     public int statPoints = 0; // Points available for stat allocation
+
+    [Header("Skill Availability Flags")]
+    public bool canUseSkill1 = true;
+    public bool canUseSkill2 = true;
+    public bool canShootBullet = true;
 
     // Private State Variables
     private int comboStep = 0;
@@ -93,6 +101,7 @@ public class Player : MonoBehaviour
     public bool isInvincible = false; // Flag for invincibility
     private Collider2D playerCollider;
     private bool isInventoryOpen = false;
+    private bool isPerformingAction = false; // Biến để kiểm tra nếu Player đang thực hiện hành động
 
     // ==================== UNITY LIFECYCLE ====================
     void Start()
@@ -135,14 +144,17 @@ public class Player : MonoBehaviour
 
         // Start mana regeneration coroutine
         StartCoroutine(RegenerateMana());
+
+        UpdateLevelUI(); // Initialize the level display on the UI
     }
 
     void Update()
     {
-        if (isDeath || isHit)
+        if (isDeath || isHit || isPerformingAction)
         {
-            return; // Không xử lý nếu đang chết hoặc bị đánh
+            return; // Không xử lý nếu đang chết, bị đánh, hoặc đang thực hiện hành động
         }
+
         if (comboTimer > 0)
         {
             comboTimer -= Time.deltaTime;
@@ -156,6 +168,27 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             ToggleInventory();
+        }
+
+        // Health recovery (Key 1)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isPerformingAction)
+        {
+            StartCoroutine(PerformAction("Health", RecoverHealth));
+        }
+
+        // Mana recovery (Key 2)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isPerformingAction)
+        {
+            StartCoroutine(PerformAction("Mana", RecoverMana));
+        }
+
+        // Recall (Key 3)
+        if (Input.GetKeyDown(KeyCode.Alpha3) && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            StartCoroutine(PerformAction("Recall", () =>
+            {
+                Debug.Log("Player is recalling.");
+            }));
         }
 
         // Movement control
@@ -346,7 +379,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void StopMoveSound()
+    public void StopMoveSound()
     {
         if (audioSource != null && isPlayingMoveSound)
         {
@@ -399,6 +432,7 @@ public class Player : MonoBehaviour
     public void Die()
     {
         isDeath = true;
+        StopMoveSound();
         if (animator != null)
         {
             animator.Play("Die");
@@ -581,7 +615,7 @@ public class Player : MonoBehaviour
     // ==================== SKILL SYSTEM ====================
     private void Skill1()
     {
-        if (Input.GetKeyDown(KeyCode.K) && !isSkill1 && !isGrounded && !isAttacking && Mana >= 50)
+        if (Input.GetKeyDown(KeyCode.K) && canUseSkill1 && !isSkill1 && !isGrounded && !isAttacking && Mana >= 50)
         {
             Mana -= 50;
             if (manaSlider != null)
@@ -611,7 +645,7 @@ public class Player : MonoBehaviour
 
     private void Skill2()
     {
-        if (Input.GetKeyDown(KeyCode.L) && !isSkill1 && !isSkill2 && !isAttacking && isGrounded && Mana >= 25)
+        if (Input.GetKeyDown(KeyCode.L) && canUseSkill2 && !isSkill1 && !isSkill2 && !isAttacking && isGrounded && Mana >= 25)
         {
             Mana -= 25;
             if (manaSlider != null)
@@ -700,6 +734,7 @@ public class Player : MonoBehaviour
 
     public void SpawnBulletForAttack4()
     {
+        if (!canShootBullet) return;
         if (canSpawnBullet && skill3BulletPrefab != null)
         {
             GameObject bullet = Instantiate(skill3BulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
@@ -759,7 +794,15 @@ public class Player : MonoBehaviour
         // Update exp slider dynamically
         if (expSlider != null)
         {
-            expSlider.value = currentExp;
+            expSlider.value = (float)currentExp / expToNextLevel * expSlider.maxValue;
+        }
+    }
+
+    private void UpdateLevelUI()
+    {
+        if (levelText != null)
+        {
+            levelText.text = $"Level: {level}";
         }
     }
 
@@ -768,7 +811,12 @@ public class Player : MonoBehaviour
         currentExp -= expToNextLevel;
         level++;
         expToNextLevel += 20; // Increase EXP required for the next level
+
         statPoints += 3; // Award 3 stat points
+        if (statsController != null)
+        {
+            statsController.points = statPoints; // Synchronize with StatsController
+        }
 
         Debug.Log($"Leveled up to Level {level}! Stat points available: {statPoints}");
 
@@ -778,5 +826,104 @@ public class Player : MonoBehaviour
             expSlider.maxValue = expToNextLevel;
             expSlider.value = currentExp;
         }
+
+        UpdateLevelUI(); // Update the level on the UI
+
+        // Update points UI if available
+        if (levelText != null)
+        {
+            levelText.text = $"Level: {level}";
+        }
+
+        if (manaSlider != null)
+        {
+            manaSlider.value = Mana;
+        }
+    }
+
+    public void UseStatPoint(string stat)
+    {
+        if (statPoints <= 0)
+        {
+            Debug.Log("No stat points available to allocate.");
+            return;
+        }
+
+        switch (stat)
+        {
+            case "str":
+                str++;
+                break;
+            case "vit":
+                vit++;
+                MaxHealth += 10; // Example: Increase max health by 10 per vitality point
+                Health = Mathf.Min(Health, MaxHealth); // Ensure current health doesn't exceed max health
+                break;
+            case "spd":
+                spd++;
+                Run += 0.5f; // Example: Increase run speed by 0.5 per speed point
+                break;
+            case "int":
+                intStat++;
+                MaxMana += 5; // Example: Increase max mana by 5 per intelligence point
+                Mana = Mathf.Min(Mana, MaxMana); // Ensure current mana doesn't exceed max mana
+                break;
+            case "crt":
+                crt++;
+                break;
+            default:
+                Debug.LogError("Invalid stat name: " + stat);
+                return;
+        }
+
+        statPoints--;
+        if (statsController != null)
+        {
+            statsController.points = statPoints; // Synchronize with StatsController
+        }
+
+        Debug.Log($"Allocated 1 point to {stat}. Remaining points: {statPoints}");
+    }
+
+    // ==================== NEW STATS CONTROLLER REFERENCE ====================
+    [Header("Stats Controller Reference")]
+    public StatsController statsController; // Reference to StatsController
+
+    private IEnumerator PerformAction(string animationName, System.Action action)
+    {
+        isPerformingAction = true;
+        rb.velocity = Vector2.zero; // Stop movement
+
+        if (animator != null && animator.HasState(0, Animator.StringToHash(animationName)))
+        {
+            animator.Play(animationName);
+        }
+
+        action?.Invoke(); // Perform the action (e.g., heal, recover mana, etc.)
+
+        // Wait until the animation ends
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        isPerformingAction = false;
+    }
+
+    public void RecoverHealth()
+    {
+        Health = Mathf.Min(Health + Mathf.CeilToInt(MaxHealth * 0.25f), MaxHealth);
+        if (healthSlider != null)
+        {
+            healthSlider.value = Health;
+        }
+        Debug.Log("Player recovered 25% health.");
+    }
+
+    public void RecoverMana()
+    {
+        Mana = Mathf.Min(Mana + Mathf.CeilToInt(MaxMana * 0.25f), MaxMana);
+        if (manaSlider != null)
+        {
+            manaSlider.value = Mana;
+        }
+        Debug.Log("Player recovered 25% mana.");
     }
 }
