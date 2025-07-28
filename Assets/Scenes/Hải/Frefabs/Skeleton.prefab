@@ -268,9 +268,9 @@ MonoBehaviour:
   canMove: 1
   attackCooldown: 1
   attackAnimationDuration: 0.9
-  damage: 10
+  damage: 15
   hitbox: {fileID: 9059033113771914996}
-  maxHealth: 50
+  maxHealth: 75
   currentHealth: 0
   isDead: 0
   walkAnimationName: Skeleton_Run
@@ -292,6 +292,7 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 11e61afd1e983f5488fdb1854ad686c5, type: 3}
   attackSound: {fileID: 8300000, guid: cc4e713456d5c894aa22115967e1efe3, type: 3}
   audioSource: {fileID: 2486273976453663618}
+  exp: 15
 --- !u!82 &2486273976453663618
 AudioSource:
   m_ObjectHideFlags: 0

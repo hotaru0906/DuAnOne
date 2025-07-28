@@ -116,5 +116,13 @@ public class BGMController : MonoBehaviour
             }
         }
     }
+
+    public void UpdateVolume(float volume)
+    {
+        if (bgmSource != null)
+        {
+            bgmSource.volume = Mathf.Clamp(volume, 0f, 1f); // Apply volume directly to AudioSource
+        }
+    }
 }
 
