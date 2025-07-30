@@ -87,6 +87,19 @@ public class Player : MonoBehaviour
     public bool canUseSkill2 = true;
     public bool canShootBullet = true;
 
+    [Header("Currency Settings")]
+    public int gold = 0; // Player's gold amount
+
+    [Header("Potion Settings")]
+    public int healthPotionCount = 0; // Number of health potions
+    public int manaPotionCount = 0; // Number of mana potions
+    public int teleportPotionCount = 0; // Number of teleport potions
+
+    [Header("Potion UI References")]
+    public TMPro.TMP_Text healthPotionText;
+    public TMPro.TMP_Text manaPotionText;
+    public TMPro.TMP_Text teleportPotionText;
+
     // Private State Variables
     private int comboStep = 0;
     private float dashTime;
@@ -146,6 +159,7 @@ public class Player : MonoBehaviour
         StartCoroutine(RegenerateMana());
 
         UpdateLevelUI(); // Initialize the level display on the UI
+        UpdatePotionUI(); // Initialize the potion display on the UI
     }
 
     void Update()
@@ -171,24 +185,21 @@ public class Player : MonoBehaviour
         }
 
         // Health recovery (Key 1)
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isPerformingAction)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && healthPotionCount > 0 && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isPerformingAction)
         {
             StartCoroutine(PerformAction("Health", RecoverHealth));
         }
 
         // Mana recovery (Key 2)
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isPerformingAction)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && manaPotionCount > 0 && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isPerformingAction)
         {
             StartCoroutine(PerformAction("Mana", RecoverMana));
         }
 
         // Recall (Key 3)
-        if (Input.GetKeyDown(KeyCode.Alpha3) && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if (Input.GetKeyDown(KeyCode.Alpha3) && teleportPotionCount > 0 && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isPerformingAction)
         {
-            StartCoroutine(PerformAction("Recall", () =>
-            {
-                Debug.Log("Player is recalling.");
-            }));
+            StartCoroutine(PerformAction("Recall", Recall));
         }
 
         // Movement control
@@ -910,6 +921,8 @@ public class Player : MonoBehaviour
     public void RecoverHealth()
     {
         Health = Mathf.Min(Health + Mathf.CeilToInt(MaxHealth * 0.25f), MaxHealth);
+        healthPotionCount--;
+        UpdatePotionUI(); // Update UI after using a potion
         if (healthSlider != null)
         {
             healthSlider.value = Health;
@@ -921,9 +934,31 @@ public class Player : MonoBehaviour
     {
         Mana = Mathf.Min(Mana + Mathf.CeilToInt(MaxMana * 0.25f), MaxMana);
         if (manaSlider != null)
+        manaPotionCount--;
+        UpdatePotionUI(); // Update UI after using a potion
         {
             manaSlider.value = Mana;
         }
         Debug.Log("Player recovered 25% mana.");
+    }
+
+    public void Recall()
+    {
+        teleportPotionCount--;
+        UpdatePotionUI(); // Update UI after using a potion
+        Debug.Log("Player recalled to the last checkpoint.");
+        // Implement recall logic here (e.g., teleport to a specific position)
+    }
+
+    public void UpdatePotionUI()
+    {
+        if (healthPotionText != null)
+            healthPotionText.text = healthPotionCount.ToString();
+
+        if (manaPotionText != null)
+            manaPotionText.text = manaPotionCount.ToString();
+
+        if (teleportPotionText != null)
+            teleportPotionText.text = teleportPotionCount.ToString();
     }
 }

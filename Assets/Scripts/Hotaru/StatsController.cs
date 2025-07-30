@@ -21,6 +21,10 @@ public class StatsController : MonoBehaviour
     public TMP_Text spdText; // UI Text to display Speed value
     public TMP_Text intText; // UI Text to display Intelligence value
     public TMP_Text crtText; // UI Text to display Critical Rate value
+    public TMP_Text healthText; // UI Text to display Health value
+    public TMP_Text manaText; // UI Text to display Mana value
+    public TMP_Text expText; // UI Text to display Experience value
+    public TMP_Text goldText; // UI Text to display Gold value
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +46,20 @@ public class StatsController : MonoBehaviour
         if (player != null)
         {
             points = player.statPoints; // Synchronize points with Player's statPoints
+
+            // Update health, mana, exp, and gold values
+            if (healthText != null)
+                healthText.text = $"{player.Health}/{player.MaxHealth}";
+
+            if (manaText != null)
+                manaText.text = $"{player.Mana}/{player.MaxMana}";
+
+            if (expText != null)
+                expText.text = $"{player.currentExp}/{player.expToNextLevel}";
+
+            if (goldText != null)
+                goldText.text = $"{player.gold}";
+
             UpdateUI(); // Update the UI to reflect the current points
         }
     }
@@ -104,5 +122,19 @@ public class StatsController : MonoBehaviour
 
         if (crtText != null)
             crtText.text = "CRT: " + crt;
+    }
+
+    public void SyncStatsFromPlayer()
+    {
+        if (player != null)
+        {
+            str = player.str;
+            vit = player.vit;
+            spd = player.spd;
+            intStat = player.intStat;
+            crt = player.crt;
+            points = player.statPoints;
+            UpdateUI(); // Update the UI to reflect the synced stats
+        }
     }
 }

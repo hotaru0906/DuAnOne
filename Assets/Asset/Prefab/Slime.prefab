@@ -278,6 +278,8 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: c7e86a2627c386d49a2db38448661d18, type: 3}
   attackSound: {fileID: 8300000, guid: ff916f4a7616e6a44a46bc1e23744afb, type: 3}
   audioSource: {fileID: 8612041901623788843}
+  exp: 10
+  amount: 1
 --- !u!114 &637012073218292760
 MonoBehaviour:
   m_ObjectHideFlags: 0
