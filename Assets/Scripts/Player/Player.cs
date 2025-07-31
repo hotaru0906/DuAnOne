@@ -154,6 +154,32 @@ public class Player : MonoBehaviour
                 Physics2D.IgnoreCollision(playerCollider, enemyCollider);
             }
         }
+        if (GameManager.Instance != null)
+        {
+            gold = GameManager.Instance.GetPlayerGold();
+            var s = GameManager.Instance.GetPlayerStats();
+            str = s.str; vit = s.vit; spd = s.spd; intStat = s.intStat; crt = s.crt;
+            var l = GameManager.Instance.GetPlayerLevel();
+            level = l.level;
+            statPoints = l.points;
+            healthPotionCount = GameManager.Instance.healthPotion;
+            manaPotionCount = GameManager.Instance.manaPotion;
+            teleportPotionCount = GameManager.Instance.recallPotion;
+            level = GameManager.Instance.playerLevel;
+            statPoints = GameManager.Instance.playerStatPoints;
+            currentExp = GameManager.Instance.currentExp;
+
+            expToNextLevel = CalculateExpForLevel(level);
+
+            if (expSlider != null)
+            {
+                expSlider.maxValue = expToNextLevel;
+                expSlider.value = currentExp;
+            }
+
+            UpdateLevelUI();
+        }
+
 
         // Start mana regeneration coroutine
         StartCoroutine(RegenerateMana());
@@ -851,6 +877,10 @@ public class Player : MonoBehaviour
             manaSlider.value = Mana;
         }
     }
+    private int CalculateExpForLevel(int lvl)
+    {
+        return 20 + (lvl - 1) * 20; // Cấp 1: 20, cấp 2: 40, cấp 3: 60,...
+    }
 
     public void UseStatPoint(string stat)
     {
@@ -934,7 +964,7 @@ public class Player : MonoBehaviour
     {
         Mana = Mathf.Min(Mana + Mathf.CeilToInt(MaxMana * 0.25f), MaxMana);
         if (manaSlider != null)
-        manaPotionCount--;
+            manaPotionCount--;
         UpdatePotionUI(); // Update UI after using a potion
         {
             manaSlider.value = Mana;

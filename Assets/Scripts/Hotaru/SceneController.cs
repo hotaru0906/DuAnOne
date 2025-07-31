@@ -1,13 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; // Import UI namespace
+using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour
 {
-    public string sceneName; // Tên của scene cần chuyển đến
-    public Image blackScreen; // Assign this in the Inspector
+    public string sceneName;
+    public Image blackScreen;
     public float fadeDuration = 1f;
 
     public void ChangeScene()
@@ -24,6 +23,13 @@ public class SceneController : MonoBehaviour
 
     private IEnumerator FadeOutAndLoadScene(string sceneName)
     {
+        if (GameManager.Instance != null)
+        {
+            // Save player stats and gold before fading out
+            
+            yield return new WaitForEndOfFrame(); // Ensure save operations complete
+        }
+
         float t = 0;
         blackScreen.gameObject.SetActive(true);
         while (t < fadeDuration)

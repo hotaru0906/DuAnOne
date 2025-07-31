@@ -60,7 +60,7 @@ public class Shopkeeper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void Interact()
@@ -117,6 +117,14 @@ public class Shopkeeper : MonoBehaviour
             {
                 statsController.SyncStatsFromPlayer();
             }
+
+            // Save updated stats to GameManager
+            if (GameManager.Instance != null)
+            {
+                var stats = statsController;
+                GameManager.Instance.SavePlayerStats(player.str, player.vit, player.spd, player.intStat, player.crt);
+                GameManager.Instance.SavePlayerGold(player.gold);
+            }
         }
         else
         {
@@ -144,6 +152,14 @@ public class Shopkeeper : MonoBehaviour
             if (statsController != null)
             {
                 statsController.SyncStatsFromPlayer();
+            }
+
+            // Save updated stats to GameManager
+            if (GameManager.Instance != null)
+            {
+                var stats = statsController;
+                GameManager.Instance.SavePlayerStats(player.str, player.vit, player.spd, player.intStat, player.crt);
+                GameManager.Instance.SavePlayerGold(player.gold);
             }
         }
         else
@@ -173,6 +189,14 @@ public class Shopkeeper : MonoBehaviour
             {
                 statsController.SyncStatsFromPlayer();
             }
+
+            // Save updated stats to GameManager
+            if (GameManager.Instance != null)
+            {
+                var stats = statsController;
+                GameManager.Instance.SavePlayerStats(player.str, player.vit, player.spd, player.intStat, player.crt);
+                GameManager.Instance.SavePlayerGold(player.gold);
+            }
         }
         else
         {
@@ -200,6 +224,14 @@ public class Shopkeeper : MonoBehaviour
             if (statsController != null)
             {
                 statsController.SyncStatsFromPlayer();
+            }
+
+            // Save updated stats to GameManager
+            if (GameManager.Instance != null)
+            {
+                var stats = statsController;
+                GameManager.Instance.SavePlayerStats(player.str, player.vit, player.spd, player.intStat, player.crt);
+                GameManager.Instance.SavePlayerGold(player.gold);
             }
         }
         else
@@ -229,6 +261,14 @@ public class Shopkeeper : MonoBehaviour
             {
                 statsController.SyncStatsFromPlayer();
             }
+
+            // Save updated stats to GameManager
+            if (GameManager.Instance != null)
+            {
+                var stats = statsController;
+                GameManager.Instance.SavePlayerStats(player.str, player.vit, player.spd, player.intStat, player.crt);
+                GameManager.Instance.SavePlayerGold(player.gold);
+            }
         }
         else
         {
@@ -244,6 +284,8 @@ public class Shopkeeper : MonoBehaviour
             player.healthPotionCount++;
             Debug.Log("Bought a health potion.");
             player.UpdatePotionUI();
+            GameManager.Instance.SavePlayerPotions(player.healthPotionCount, player.manaPotionCount,
+            player.teleportPotionCount);
         }
         else
         {
@@ -259,6 +301,8 @@ public class Shopkeeper : MonoBehaviour
             player.manaPotionCount++;
             Debug.Log("Bought a mana potion.");
             player.UpdatePotionUI();
+            GameManager.Instance.SavePlayerPotions(player.healthPotionCount, player.manaPotionCount,
+            player.teleportPotionCount);
         }
         else
         {
@@ -274,6 +318,8 @@ public class Shopkeeper : MonoBehaviour
             player.teleportPotionCount++;
             Debug.Log("Bought a recall potion.");
             player.UpdatePotionUI();
+            GameManager.Instance.SavePlayerPotions(player.healthPotionCount, player.manaPotionCount,
+            player.teleportPotionCount);
         }
         else
         {

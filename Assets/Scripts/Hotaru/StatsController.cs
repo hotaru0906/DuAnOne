@@ -6,7 +6,6 @@ using TMPro; // For TextMeshPro elements
 public class StatsController : MonoBehaviour
 {
     public Player player; // Reference to the Player script
-
     public int points = 3; // Total points available to allocate
 
     public int str = 0; // Strength
@@ -26,7 +25,6 @@ public class StatsController : MonoBehaviour
     public TMP_Text expText; // UI Text to display Experience value
     public TMP_Text goldText; // UI Text to display Gold value
 
-    // Start is called before the first frame update
     void Start()
     {
         if (player != null)
@@ -99,9 +97,12 @@ public class StatsController : MonoBehaviour
                 return;
         }
 
-        points--; // Deduct one point
+        points--; // trừ local
+        if (player != null) player.statPoints = points; // ← CẬP NHẬT về Player
+
         UpdateUI(); // Update the UI to reflect changes
     }
+
 
     void UpdateUI()
     {
@@ -135,6 +136,40 @@ public class StatsController : MonoBehaviour
             crt = player.crt;
             points = player.statPoints;
             UpdateUI(); // Update the UI to reflect the synced stats
+        }
+    }
+
+    void OnEnable()
+    {
+        if (GameManager.Instance != null)
+        {
+            // Sync stats from GameManager
+            var stats = GameManager.Instance.GetPlayerStats();
+            str = stats.str;
+            vit = stats.vit;
+            spd = stats.spd;
+            intStat = stats.intStat;
+            crt = stats.crt;
+
+            if (player != null)
+            {
+                player.str = str;
+                player.vit = vit;
+                player.spd = spd;
+                player.intStat = intStat;
+                player.crt = crt;
+
+                // Sync gold from GameManager to Player
+                player.gold = GameManager.Instance.GetPlayerGold();
+            }
+
+            // Sync gold to UI
+            if (goldText != null)
+            {
+                goldText.text = GameManager.Instance.GetPlayerGold().ToString();
+            }
+
+            UpdateUI(); // Update the UI with the synced stats
         }
     }
 }
