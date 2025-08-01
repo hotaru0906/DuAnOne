@@ -1,0 +1,206 @@
+fileFormatVersion: 2
+guid: 3e236ea1965f8fe4abdb92c75d2940e0
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 15_Ready_to_use_Treasure_Chests_Spritesheet 1_0
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 53
+        width: 33
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15611a3d57787d547bf3a611036c31be
+      internalID: -1724447037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 15_Ready_to_use_Treasure_Chests_Spritesheet 1_5
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 48
+        width: 31
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4684e98dd0bd44046926e9846c829ff8
+      internalID: -815127439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_0: -1724447037
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_1: -1841719289
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_10: -608970483
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_11: 311375756
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_12: 1314939673
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_13: -442014005
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_14: -899736328
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_15: -942632189
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_16: -285607554
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_17: -1637470322
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_18: -1796104026
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_19: -206134871
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_2: -1911621227
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_20: 875077419
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_21: 1470811901
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_22: -1316063040
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_23: 1653552818
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_24: -1434726528
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_25: -2011835677
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_26: 1034117838
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_27: -1144395952
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_28: -778894002
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_29: 1685290629
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_3: -1713242623
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_30: -311487881
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_31: 943288533
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_32: -1451201749
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_33: -893061293
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_34: -221059302
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_35: -525825811
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_36: -2038672483
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_37: 2129556832
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_38: -367510392
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_39: -1758534706
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_4: 252939977
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_40: -561822515
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_41: 646670506
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_42: -353507416
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_43: -795309102
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_44: 489894715
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_45: -1053553109
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_46: 1853566874
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_47: 676027006
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_48: -1184318772
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_49: -1963644251
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_5: -815127439
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_6: -527450212
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_7: 833625613
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_8: 674368842
+      15_Ready_to_use_Treasure_Chests_Spritesheet 1_9: 81889954
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

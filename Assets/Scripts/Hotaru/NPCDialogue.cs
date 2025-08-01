@@ -8,6 +8,7 @@ public class NPCDialogue : MonoBehaviour
 
     [Header("GameObject to Activate")]
     public GameObject objectToActivate; // GameObject sẽ được bật sau khi hội thoại kết thúc
+    public GameObject UIobject; // GameObject UI sẽ được bật khi bắt đầu đối thoại
 
     private bool isPlayerInRange = false; // Kiểm tra nếu player đang trong vùng tương tác
     private bool isDialogueActive = false; // Kiểm tra nếu đối thoại đang diễn ra
@@ -36,6 +37,7 @@ public class NPCDialogue : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
+            UIobject.SetActive(true); // Bật GameObject UI khi player vào vùng tương tác
         }
     }
 
@@ -45,6 +47,7 @@ public class NPCDialogue : MonoBehaviour
         {
             isPlayerInRange = false;
             isDialogueActive = false; // Đánh dấu đối thoại đã kết thúc
+            UIobject.SetActive(false); // Tắt GameObject UI khi player rời khỏi vùng tương tác
             if (DialogueManager.Instance != null)
             {
                 DialogueManager.Instance.CloseDialogueBox();

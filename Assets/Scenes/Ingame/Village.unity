@@ -21297,7 +21297,7 @@ Transform:
   m_GameObject: {fileID: 250042095}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.94, y: 8.56, z: -10}
+  m_LocalPosition: {x: -5.94, y: -0.49, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22701,6 +22701,7 @@ MonoBehaviour:
   dialogueLines:
   - "L\xEDnh canh: Ch\xE0o anh h\xF9ng, ng\xE0i mu\u1ED1n ra ngo\xE0i th\xE0nh kh\xF4ng?"
   objectToActivate: {fileID: 1847189998}
+  UIobject: {fileID: 0}
 --- !u!1 &348002923
 GameObject:
   m_ObjectHideFlags: 0
@@ -55150,11 +55151,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1422820109}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &522963196 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2384341810227490930, guid: 03ae37fd1536f124c983fd108f1a0128, type: 3}
-  m_PrefabInstance: {fileID: 1547596195}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &536005299
 GameObject:
   m_ObjectHideFlags: 0
@@ -60665,6 +60661,7 @@ MonoBehaviour:
   - "Th\u1EE3 r\xE8n: Xin ch\xE0o anh h\xF9ng, ng\xE0i c\xF3 mu\u1ED1n n\xE2ng c\u1EA5p
     v\u0169 kh\xED l\xEAn kh\xF4ng?"
   objectToActivate: {fileID: 254644479}
+  UIobject: {fileID: 0}
 --- !u!114 &721967818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64677,7 +64674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 232231424937910315, guid: 4981c269fea79ac41bad939756d03c6e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.56
+      value: -0.49
       objectReference: {fileID: 0}
     - target: {fileID: 232231424937910315, guid: 4981c269fea79ac41bad939756d03c6e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -118484,66 +118481,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2384341810227490930, guid: 03ae37fd1536f124c983fd108f1a0128, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1547596199}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03ae37fd1536f124c983fd108f1a0128, type: 3}
 --- !u!4 &1547596196 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 518473345701591935, guid: 03ae37fd1536f124c983fd108f1a0128, type: 3}
   m_PrefabInstance: {fileID: 1547596195}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1547596199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522963196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
-  m_LightType: 1
-  m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_LightVolumeIntensity: 1
-  m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 0546aa6847c37b42d923a29b996209f3000000002758291ccd7b7f54cb87345f
-  m_LightCookieSprite: {fileID: 0}
-  m_DeprecatedPointLightCookieSprite: {fileID: 0}
-  m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
-  m_OverlapOperation: 0
-  m_NormalMapDistance: 3
-  m_NormalMapQuality: 2
-  m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 0
-  m_ShadowIntensity: 0.75
-  m_ShadowVolumeIntensityEnabled: 0
-  m_ShadowVolumeIntensity: 0.75
-  m_LocalBounds:
-    m_Center: {x: -0.00055000186, y: -0.033199996, z: 0}
-    m_Extent: {x: 0.66355, y: 0.65330005, z: 0}
-  m_PointLightInnerAngle: 360
-  m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1
-  m_ShapeLightParametricSides: 5
-  m_ShapeLightParametricAngleOffset: 0
-  m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.5
-  m_ShapeLightFalloffOffset: {x: 0, y: 0}
-  m_ShapePath:
-  - {x: -0.16054432, y: -0.1764154, z: 0}
-  - {x: 0.15853329, y: -0.18752551, z: 0}
-  - {x: 0.16417566, y: 0.11977725, z: 0}
-  - {x: -0.163409, y: 0.10767248, z: 0}
 --- !u!1 &1573532454
 GameObject:
   m_ObjectHideFlags: 0
@@ -122303,7 +122247,7 @@ Transform:
   m_GameObject: {fileID: 1674883461}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.9418736, y: 8.44534, z: -10}
+  m_LocalPosition: {x: -5.94, y: -0.49, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -124284,6 +124228,7 @@ MonoBehaviour:
   - "Ph\xF9 th\u1EE7y: Xin ch\xE0o anh h\xF9ng, ng\xE0i c\xF3 mu\u1ED1n mua c\xE1c
     l\u1ECD thu\u1ED1c kh\xF4ng?"
   objectToActivate: {fileID: 1126552778}
+  UIobject: {fileID: 0}
 --- !u!114 &1763346546
 MonoBehaviour:
   m_ObjectHideFlags: 0

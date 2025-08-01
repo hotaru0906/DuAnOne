@@ -34,7 +34,8 @@ public class Boss2 : MonoBehaviour
     public string hitAnimationName = "Boss1_Hit";
     public string deathAnimationName = "Boss1_Death";
     public Animator animator;
-    public int exp = 50; 
+    public int exp = 50;
+    public Cinemachine.CinemachineVirtualCamera camPlayer;
     
     [Header("Coin Settings")]
     public GameObject coinPrefab; // Prefab for the coin to drop
@@ -454,7 +455,8 @@ public class Boss2 : MonoBehaviour
     {
         Debug.Log("Boss2 destroyed!");
         Destroy(gameObject);
-        
+        camPlayer.gameObject.SetActive(false);
+
         // Check if the coinPrefab is assigned
         if (coinPrefab != null)
         {
