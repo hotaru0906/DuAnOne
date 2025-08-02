@@ -145,7 +145,7 @@ public class Boss1 : MonoBehaviour
         {
             // Tạo position trên đầu player - giữ nguyên trục X của player
             Vector3 spawnPosition = new Vector3(
-                player.position.x +1.2f,                    // X: Chính xác vị trí X của player
+                player.position.x + 1.2f,                    // X: Chính xác vị trí X của player
                 player.position.y + skill1HeightOffset, // Y: Vị trí Y của player + offset
                 player.position.z                     // Z: Giữ nguyên Z của player
             );
@@ -429,6 +429,16 @@ public class Boss1 : MonoBehaviour
     {
         Debug.Log("Boss1 destroyed!");
         Destroy(gameObject);
+        Player player = FindObjectOfType<Player>();
+        if (player != null)
+        {
+            player.UnlockSkillByBoss("Boss1");
+            GameManager.Instance.SaveSkillUnlocks(
+                player.canUseSkill1,
+                player.canUseSkill2,
+                player.canShootBullet
+            );
+        }
 
         // Check if the coinPrefab is assigned
         if (coinPrefab != null)

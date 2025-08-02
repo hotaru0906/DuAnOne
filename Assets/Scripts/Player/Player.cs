@@ -179,7 +179,12 @@ public class Player : MonoBehaviour
 
             UpdateLevelUI();
         }
-
+        if (GameManager.Instance != null)
+        {
+            canUseSkill1 = GameManager.Instance.unlockedSkill1;
+            canUseSkill2 = GameManager.Instance.unlockedSkill2;
+            canShootBullet = GameManager.Instance.unlockedBullet;
+        }
 
         // Start mana regeneration coroutine
         StartCoroutine(RegenerateMana());
@@ -990,5 +995,27 @@ public class Player : MonoBehaviour
 
         if (teleportPotionText != null)
             teleportPotionText.text = teleportPotionCount.ToString();
+    }
+
+    public void UnlockSkillByBoss(string bossName)
+    {
+        switch (bossName)
+        {
+            case "Boss1":
+                canUseSkill1 = true;
+                Debug.Log("Unlocked Skill 1 after defeating Boss1");
+                break;
+            case "Boss2":
+                canUseSkill2 = true;
+                Debug.Log("Unlocked Skill 2 after defeating Boss2");
+                break;
+            case "Boss3":
+                canShootBullet = true;
+                Debug.Log("Unlocked Bullet after defeating Boss3");
+                break;
+            default:
+                Debug.LogWarning("Unknown boss name: " + bossName);
+                break;
+        }
     }
 }

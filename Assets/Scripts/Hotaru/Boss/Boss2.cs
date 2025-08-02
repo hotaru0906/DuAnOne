@@ -9,23 +9,23 @@ public class Boss2 : MonoBehaviour
     public float detectionRange = 10f; // Phạm vi phát hiện player
     public float attackRange = 2f; // Phạm vi tấn công
     public bool canMove = true;
-    
+
     [Header("Attack Settings")]
     public float attackCooldown = 2f;
     public float attackAnimationDuration = 1.5f; // Thời gian animation attack (điều chỉnh theo animation thực tế)
     public GameObject hitbox;
     public int damage = 10; // Damage value for attacks
-    
+
     [Header("Skill 1 Settings")]
     public float skill1Cooldown = 10f; // Skill 1 mỗi 10 giây
     public GameObject skill1Prefab; // GameObject sẽ spawn dưới chân player
     public float skill1HeightOffset = -1f; // Độ cao spawn dưới chân player (âm = dưới)
-    
+
     [Header("Health Settings")]
     public float maxHealth = 100f;
     public float currentHealth;
     public bool isDead = false;
-    
+
     [Header("Animation Settings")]
     public string walkAnimationName = "Boss1_Walk";
     public string idleAnimationName = "Boss1_Idle";
@@ -36,12 +36,12 @@ public class Boss2 : MonoBehaviour
     public Animator animator;
     public int exp = 50;
     public Cinemachine.CinemachineVirtualCamera camPlayer;
-    
+
     [Header("Coin Settings")]
     public GameObject coinPrefab; // Prefab for the coin to drop
     public int amount = 50; // Amount of gold the boss drops
 
-    
+
     private Transform player;
     private bool isMoving = false;
     private bool isAttacking = false;
@@ -94,10 +94,10 @@ public class Boss2 : MonoBehaviour
             {
                 Debug.Log($"Boss2 States - Moving: {isMoving}, Attacking: {isAttacking}, UsingSkill1: {isUsingSkill1}, Health: {currentHealth}/{maxHealth}");
             }
-            
+
             // Kiểm tra Skill 1 cooldown (ưu tiên cao nhất)
             CheckSkill1();
-            
+
             // Logic di chuyển và tấn công bình thường (khi không dùng skill)
             if (canMove && !isAttacking && !isUsingSkill1)
             {
@@ -109,7 +109,7 @@ public class Boss2 : MonoBehaviour
             }
         }
     }
-    
+
     void CheckSkill1()
     {
         // Kiểm tra xem đã đủ thời gian để dùng Skill 1 chưa (KHÔNG được dùng khi đang attack hoặc dead)
@@ -118,37 +118,37 @@ public class Boss2 : MonoBehaviour
             StartCoroutine(UseSkill1());
         }
     }
-    
+
     IEnumerator UseSkill1()
     {
         isUsingSkill1 = true;
         lastSkill1Time = Time.time;
-        
+
         // Dừng di chuyển
         if (isMoving)
         {
             isMoving = false;
         }
-        
+
         // Flip hướng về player
         if (player != null)
         {
             float directionX = player.position.x - transform.position.x;
             FlipSprite(directionX);
         }
-        
+
         // Chạy animation skill 1
         PlaySkill1Animation();
-        
+
         // Chờ animation event để triệu hồi object (sẽ được gọi từ animation event)
         // Animation event sẽ gọi SummonSkill1Object()
-        
+
         // Chờ animation hoàn thành (sẽ được kết thúc bởi animation event)
         // Animation event sẽ gọi EndSkill1()
-        
+
         yield return null; // Coroutine sẽ được kết thúc bởi EndSkill1()
     }
-    
+
     // Animation Event Method 1: Triệu hồi object
     public void SummonSkill1Object()
     {
@@ -156,14 +156,14 @@ public class Boss2 : MonoBehaviour
         {
             hitbox.SetActive(true);
             Vector3 spawnPosition = new Vector3(
-                player.position.x ,                    // X: Chính xác vị trí X của player
+                player.position.x,                    // X: Chính xác vị trí X của player
                 player.position.y + skill1HeightOffset, // Y: Vị trí Y của player + offset (âm = dưới chân)
                 player.position.z                     // Z: Giữ nguyên Z của player
             );
-            
+
             // Spawn object
             GameObject spawnedObject = Instantiate(skill1Prefab, spawnPosition, Quaternion.identity);
-            
+
             Debug.Log($"Boss2 Skill 1: Summoned object below player at {spawnPosition}");
 
             // Tắt hitbox sau một khoảng thời gian ngắn
@@ -179,20 +179,20 @@ public class Boss2 : MonoBehaviour
     {
         isUsingSkill1 = false;
         Debug.Log("Boss2 Skill 1 ended, returning to normal state");
-        
+
         // Reset các state về bình thường
         isAttacking = false;
         isMoving = false;
-        
+
         // Quay về idle
         PlayIdleAnimation();
     }
-    
+
     void HandleMovement()
     {
         // Tính khoảng cách đến player
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        
+
         // Kiểm tra xem player có trong phạm vi tấn công không
         if (distanceToPlayer <= attackRange)
         {
@@ -201,11 +201,11 @@ public class Boss2 : MonoBehaviour
             {
                 isMoving = false;
             }
-            
+
             // Flip sprite hướng về player
             float directionX = player.position.x - transform.position.x;
             FlipSprite(directionX);
-            
+
             // Thực hiện tấn công
             HandleAttack();
         }
@@ -214,17 +214,17 @@ public class Boss2 : MonoBehaviour
         {
             // Tính hướng di chuyển chỉ theo trục X
             float directionX = player.position.x - transform.position.x;
-            
+
             // Kiểm tra xem có cần di chuyển không (tránh rung lắc khi quá gần)
             if (Mathf.Abs(directionX) > 0.1f)
             {
                 // Di chuyển theo hướng player
                 Vector2 moveDirection = new Vector2(Mathf.Sign(directionX), 0).normalized;
                 transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-                
+
                 // Flip sprite theo hướng di chuyển
                 FlipSprite(directionX);
-                
+
                 // Phát animation walk
                 if (!isMoving)
                 {
@@ -252,7 +252,7 @@ public class Boss2 : MonoBehaviour
             }
         }
     }
-    
+
     void HandleAttack()
     {
         // Kiểm tra cooldown tấn công (chỉ tấn công khi không dùng skill và không dead)
@@ -261,32 +261,32 @@ public class Boss2 : MonoBehaviour
             StartCoroutine(PerformAttack());
         }
     }
-    
+
     IEnumerator PerformAttack()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
-        
+
         // Phát animation tấn công
         PlayAttackAnimation();
-        
+
         // Đợi một chút để animation bắt đầu (khoảng 30% animation)
         yield return new WaitForSeconds(attackAnimationDuration * 0.3f);
-        
+
         // Thực hiện tấn công ở giữa animation (kiểm tra xem player vẫn còn trong tầm đánh không)
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         if (distanceToPlayer <= attackRange)
         {
             AttackPlayer();
         }
-        
+
         // Đợi animation tấn công hoàn thành (70% còn lại)
         yield return new WaitForSeconds(attackAnimationDuration * 0.7f);
-        
+
         // Kết thúc attack
         StopAttack();
     }
-    
+
     void AttackPlayer()
     {
         Debug.Log("Boss2 attacked Player! Player took damage!");
@@ -299,7 +299,7 @@ public class Boss2 : MonoBehaviour
         // Có thể thêm logic damage ở đây
         // player.GetComponent<PlayerHealth>().TakeDamage(damage);
     }
-    
+
     IEnumerator DisableHitboxAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -318,7 +318,7 @@ public class Boss2 : MonoBehaviour
     void StopAttack()
     {
         isAttacking = false;
-        
+
         // Chỉ chuyển về idle nếu không đang dùng skill
         if (!isUsingSkill1)
         {
@@ -328,7 +328,7 @@ public class Boss2 : MonoBehaviour
             }
         }
     }
-    
+
     void FlipSprite(float directionX)
     {
         // Flip sprite dựa trên hướng di chuyển
@@ -345,7 +345,7 @@ public class Boss2 : MonoBehaviour
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
-    
+
     void PlayIdleAnimation()
     {
         if (animator != null)
@@ -353,7 +353,7 @@ public class Boss2 : MonoBehaviour
             animator.Play(idleAnimationName);
         }
     }
-    
+
     void PlayWalkAnimation()
     {
         if (animator != null)
@@ -361,7 +361,7 @@ public class Boss2 : MonoBehaviour
             animator.Play(walkAnimationName);
         }
     }
-    
+
     void PlayAttackAnimation()
     {
         if (animator != null)
@@ -369,7 +369,7 @@ public class Boss2 : MonoBehaviour
             animator.Play(attackAnimationName);
         }
     }
-    
+
     void PlaySkill1Animation()
     {
         if (animator != null)
@@ -377,7 +377,7 @@ public class Boss2 : MonoBehaviour
             animator.Play(skill1AnimationName);
         }
     }
-    
+
     void PlayDeathAnimation()
     {
         if (animator != null)
@@ -385,7 +385,7 @@ public class Boss2 : MonoBehaviour
             animator.Play(deathAnimationName);
         }
     }
-    
+
     // Public method để bật/tắt di chuyển
     public void SetCanMove(bool canMoveState)
     {
@@ -396,16 +396,16 @@ public class Boss2 : MonoBehaviour
             isMoving = false;
         }
     }
-    
+
     // Method để force reset tất cả states (backup emergency)
     public void ForceResetStates()
     {
         isAttacking = false;
         isUsingSkill1 = false;
         isMoving = false;
-        
+
         PlayIdleAnimation();
-        
+
         Debug.Log("Boss2: Force reset all states to normal");
     }
 
@@ -413,12 +413,12 @@ public class Boss2 : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (isDead) return; // Không nhận damage nếu đã chết
-        
+
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth); // Không cho âm
-        
+
         Debug.Log($"Boss2 took {damage} damage! Health: {currentHealth}/{maxHealth}");
-        
+
         if (currentHealth <= 0)
         {
             Die();
@@ -456,6 +456,16 @@ public class Boss2 : MonoBehaviour
         Debug.Log("Boss2 destroyed!");
         Destroy(gameObject);
         camPlayer.gameObject.SetActive(false);
+        Player player = FindObjectOfType<Player>();
+        if (player != null)
+        {
+            player.UnlockSkillByBoss("Boss2");
+            GameManager.Instance.SaveSkillUnlocks(
+                player.canUseSkill1,
+                player.canUseSkill2,
+                player.canShootBullet
+            );
+        }
 
         // Check if the coinPrefab is assigned
         if (coinPrefab != null)
@@ -491,11 +501,11 @@ public class Boss2 : MonoBehaviour
         // Vẽ phạm vi phát hiện player
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
-        
+
         // Vẽ phạm vi tấn công
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-        
+
         // Vẽ hướng đang face
         Gizmos.color = facingRight ? Color.green : Color.blue;
         Vector3 direction = facingRight ? Vector3.right : Vector3.left;
