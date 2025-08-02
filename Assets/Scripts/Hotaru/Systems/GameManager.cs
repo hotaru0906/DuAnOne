@@ -64,6 +64,15 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void SavePlayerData()
+    {
+        SavePlayerGold(playerGold);
+        SavePlayerStats(playerStr, playerVit, playerSpd, playerInt, playerCrt);
+        SavePlayerLevel(playerLevel, playerStatPoints);
+        SavePlayerExp(currentExp);
+        SavePlayerPotions(healthPotion, manaPotion, recallPotion);
+        SaveSkillUnlocks(unlockedSkill1, unlockedSkill2, unlockedBullet);
+    }
 
     // Gold
     public void SavePlayerGold(int gold)

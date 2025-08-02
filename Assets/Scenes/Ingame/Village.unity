@@ -638,6 +638,7 @@ RectTransform:
   - {fileID: 30201442}
   - {fileID: 254644480}
   - {fileID: 1126552779}
+  - {fileID: 1751688155}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -21297,7 +21298,7 @@ Transform:
   m_GameObject: {fileID: 250042095}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.94, y: -0.49, z: -10}
+  m_LocalPosition: {x: -5.94, y: -0.55, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -60661,7 +60662,7 @@ MonoBehaviour:
   - "Th\u1EE3 r\xE8n: Xin ch\xE0o anh h\xF9ng, ng\xE0i c\xF3 mu\u1ED1n n\xE2ng c\u1EA5p
     v\u0169 kh\xED l\xEAn kh\xF4ng?"
   objectToActivate: {fileID: 254644479}
-  UIobject: {fileID: 0}
+  UIobject: {fileID: 1751688154}
 --- !u!114 &721967818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64674,7 +64675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 232231424937910315, guid: 4981c269fea79ac41bad939756d03c6e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.49
+      value: -0.55
       objectReference: {fileID: 0}
     - target: {fileID: 232231424937910315, guid: 4981c269fea79ac41bad939756d03c6e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -122247,7 +122248,7 @@ Transform:
   m_GameObject: {fileID: 1674883461}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.94, y: -0.49, z: -10}
+  m_LocalPosition: {x: -5.94, y: -0.55, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -124123,6 +124124,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750910317}
   m_CullTransparentMesh: 1
+--- !u!1 &1751688154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1751688155}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1751688155
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751688154}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 41145582}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1752398228
 GameObject:
   m_ObjectHideFlags: 0
@@ -124228,7 +124264,7 @@ MonoBehaviour:
   - "Ph\xF9 th\u1EE7y: Xin ch\xE0o anh h\xF9ng, ng\xE0i c\xF3 mu\u1ED1n mua c\xE1c
     l\u1ECD thu\u1ED1c kh\xF4ng?"
   objectToActivate: {fileID: 1126552778}
-  UIobject: {fileID: 0}
+  UIobject: {fileID: 1751688154}
 --- !u!114 &1763346546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130804,6 +130840,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa51930b040cf4449b12ce641375092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockedSkill1: 0
+  unlockedSkill2: 0
+  unlockedBullet: 0
   playerGold: 0
   playerLevel: 1
   playerStatPoints: 0

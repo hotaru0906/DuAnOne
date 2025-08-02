@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -332,6 +333,10 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Coin"))
         {
             audioSource.PlayOneShot(coinSound);
+        }
+        if (collision.gameObject.CompareTag("DeadEnd"))
+        {
+            Die();
         }
     }
 
@@ -970,7 +975,7 @@ public class Player : MonoBehaviour
         Mana = Mathf.Min(Mana + Mathf.CeilToInt(MaxMana * 0.25f), MaxMana);
         if (manaSlider != null)
             manaPotionCount--;
-        UpdatePotionUI(); // Update UI after using a potion
+        UpdatePotionUI();
         {
             manaSlider.value = Mana;
         }
@@ -980,9 +985,30 @@ public class Player : MonoBehaviour
     public void Recall()
     {
         teleportPotionCount--;
-        UpdatePotionUI(); // Update UI after using a potion
-        Debug.Log("Player recalled to the last checkpoint.");
-        // Implement recall logic here (e.g., teleport to a specific position)
+        UpdatePotionUI();
+        // Cập nhật dữ liệu từ Player sang GameManager trước khi lưu
+        GameManager.Instance.playerGold = gold;
+        GameManager.Instance.playerStr = str;
+        GameManager.Instance.playerVit = vit;
+        GameManager.Instance.playerSpd = spd;
+        GameManager.Instance.playerInt = intStat;
+        GameManager.Instance.playerCrt = crt;
+        GameManager.Instance.playerLevel = level;
+        GameManager.Instance.playerStatPoints = statPoints;
+        GameManager.Instance.healthPotion = healthPotionCount;
+        GameManager.Instance.manaPotion = manaPotionCount;
+        GameManager.Instance.recallPotion = teleportPotionCount;
+        GameManager.Instance.currentExp = currentExp;
+        GameManager.Instance.unlockedSkill1 = canUseSkill1;
+        GameManager.Instance.unlockedSkill2 = canUseSkill2;
+        GameManager.Instance.unlockedBullet = canShootBullet;
+        GameManager.Instance.SavePlayerData(); // Đảm bảo lưu dữ liệu khi dùng teleport potion
+    }
+    public void TPVillage()
+    {
+        //GameManager.Instance.SavePlayerData(); // Save player data before teleporting
+        SceneManager.LoadScene("Village");
+        Debug.Log("Teleporting to Village...");
     }
 
     public void UpdatePotionUI()
