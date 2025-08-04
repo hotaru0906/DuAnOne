@@ -43,9 +43,8 @@ public class Boss3 : MonoBehaviour
     [Header("Coin Settings")]
     public GameObject coinPrefab; // Prefab for the coin to drop
     public int amount = 50; // Amount of gold the boss drops
-    public Cinemachine.CinemachineVirtualCamera virtualCamera; // Camera to follow the boss
-
-
+    public Cinemachine.CinemachineVirtualCamera virtualCamera;
+    public GameObject box1, box2;
     private Transform player;
     private bool isMoving = false;
     private bool isAttacking = false;
@@ -533,7 +532,9 @@ public class Boss3 : MonoBehaviour
     {
         Debug.Log("Boss3 destroyed!");
         Destroy(gameObject);
-        virtualCamera.Follow.gameObject.SetActive(false); // Tắt camera theo dõi boss
+        virtualCamera.Follow.gameObject.SetActive(false);
+        box1.SetActive(false);
+        box2.SetActive(false);
 
         Player player = FindObjectOfType<Player>();
         if (player != null)
@@ -601,11 +602,6 @@ public class Boss3 : MonoBehaviour
                 {
                     playerScript.TakeDamage(damage); // Deal damage when hitbox is active
                     Debug.Log("Player hit by enemy attack.");
-                }
-                else // Collision with enemy body
-                {
-                    playerScript.TakeDamage(damage / 2); // Deal reduced damage for body collision
-                    Debug.Log("Player collided with enemy.");
                 }
             }
         }

@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d19e18218cc1da346b8d6e8eb3f6b2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  contactDamage: 1
   moveSpeed: 1
   detectionRange: 1.5
   attackRange: 0
@@ -276,7 +277,7 @@ MonoBehaviour:
   coinPrefab: {fileID: 5191125823337282758, guid: dcae3e26a436f5948b32756c9fc22c36, type: 3}
   walkSound: {fileID: 8300000, guid: ff916f4a7616e6a44a46bc1e23744afb, type: 3}
   hitSound: {fileID: 8300000, guid: c7e86a2627c386d49a2db38448661d18, type: 3}
-  attackSound: {fileID: 8300000, guid: ff916f4a7616e6a44a46bc1e23744afb, type: 3}
+  attackSound: {fileID: 8300000, guid: c7e86a2627c386d49a2db38448661d18, type: 3}
   audioSource: {fileID: 8612041901623788843}
   exp: 10
   amount: 1

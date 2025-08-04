@@ -496,11 +496,6 @@ public class Boss1 : MonoBehaviour
                     playerHealth.TakeDamage(damage); // Deal damage when hitbox is active
                     Debug.Log("Player hit by enemy attack.");
                 }
-                else // Collision with enemy body
-                {
-                    playerHealth.TakeDamage(damage / 2); // Deal reduced damage for body collision
-                    Debug.Log("Player collided with enemy.");
-                }
             }
         }
     }
