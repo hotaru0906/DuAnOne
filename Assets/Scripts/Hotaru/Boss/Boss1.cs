@@ -35,6 +35,10 @@ public class Boss1 : MonoBehaviour
     public Animator animator;
     public int exp = 50; // Số kinh nghiệm khi đánh bại boss
 
+    [Header("Coin Settings")]
+    public GameObject coinPrefab; // Prefab for the coin to drop
+    public int amount = 50; // Amount of gold the boss drops
+
     private Transform player;
     private bool isMoving = false;
     private bool isAttacking = false;
@@ -141,7 +145,7 @@ public class Boss1 : MonoBehaviour
         {
             // Tạo position trên đầu player - giữ nguyên trục X của player
             Vector3 spawnPosition = new Vector3(
-                player.position.x +1.2f,                    // X: Chính xác vị trí X của player
+                player.position.x + 1.2f,                    // X: Chính xác vị trí X của player
                 player.position.y + skill1HeightOffset, // Y: Vị trí Y của player + offset
                 player.position.z                     // Z: Giữ nguyên Z của player
             );
@@ -425,6 +429,43 @@ public class Boss1 : MonoBehaviour
     {
         Debug.Log("Boss1 destroyed!");
         Destroy(gameObject);
+        Player player = FindObjectOfType<Player>();
+        if (player != null)
+        {
+            player.UnlockSkillByBoss("Boss1");
+            GameManager.Instance.SaveSkillUnlocks(
+                player.canUseSkill1,
+                player.canUseSkill2,
+                player.canShootBullet
+            );
+        }
+
+        // Check if the coinPrefab is assigned
+        if (coinPrefab != null)
+        {
+            // Instantiate a single coin at the boss's position
+            GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+
+            // Set the coin's value if the Coin script is attached
+            Coin coinScript = coin.GetComponent<Coin>();
+            if (coinScript != null)
+            {
+                coinScript.value = amount; // Set the coin's value to the boss's amount property
+            }
+
+            // Apply random force to the coin
+            Rigidbody2D coinRb = coin.GetComponent<Rigidbody2D>();
+            if (coinRb != null)
+            {
+                float randomXForce = Random.Range(-2f, 2f); // Random horizontal force
+                float upwardForce = Random.Range(3f, 5f);   // Random upward force
+                coinRb.AddForce(new Vector2(randomXForce, upwardForce), ForceMode2D.Impulse);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Coin prefab is not assigned. No coin will be dropped.");
+        }
     }
 
     // Vẽ gizmo để hiển thị phạm vi phát hiện và tấn công

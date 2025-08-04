@@ -68,6 +68,13 @@ public class Attack31 : MonoBehaviour
                 Debug.Log("Boss4 hit by Attack31, dealt " + playerAttack.attack3Damage + " damage.");
                 return;
             }
+            MiniBoss1 mb1 = other.GetComponent<MiniBoss1>();
+            if (mb1 != null)
+            {
+                mb1.TakeDamage(playerAttack.attack3Damage);
+                Debug.Log("MiniBoss1 hit by Attack3, dealt " + playerAttack.attack3Damage + " damage.");
+                return;
+            }
         }
     }
 }

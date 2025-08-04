@@ -140,7 +140,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.276, y: -0.54200006, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_LocalScale: {x: -2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6010557244225079329}
@@ -272,14 +272,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8987622485422078186}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca841fbe23f55a64ca749944aaf20866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
   detectionRange: 10
-  attackRange: 1
+  attackRange: 1.5
   canMove: 1
   attackCooldown: 1
   attackAnimationDuration: 1.5
@@ -288,7 +288,7 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 5016357492755648141}
   bulletSpeed: 5
   bulletLifetime: 3
-  bulletDamage: 20
+  bulletDamage: 10
   damage: 10
   skill1Cooldown: 5
   teleportDistance: 0.5
@@ -302,6 +302,9 @@ MonoBehaviour:
   attackAnimationName: Boss3_Attack
   deathAnimationName: Boss3_Death
   animator: {fileID: 8671038393000624927}
+  exp: 100
+  coinPrefab: {fileID: 5191125823337282758, guid: dcae3e26a436f5948b32756c9fc22c36, type: 3}
+  amount: 50
 --- !u!50 &5935250813687634469
 Rigidbody2D:
   serializedVersion: 4

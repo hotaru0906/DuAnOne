@@ -50,6 +50,9 @@ public class Enemy : MonoBehaviour
     [Header("Experience Settings")]
     public int exp = 10; // Experience points granted to the player upon death
 
+    [Header("Coin Settings")]
+    public int amount = 10; // Amount of gold the enemy drops
+
     private Transform player;
     private bool isMoving = false;
     private bool isAttacking = false;
@@ -434,20 +437,34 @@ public class Enemy : MonoBehaviour
 
     public void DestroyEnemy()
     {
+        // Destroy the enemy game object
         Destroy(gameObject);
 
+        // Check if the coinPrefab is assigned
         if (coinPrefab != null)
         {
+            // Instantiate a single coin at the enemy's position
             GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
-            Rigidbody2D coinRb = coin.GetComponent<Rigidbody2D>();
 
+            // Set the coin's value if the Coin script is attached
+            Coin coinScript = coin.GetComponent<Coin>();
+            if (coinScript != null)
+            {
+                coinScript.value = amount; // Set the coin's value to the enemy's amount property
+            }
+
+            // Apply random force to the coin
+            Rigidbody2D coinRb = coin.GetComponent<Rigidbody2D>();
             if (coinRb != null)
             {
-                // Áp dụng lực ngẫu nhiên lên trên và sang trái hoặc phải
-                float randomXForce = Random.Range(-2f, 2f); // Lực ngang ngẫu nhiên
-                float upwardForce = Random.Range(3f, 5f);   // Lực lên trên
+                float randomXForce = Random.Range(-2f, 2f); // Random horizontal force
+                float upwardForce = Random.Range(3f, 5f);   // Random upward force
                 coinRb.AddForce(new Vector2(randomXForce, upwardForce), ForceMode2D.Impulse);
             }
+        }
+        else
+        {
+            Debug.LogWarning("Coin prefab is not assigned. No coin will be dropped.");
         }
     }
 

@@ -66,6 +66,13 @@ public class Attack2 : MonoBehaviour
                 boss4.TakeDamage(player.attack2Damage);
                 Debug.Log("Boss4 hit by Attack2, dealt " + player.attack2Damage + " damage.");
             }
+            MiniBoss1 mb1 = other.GetComponent<MiniBoss1>();
+            if (mb1 != null)
+            {
+                mb1.TakeDamage(player.attack2Damage);
+                Debug.Log("MiniBoss1 hit by Attack2, dealt " + player.attack2Damage + " damage.");
+                return;
+            }
         }
     }
 }

@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.90143, y: -0.4547043, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_LocalScale: {x: -2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9014533830295497112}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4740297214666289185}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fde2ac467bf4ef46b387e96552d0660, type: 3}
   m_Name: 
@@ -130,11 +130,11 @@ MonoBehaviour:
   attackCooldown: 1
   attackAnimationDuration: 1.5
   hitbox: {fileID: 4816579016196070664}
-  damage: 10
+  damage: 20
   skill1Cooldown: 5
   skill1Prefab: {fileID: 1909175805546304478, guid: 71a941f18f7b1a5418d22895d6171535, type: 3}
   skill1HeightOffset: 0.5
-  maxHealth: 100
+  maxHealth: 500
   currentHealth: 0
   isDead: 0
   walkAnimationName: Boss2_Walk
@@ -144,6 +144,9 @@ MonoBehaviour:
   hitAnimationName: Boss2_Hit
   deathAnimationName: Boss2_Death
   animator: {fileID: 4217879001086846540}
+  exp: 50
+  coinPrefab: {fileID: 0}
+  amount: 50
 --- !u!50 &9087283355808573384
 Rigidbody2D:
   serializedVersion: 4
@@ -330,7 +333,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06402063, y: 0.21299338}
+  m_Offset: {x: -0.4731655, y: 0.21299338}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -341,5 +344,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.69848347, y: 1.7648396}
+  m_Size: {x: 1.5167732, y: 1.7648396}
   m_EdgeRadius: 0

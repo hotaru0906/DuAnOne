@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -87,6 +88,19 @@ public class Player : MonoBehaviour
     public bool canUseSkill2 = true;
     public bool canShootBullet = true;
 
+    [Header("Currency Settings")]
+    public int gold = 0; // Player's gold amount
+
+    [Header("Potion Settings")]
+    public int healthPotionCount = 0; // Number of health potions
+    public int manaPotionCount = 0; // Number of mana potions
+    public int teleportPotionCount = 0; // Number of teleport potions
+
+    [Header("Potion UI References")]
+    public TMPro.TMP_Text healthPotionText;
+    public TMPro.TMP_Text manaPotionText;
+    public TMPro.TMP_Text teleportPotionText;
+
     // Private State Variables
     private int comboStep = 0;
     private float dashTime;
@@ -141,11 +155,43 @@ public class Player : MonoBehaviour
                 Physics2D.IgnoreCollision(playerCollider, enemyCollider);
             }
         }
+        if (GameManager.Instance != null)
+        {
+            gold = GameManager.Instance.GetPlayerGold();
+            var s = GameManager.Instance.GetPlayerStats();
+            str = s.str; vit = s.vit; spd = s.spd; intStat = s.intStat; crt = s.crt;
+            var l = GameManager.Instance.GetPlayerLevel();
+            level = l.level;
+            statPoints = l.points;
+            healthPotionCount = GameManager.Instance.healthPotion;
+            manaPotionCount = GameManager.Instance.manaPotion;
+            teleportPotionCount = GameManager.Instance.recallPotion;
+            level = GameManager.Instance.playerLevel;
+            statPoints = GameManager.Instance.playerStatPoints;
+            currentExp = GameManager.Instance.currentExp;
 
-        // Start mana regeneration coroutine
-        StartCoroutine(RegenerateMana());
+            expToNextLevel = CalculateExpForLevel(level);
+
+            if (expSlider != null)
+            {
+                expSlider.maxValue = expToNextLevel;
+                expSlider.value = currentExp;
+            }
+
+            UpdateLevelUI();
+        }
+        if (GameManager.Instance != null)
+        {
+            canUseSkill1 = GameManager.Instance.unlockedSkill1;
+            canUseSkill2 = GameManager.Instance.unlockedSkill2;
+            canShootBullet = GameManager.Instance.unlockedBullet;
+        }
+
+        // Start mana and health regeneration coroutine
+        StartCoroutine(RegenerateStats());
 
         UpdateLevelUI(); // Initialize the level display on the UI
+        UpdatePotionUI(); // Initialize the potion display on the UI
     }
 
     void Update()
@@ -171,24 +217,21 @@ public class Player : MonoBehaviour
         }
 
         // Health recovery (Key 1)
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isPerformingAction)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && healthPotionCount > 0 && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isPerformingAction)
         {
             StartCoroutine(PerformAction("Health", RecoverHealth));
         }
 
         // Mana recovery (Key 2)
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isPerformingAction)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && manaPotionCount > 0 && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isPerformingAction)
         {
             StartCoroutine(PerformAction("Mana", RecoverMana));
         }
 
         // Recall (Key 3)
-        if (Input.GetKeyDown(KeyCode.Alpha3) && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if (Input.GetKeyDown(KeyCode.Alpha3) && teleportPotionCount > 0 && !isAttacking && !isDashing && !isSkill1 && !isSkill2 && isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isPerformingAction)
         {
-            StartCoroutine(PerformAction("Recall", () =>
-            {
-                Debug.Log("Player is recalling.");
-            }));
+            StartCoroutine(PerformAction("Recall", Recall));
         }
 
         // Movement control
@@ -290,6 +333,10 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Coin"))
         {
             audioSource.PlayOneShot(coinSound);
+        }
+        if (collision.gameObject.CompareTag("DeadEnd"))
+        {
+            Die();
         }
     }
 
@@ -439,7 +486,24 @@ public class Player : MonoBehaviour
         }
 
         rb.velocity = Vector2.zero; // Dừng chuyển động khi chết
-        Debug.Log("Player has died.");
+        // Lưu tất cả chỉ số vào GameManager
+        GameManager.Instance.playerGold = gold;
+        GameManager.Instance.playerStr = str;
+        GameManager.Instance.playerVit = vit;
+        GameManager.Instance.playerSpd = spd;
+        GameManager.Instance.playerInt = intStat;
+        GameManager.Instance.playerCrt = crt;
+        GameManager.Instance.playerLevel = level;
+        GameManager.Instance.playerStatPoints = statPoints;
+        GameManager.Instance.healthPotion = healthPotionCount;
+        GameManager.Instance.manaPotion = manaPotionCount;
+        GameManager.Instance.recallPotion = teleportPotionCount;
+        GameManager.Instance.currentExp = currentExp;
+        GameManager.Instance.unlockedSkill1 = canUseSkill1;
+        GameManager.Instance.unlockedSkill2 = canUseSkill2;
+        GameManager.Instance.unlockedBullet = canShootBullet;
+        GameManager.Instance.SavePlayerData();
+        Debug.Log("Player has died and stats saved.");
     }
     public void EndHit()
     {
@@ -452,7 +516,8 @@ public class Player : MonoBehaviour
     public void EndDeath()
     {
         isDeath = false;
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
+        SceneManager.LoadScene("DeathMenu"); // Load Game Over scene
         // code UI
     }
 
@@ -768,18 +833,31 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator RegenerateMana()
+    // Hồi máu và mana mỗi giây
+    private IEnumerator RegenerateStats()
     {
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            Mana = Mathf.Min(Mana + Mathf.CeilToInt(MaxMana * manaRegenRate), MaxMana);
-            if (manaSlider != null)
+            // Hồi 2% máu tối đa mỗi giây
+            int healAmount = Mathf.CeilToInt(MaxHealth * 0.02f);
+            if (Health < MaxHealth)
             {
-                manaSlider.value = Mana;
+                Health = Mathf.Min(Health + healAmount, MaxHealth);
+                if (healthSlider != null)
+                    healthSlider.value = Health;
+            }
+            // Hồi mana như cũ
+            int manaAmount = Mathf.CeilToInt(MaxMana * manaRegenRate);
+            if (Mana < MaxMana)
+            {
+                Mana = Mathf.Min(Mana + manaAmount, MaxMana);
+                if (manaSlider != null)
+                    manaSlider.value = Mana;
             }
         }
     }
+    
 
     public void GainExperience(int exp)
     {
@@ -839,6 +917,10 @@ public class Player : MonoBehaviour
         {
             manaSlider.value = Mana;
         }
+    }
+    private int CalculateExpForLevel(int lvl)
+    {
+        return 20 + (lvl - 1) * 20; // Cấp 1: 20, cấp 2: 40, cấp 3: 60,...
     }
 
     public void UseStatPoint(string stat)
@@ -910,6 +992,8 @@ public class Player : MonoBehaviour
     public void RecoverHealth()
     {
         Health = Mathf.Min(Health + Mathf.CeilToInt(MaxHealth * 0.25f), MaxHealth);
+        healthPotionCount--;
+        UpdatePotionUI(); // Update UI after using a potion
         if (healthSlider != null)
         {
             healthSlider.value = Health;
@@ -921,9 +1005,74 @@ public class Player : MonoBehaviour
     {
         Mana = Mathf.Min(Mana + Mathf.CeilToInt(MaxMana * 0.25f), MaxMana);
         if (manaSlider != null)
+            manaPotionCount--;
+        UpdatePotionUI();
         {
             manaSlider.value = Mana;
         }
         Debug.Log("Player recovered 25% mana.");
+    }
+
+    public void Recall()
+    {
+        teleportPotionCount--;
+        UpdatePotionUI();
+        // Cập nhật dữ liệu từ Player sang GameManager trước khi lưu
+        GameManager.Instance.playerGold = gold;
+        GameManager.Instance.playerStr = str;
+        GameManager.Instance.playerVit = vit;
+        GameManager.Instance.playerSpd = spd;
+        GameManager.Instance.playerInt = intStat;
+        GameManager.Instance.playerCrt = crt;
+        GameManager.Instance.playerLevel = level;
+        GameManager.Instance.playerStatPoints = statPoints;
+        GameManager.Instance.healthPotion = healthPotionCount;
+        GameManager.Instance.manaPotion = manaPotionCount;
+        GameManager.Instance.recallPotion = teleportPotionCount;
+        GameManager.Instance.currentExp = currentExp;
+        GameManager.Instance.unlockedSkill1 = canUseSkill1;
+        GameManager.Instance.unlockedSkill2 = canUseSkill2;
+        GameManager.Instance.unlockedBullet = canShootBullet;
+        GameManager.Instance.SavePlayerData(); // Đảm bảo lưu dữ liệu khi dùng teleport potion
+    }
+    public void TPVillage()
+    {
+        //GameManager.Instance.SavePlayerData(); // Save player data before teleporting
+        SceneManager.LoadScene("Village");
+        Debug.Log("Teleporting to Village...");
+    }
+
+    public void UpdatePotionUI()
+    {
+        if (healthPotionText != null)
+            healthPotionText.text = healthPotionCount.ToString();
+
+        if (manaPotionText != null)
+            manaPotionText.text = manaPotionCount.ToString();
+
+        if (teleportPotionText != null)
+            teleportPotionText.text = teleportPotionCount.ToString();
+    }
+
+    public void UnlockSkillByBoss(string bossName)
+    {
+        switch (bossName)
+        {
+            case "Boss1":
+                canUseSkill1 = true;
+                Debug.Log("Unlocked Skill 1 after defeating Boss1");
+                break;
+            case "Boss2":
+                canUseSkill2 = true;
+                Debug.Log("Unlocked Skill 2 after defeating Boss2");
+                break;
+            case "Boss3":
+                canShootBullet = true;
+                Debug.Log("Unlocked Bullet after defeating Boss3");
+                break;
+            default:
+                Debug.LogWarning("Unknown boss name: " + bossName);
+                break;
+        }
     }
 }

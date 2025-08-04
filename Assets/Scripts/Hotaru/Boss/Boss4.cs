@@ -44,6 +44,11 @@ public class Boss4 : MonoBehaviour
     public string deathAnimationName = "Boss4_Death";
     public Animator animator;
     public int exp = 100; // Số kinh nghiệm khi đánh bại boss
+
+    [Header("Coin Settings")]
+    public GameObject coinPrefab; // Prefab for the coin to drop
+    public int amount = 50; // Amount of gold the boss drops
+
     
     private Transform player;
     private bool isMoving = false;
@@ -650,12 +655,39 @@ public class Boss4 : MonoBehaviour
             }
         }
     }
-    
+
     // Animation Event Method: Destroy Boss (gọi từ animation event của death animation)
     public void DestroyBoss()
     {
         Debug.Log("Boss4 destroyed!");
         Destroy(gameObject);
+        
+        // Check if the coinPrefab is assigned
+        if (coinPrefab != null)
+        {
+            // Instantiate a single coin at the boss's position
+            GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+
+            // Set the coin's value if the Coin script is attached
+            Coin coinScript = coin.GetComponent<Coin>();
+            if (coinScript != null)
+            {
+                coinScript.value = amount; // Set the coin's value to the boss's amount property
+            }
+
+            // Apply random force to the coin
+            Rigidbody2D coinRb = coin.GetComponent<Rigidbody2D>();
+            if (coinRb != null)
+            {
+                float randomXForce = Random.Range(-2f, 2f); // Random horizontal force
+                float upwardForce = Random.Range(3f, 5f);   // Random upward force
+                coinRb.AddForce(new Vector2(randomXForce, upwardForce), ForceMode2D.Impulse);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Coin prefab is not assigned. No coin will be dropped.");
+        }
     }
 
     // Utility methods để control hitbox riêng biệt (có thể dùng cho animation events)
