@@ -187,8 +187,8 @@ public class Player : MonoBehaviour
             canShootBullet = GameManager.Instance.unlockedBullet;
         }
 
-        // Start mana regeneration coroutine
-        StartCoroutine(RegenerateMana());
+        // Start mana and health regeneration coroutine
+        StartCoroutine(RegenerateStats());
 
         UpdateLevelUI(); // Initialize the level display on the UI
         UpdatePotionUI(); // Initialize the potion display on the UI
@@ -486,7 +486,24 @@ public class Player : MonoBehaviour
         }
 
         rb.velocity = Vector2.zero; // Dừng chuyển động khi chết
-        Debug.Log("Player has died.");
+        // Lưu tất cả chỉ số vào GameManager
+        GameManager.Instance.playerGold = gold;
+        GameManager.Instance.playerStr = str;
+        GameManager.Instance.playerVit = vit;
+        GameManager.Instance.playerSpd = spd;
+        GameManager.Instance.playerInt = intStat;
+        GameManager.Instance.playerCrt = crt;
+        GameManager.Instance.playerLevel = level;
+        GameManager.Instance.playerStatPoints = statPoints;
+        GameManager.Instance.healthPotion = healthPotionCount;
+        GameManager.Instance.manaPotion = manaPotionCount;
+        GameManager.Instance.recallPotion = teleportPotionCount;
+        GameManager.Instance.currentExp = currentExp;
+        GameManager.Instance.unlockedSkill1 = canUseSkill1;
+        GameManager.Instance.unlockedSkill2 = canUseSkill2;
+        GameManager.Instance.unlockedBullet = canShootBullet;
+        GameManager.Instance.SavePlayerData();
+        Debug.Log("Player has died and stats saved.");
     }
     public void EndHit()
     {
@@ -499,7 +516,8 @@ public class Player : MonoBehaviour
     public void EndDeath()
     {
         isDeath = false;
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
+        SceneManager.LoadScene("DeathMenu"); // Load Game Over scene
         // code UI
     }
 
@@ -815,18 +833,31 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator RegenerateMana()
+    // Hồi máu và mana mỗi giây
+    private IEnumerator RegenerateStats()
     {
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            Mana = Mathf.Min(Mana + Mathf.CeilToInt(MaxMana * manaRegenRate), MaxMana);
-            if (manaSlider != null)
+            // Hồi 2% máu tối đa mỗi giây
+            int healAmount = Mathf.CeilToInt(MaxHealth * 0.02f);
+            if (Health < MaxHealth)
             {
-                manaSlider.value = Mana;
+                Health = Mathf.Min(Health + healAmount, MaxHealth);
+                if (healthSlider != null)
+                    healthSlider.value = Health;
+            }
+            // Hồi mana như cũ
+            int manaAmount = Mathf.CeilToInt(MaxMana * manaRegenRate);
+            if (Mana < MaxMana)
+            {
+                Mana = Mathf.Min(Mana + manaAmount, MaxMana);
+                if (manaSlider != null)
+                    manaSlider.value = Mana;
             }
         }
     }
+    
 
     public void GainExperience(int exp)
     {

@@ -298,7 +298,7 @@ public class NPC : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("DeadEnd"))
+        if (collision.gameObject.CompareTag("Dead"))
         {
             Destroy(gameObject);
         }
