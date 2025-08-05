@@ -5,7 +5,7 @@ using UnityEngine;
 public class Attack1 : MonoBehaviour
 {
     private Player player;
-    
+
     void Start()
     {
         // Lấy reference tới Player component
@@ -15,19 +15,25 @@ public class Attack1 : MonoBehaviour
             player = FindObjectOfType<Player>();
         }
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (player == null) return;
 
         if (other.CompareTag("Enemy"))
         {
-            // Tìm component Enemy script
             var enemy = other.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage(player.attack1Damage);
-                Debug.Log($"Enemy {other.name} hit by Attack1, dealt {player.attack1Damage} damage.");
+                int damage = player.GetAttack1Damage();
+                if (player.IsCriticalHit())
+                {
+                    damage = Mathf.CeilToInt(damage * 1.5f);
+                    Debug.Log("Critical Hit on Enemy!");
+                }
+
+                enemy.TakeDamage(damage);
+                Debug.Log($"Enemy {other.name} hit by Attack1, dealt {damage} damage.");
             }
             else
             {
@@ -40,40 +46,69 @@ public class Attack1 : MonoBehaviour
             Boss1 boss1 = other.GetComponent<Boss1>();
             if (boss1 != null)
             {
-                boss1.TakeDamage(player.attack1Damage);
-                Debug.Log("Boss1 hit by Attack1, dealt " + player.attack1Damage + " damage.");
+                int damage = player.GetAttack1Damage();
+                if (player.IsCriticalHit())
+                {
+                    damage = Mathf.CeilToInt(damage * 1.5f);
+                    Debug.Log("Critical Hit on Enemy!");
+                }
+                boss1.TakeDamage(damage);
+                Debug.Log("Boss1 hit by Attack1, dealt " + damage + " damage.");
                 return;
             }
 
             Boss2 boss2 = other.GetComponent<Boss2>();
             if (boss2 != null)
             {
-                boss2.TakeDamage(player.attack1Damage);
-                Debug.Log("Boss2 hit by Attack1, dealt " + player.attack1Damage + " damage.");
+                int damage = player.GetAttack1Damage();
+                if (player.IsCriticalHit())
+                {
+                    damage = Mathf.CeilToInt(damage * 1.5f);
+                    Debug.Log("Critical Hit on Enemy!");
+                }
+                boss2.TakeDamage(damage);
+                Debug.Log("Boss2 hit by Attack1, dealt " + damage + " damage.");
                 return;
             }
 
             Boss3 boss3 = other.GetComponent<Boss3>();
             if (boss3 != null)
             {
-                boss3.TakeDamage(player.attack1Damage);
-                Debug.Log("Boss3 hit by Attack1, dealt " + player.attack1Damage + " damage.");
+                int damage = player.GetAttack1Damage();
+                if (player.IsCriticalHit())
+                {
+                    damage = Mathf.CeilToInt(damage * 1.5f);
+                    Debug.Log("Critical Hit on Enemy!");
+                }
+                boss3.TakeDamage(damage);
+                Debug.Log("Boss3 hit by Attack1, dealt " + damage + " damage.");
                 return;
             }
 
             Boss4 boss4 = other.GetComponent<Boss4>();
             if (boss4 != null)
             {
-                boss4.TakeDamage(player.attack1Damage);
-                Debug.Log("Boss4 hit by Attack1, dealt " + player.attack1Damage + " damage.");
+                int damage = player.GetAttack1Damage();
+                if (player.IsCriticalHit())
+                {
+                    damage = Mathf.CeilToInt(damage * 1.5f);
+                    Debug.Log("Critical Hit on Enemy!");
+                }
+                boss4.TakeDamage(damage);
+                Debug.Log("Boss4 hit by Attack1, dealt " + damage + " damage.");
                 return;
             }
             MiniBoss1 mb1 = other.GetComponent<MiniBoss1>();
             if (mb1 != null)
             {
-                mb1.TakeDamage(player.attack1Damage);
-                Debug.Log("MiniBoss1 hit by Attack1, dealt " + player.attack1Damage + " damage.");
-                return;
+                int damage = player.GetAttack1Damage();
+                if (player.IsCriticalHit())
+                {
+                    damage = Mathf.CeilToInt(damage * 1.5f);
+                    Debug.Log("Critical Hit on Enemy!");
+                }
+                mb1.TakeDamage(damage);
+                Debug.Log("MiniBoss1 hit by Attack1, dealt " + damage + " damage.");
             }
         }
     }

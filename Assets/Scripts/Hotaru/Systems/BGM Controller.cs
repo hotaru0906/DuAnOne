@@ -40,7 +40,7 @@ public class BGMController : MonoBehaviour
         PlayBGMForScene(scene.name);
     }
 
-    void PlayBGMForScene(string sceneName)
+    public void PlayBGMForScene(string sceneName)
     {
         if (bgmSource == null) return;
 

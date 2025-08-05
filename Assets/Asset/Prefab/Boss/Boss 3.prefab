@@ -288,13 +288,13 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 5016357492755648141}
   bulletSpeed: 5
   bulletLifetime: 3
-  bulletDamage: 20
-  damage: 20
+  bulletDamage: 15
+  damage: 15
   skill1Cooldown: 5
   teleportDistance: 0.5
   teleportStartAnimationName: Boss3_TP1
   teleportEndAnimationName: Boss3_TP2
-  maxHealth: 600
+  maxHealth: 300
   currentHealth: 0
   isDead: 0
   walkAnimationName: Boss3_Walk

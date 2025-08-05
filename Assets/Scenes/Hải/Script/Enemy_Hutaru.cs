@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemyss : MonoBehaviour
 {
     [Header("Enemy Movement Settings")]
     public float moveSpeed = 3f;

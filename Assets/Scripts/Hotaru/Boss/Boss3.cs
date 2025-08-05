@@ -44,6 +44,8 @@ public class Boss3 : MonoBehaviour
     public GameObject coinPrefab; // Prefab for the coin to drop
     public int amount = 50; // Amount of gold the boss drops
     public Cinemachine.CinemachineVirtualCamera virtualCamera;
+    public Cinemachine.CinemachineVirtualCamera playerCamera;
+    public GameObject playerObject; // Reference to the player object
     public GameObject box1, box2;
     private Transform player;
     private bool isMoving = false;
@@ -513,7 +515,16 @@ public class Boss3 : MonoBehaviour
         // Dừng tất cả coroutines để tránh xung đột
         StopAllCoroutines();
 
-        Debug.Log("Boss3 has died!");
+        virtualCamera.Follow.gameObject.SetActive(false);
+        if (playerCamera != null)
+        {
+            playerCamera.gameObject.SetActive(true);
+            playerCamera.Follow = player.transform;
+            playerCamera.LookAt = player.transform;
+            playerCamera.Priority = 20; // Đảm bảo cao hơn các camera khác nếu có
+        }
+        box1.SetActive(false);
+        box2.SetActive(false);
 
         // Chạy animation death
         PlayDeathAnimation();
@@ -532,9 +543,11 @@ public class Boss3 : MonoBehaviour
     {
         Debug.Log("Boss3 destroyed!");
         Destroy(gameObject);
-        virtualCamera.Follow.gameObject.SetActive(false);
-        box1.SetActive(false);
-        box2.SetActive(false);
+
+        if (BGMController.Instance != null)
+        {
+            BGMController.Instance.PlayBGMForScene("Forest");
+        }
 
         Player player = FindObjectOfType<Player>();
         if (player != null)

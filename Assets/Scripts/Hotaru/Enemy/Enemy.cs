@@ -4,6 +4,9 @@ using UnityEngine; // Ensure UnityEngine namespace is included for Player class 
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Shooting Settings")]
+    public bool canShoot = false; // Nếu true thì enemy thường sẽ bắn đạn thay vì đánh cận chiến
+
     [Header("Flying Enemy Settings")]
     public bool isFlyingEnemy = false; // Đặt true cho enemy bay
     public bool canMoveWhileAttacking = true; // True: vừa di chuyển vừa bắn, False: đứng yên khi bắn
@@ -191,7 +194,7 @@ public class Enemy : MonoBehaviour
             else
             {
                 // Enemy thường
-                if (canMove && !isAttacking)
+                if (canShoot)
                 {
                     if (distanceToPlayer > detectionRange)
                     {
@@ -199,12 +202,46 @@ public class Enemy : MonoBehaviour
                     }
                     else
                     {
-                        HandleMovement();
+                        // Nếu có animation attack thì đứng yên bắn, không thì vừa di chuyển vừa bắn
+                        if (canMoveWhileAttacking)
+                        {
+                            FlyToPlayer(); // Di chuyển về phía player
+                            if (Time.time - lastShootTime >= shootInterval)
+                            {
+                                Shoot();
+                                lastShootTime = Time.time;
+                            }
+                        }
+                        else
+                        {
+                            if (distanceToPlayer <= attackRange)
+                            {
+                                if (Time.time - lastShootTime >= attackCooldown && !isAttacking)
+                                {
+                                    StartCoroutine(PerformShootAttack());
+                                    lastShootTime = Time.time;
+                                }
+                            }
+                        }
                     }
                 }
-                else if (!isMoving && !isAttacking)
+                else
                 {
-                    PlayIdleAnimation();
+                    if (canMove && !isAttacking)
+                    {
+                        if (distanceToPlayer > detectionRange)
+                        {
+                            Patrol();
+                        }
+                        else
+                        {
+                            HandleMovement();
+                        }
+                    }
+                    else if (!isMoving && !isAttacking)
+                    {
+                        PlayIdleAnimation();
+                    }
                 }
                 CheckObstacleAndJump();
             }
