@@ -144,6 +144,15 @@ public class Player : MonoBehaviour
             expSlider.maxValue = 100; // Example max value for experience
             expSlider.value = 0; // Example starting value for experience
         }
+        MaxHealth = GetMaxHealth();
+        Health = Mathf.Min(Health, MaxHealth);
+
+        MaxMana = GetMaxMana();
+        Mana = Mathf.Min(Mana, MaxMana);
+
+        Run = GetRunSpeed();
+        dashForce = GetDashForce();
+        skill1Damage = GetSkill1Damage();
 
         // Bỏ qua va chạm với Enemy
         GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
@@ -190,8 +199,10 @@ public class Player : MonoBehaviour
         // Start mana and health regeneration coroutine
         StartCoroutine(RegenerateStats());
 
-        UpdateLevelUI(); // Initialize the level display on the UI
-        UpdatePotionUI(); // Initialize the potion display on the UI
+        UpdateLevelUI();
+        UpdatePotionUI();
+        UpdateManaUI();
+        UpdateHealthUI();
     }
 
     void Update()
@@ -300,6 +311,23 @@ public class Player : MonoBehaviour
         {
             // Update experience value here if you have an experience system
         }
+
+        // Debug stats khi nhấn phím P
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            int attack1 = 10 + str;
+            int attack2 = 15 + str;
+            int attack3 = 20 + str;
+            int maxHealth = 100 + vit * 5;
+            Debug.Log($"==== PLAYER STATS ====");
+            Debug.Log($"STR: {str} - Attack1: {attack1}, Attack2: {attack2}, Attack3: {attack3}");
+            Debug.Log($"VIT: {vit} - MaxHealth: {maxHealth}, Health: {Health}");
+            Debug.Log($"SPD: {spd} - Run: {Run}");
+            Debug.Log($"INT: {intStat} - MaxMana: {MaxMana}, Mana: {Mana}, Skill1Damage: {skill1Damage}");
+            Debug.Log($"CRT: {crt} - CritRate: {crt * 0.2f}%");
+            Debug.Log($"Level: {level}, StatPoints: {statPoints}");
+        }
+
     }
 
     // ==================== COLLISION DETECTION ====================
@@ -594,7 +622,7 @@ public class Player : MonoBehaviour
         comboStep = 3;
         isAttacking = true;
         attackTime = attackDuration;
-        comboTimer = 0f;
+        comboTimer = comboResetTime;
     }
 
     public void Attack4()
@@ -605,7 +633,7 @@ public class Player : MonoBehaviour
             comboStep = 0; // Reset combo step
             isAttacking = true;
             attackTime = attackDuration;
-            comboTimer = comboResetTime;
+            comboTimer = 0f;
         }
     }
 
@@ -806,8 +834,15 @@ public class Player : MonoBehaviour
             Bullet bulletScript = bullet.GetComponent<Bullet>();
             if (bulletScript != null)
             {
-                bulletScript.SetDamage(skill1Damage); // Gán sát thương cho viên đạn
-                bulletScript.SetDirection(transform.localScale.x); // Gán hướng bay của viên đạn
+                int damage = GetSkill1Damage();
+                if (IsCriticalHit())
+                {
+                    damage = Mathf.CeilToInt(damage * 1.5f);
+                    Debug.Log("Critical Bullet Hit!");
+                }
+
+                bulletScript.SetDamage(damage);
+                bulletScript.SetDirection(transform.localScale.x);
             }
         }
         else
@@ -857,7 +892,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    
+
 
     public void GainExperience(int exp)
     {
@@ -938,17 +973,12 @@ public class Player : MonoBehaviour
                 break;
             case "vit":
                 vit++;
-                MaxHealth += 10; // Example: Increase max health by 10 per vitality point
-                Health = Mathf.Min(Health, MaxHealth); // Ensure current health doesn't exceed max health
                 break;
             case "spd":
                 spd++;
-                Run += 0.5f; // Example: Increase run speed by 0.5 per speed point
                 break;
             case "int":
                 intStat++;
-                MaxMana += 5; // Example: Increase max mana by 5 per intelligence point
-                Mana = Mathf.Min(Mana, MaxMana); // Ensure current mana doesn't exceed max mana
                 break;
             case "crt":
                 crt++;
@@ -959,9 +989,12 @@ public class Player : MonoBehaviour
         }
 
         statPoints--;
+
+        ApplyStats(); // ⚠️ Cập nhật toàn bộ chỉ số sau khi tăng
+
         if (statsController != null)
         {
-            statsController.points = statPoints; // Synchronize with StatsController
+            statsController.points = statPoints;
         }
 
         Debug.Log($"Allocated 1 point to {stat}. Remaining points: {statPoints}");
@@ -1053,6 +1086,23 @@ public class Player : MonoBehaviour
         if (teleportPotionText != null)
             teleportPotionText.text = teleportPotionCount.ToString();
     }
+    public void UpdateHealthUI()
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = MaxHealth;
+            healthSlider.value = Health;
+        }
+    }
+
+    public void UpdateManaUI()
+    {
+        if (manaSlider != null)
+        {
+            manaSlider.maxValue = MaxMana;
+            manaSlider.value = Mana;
+        }
+    }
 
     public void UnlockSkillByBoss(string bossName)
     {
@@ -1074,5 +1124,45 @@ public class Player : MonoBehaviour
                 Debug.LogWarning("Unknown boss name: " + bossName);
                 break;
         }
+    }
+    // ====== STAT-BASED DYNAMIC VALUES ======
+    public int GetAttack1Damage() => 10 + str;
+    public int GetAttack2Damage() => 15 + str;
+    public int GetAttack3Damage() => 20 + str;
+    public int GetSkill1Damage() => 20 + intStat;
+
+    public float GetRunSpeed() => 2f + spd * 0.1f;
+    public float GetDashForce() => 2f + spd * 0.1f;
+    public int GetMaxHealth() => 100 + vit * 5;
+    public int GetMaxMana() => 100 + intStat * 2;
+
+    public bool IsCriticalHit()
+    {
+        float critRate = crt * 0.2f; // 0.2% per point
+        return Random.Range(0f, 100f) < critRate;
+    }
+    public void ApplyStats()
+    {
+        int oldMaxHealth = MaxHealth;
+        int oldMaxMana = MaxMana;
+
+        MaxHealth = GetMaxHealth();
+        MaxMana = GetMaxMana();
+        Run = GetRunSpeed();
+        dashForce = GetDashForce();
+        skill1Damage = GetSkill1Damage();
+
+        // Tăng máu hiện tại theo phần được mở rộng
+        int healthGain = MaxHealth - oldMaxHealth;
+        Health += healthGain;
+        Health = Mathf.Min(Health, MaxHealth);
+
+        // Tăng mana hiện tại theo phần được mở rộng
+        int manaGain = MaxMana - oldMaxMana;
+        Mana += manaGain;
+        Mana = Mathf.Min(Mana, MaxMana);
+
+        UpdateHealthUI();
+        UpdateManaUI();
     }
 }

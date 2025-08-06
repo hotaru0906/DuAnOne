@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack31 : MonoBehaviour
+public class Attack4 : MonoBehaviour
 {
     private Player playerAttack;
     

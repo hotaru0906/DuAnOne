@@ -64,43 +64,26 @@ public class StatsController : MonoBehaviour
 
     public void AddPointToStat(string stat)
     {
-        if (points <= 0)
+        if (player == null) return;
+
+        if (player.statPoints <= 0)
         {
             Debug.Log("No points left to allocate.");
             return;
         }
 
-        switch (stat)
-        {
-            case "str":
-                str++;
-                if (player != null) player.str = str;
-                break;
-            case "vit":
-                vit++;
-                if (player != null) player.vit = vit;
-                break;
-            case "spd":
-                spd++;
-                if (player != null) player.spd = spd;
-                break;
-            case "int":
-                intStat++;
-                if (player != null) player.intStat = intStat;
-                break;
-            case "crt":
-                crt++;
-                if (player != null) player.crt = crt;
-                break;
-            default:
-                Debug.LogError("Invalid stat name: " + stat);
-                return;
-        }
+        // Gọi chính hàm xử lý logic bên trong Player
+        player.UseStatPoint(stat);
 
-        points--; // trừ local
-        if (player != null) player.statPoints = points; // ← CẬP NHẬT về Player
+        // Cập nhật lại các giá trị trong StatsController để đồng bộ UI
+        str = player.str;
+        vit = player.vit;
+        spd = player.spd;
+        intStat = player.intStat;
+        crt = player.crt;
+        points = player.statPoints;
 
-        UpdateUI(); // Update the UI to reflect changes
+        UpdateUI(); // Cập nhật giao diện
     }
 
 

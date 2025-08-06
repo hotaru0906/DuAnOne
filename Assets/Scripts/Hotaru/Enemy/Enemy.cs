@@ -4,6 +4,20 @@ using UnityEngine; // Ensure UnityEngine namespace is included for Player class 
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Shooting Settings")]
+    public bool canShoot = false; // Nếu true thì enemy thường sẽ bắn đạn thay vì đánh cận chiến
+
+    [Header("Flying Enemy Settings")]
+    public bool isFlyingEnemy = false; // Đặt true cho enemy bay
+    public bool canMoveWhileAttacking = true; // True: vừa di chuyển vừa bắn, False: đứng yên khi bắn
+    public GameObject bulletPrefab;
+    public float bulletSpeed = 8f;
+    public float shootInterval = 3f; // Nếu không có animation attack
+    private float lastShootTime = 0f;
+
+    [Header("Enemy Type")]
+    public bool contactDamage = true; // Nếu true: quái đụng player mới gây sát thương, false: chỉ gây sát thương khi hitbox active
+
     [Header("Enemy Movement Settings")]
     public float moveSpeed = 3f;
     public float detectionRange = 10f; // Phạm vi phát hiện player
@@ -54,6 +68,7 @@ public class Enemy : MonoBehaviour
     public int amount = 10; // Amount of gold the enemy drops
 
     private Transform player;
+    private Transform boss;
     private bool isMoving = false;
     private bool isAttacking = false;
     private bool facingRight = true;
@@ -72,6 +87,11 @@ public class Enemy : MonoBehaviour
         else
         {
             Debug.LogWarning("Player not found! Make sure player has 'Player' tag.");
+        }
+        GameObject bossObj = GameObject.FindGameObjectWithTag("Boss");
+        if (bossObj != null)
+        {
+            boss = bossObj.transform;
         }
 
         // Lấy Animator component
@@ -101,6 +121,16 @@ public class Enemy : MonoBehaviour
                 Physics2D.IgnoreCollision(enemyCollider, playerCollider);
             }
         }
+
+        if (boss != null)
+        {
+            Collider2D bossCollider = boss.GetComponent<Collider2D>();
+            Collider2D enemyCollider = GetComponent<Collider2D>();
+            if (bossCollider != null && enemyCollider != null)
+            {
+                Physics2D.IgnoreCollision(enemyCollider, bossCollider);
+            }
+        }
     }
 
     void Update()
@@ -111,34 +141,111 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Enemy Update: enabled = {enabled}, canMove = {canMove}");
+        //Debug.Log($"Enemy Update: enabled = {enabled}, canMove = {canMove}");
 
         if (player != null && !isDead)
         {
-            if (currentHealth <= maxHealth * 0.2f) // Below 20% health
+            if (currentHealth <= maxHealth * 0.2f)
             {
                 FleeFromPlayer();
-                return; // Stop other behaviors when fleeing
+                return;
             }
 
-            if (canMove && !isAttacking)
+            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+            if (isFlyingEnemy)
             {
-                float distanceToPlayer = Vector2.Distance(transform.position, player.position);
                 if (distanceToPlayer > detectionRange)
                 {
-                    Patrol(); // Use Patrol when the player is out of detection range
+                    PlayIdleAnimation();
+                    isMoving = false;
                 }
                 else
                 {
-                    HandleMovement();
+                    // Enemy bay dí theo player
+                    if (canMoveWhileAttacking || !isAttacking)
+                    {
+                        FlyToPlayer();
+                    }
+
+                    // Kiểu không có animation attack: vừa di chuyển vừa bắn
+                    if (canMoveWhileAttacking)
+                    {
+                        if (Time.time - lastShootTime >= shootInterval)
+                        {
+                            Shoot();
+                            lastShootTime = Time.time;
+                        }
+                    }
+                    // Kiểu có animation attack: đứng yên khi bắn
+                    else
+                    {
+                        if (distanceToPlayer <= attackRange)
+                        {
+                            if (Time.time - lastShootTime >= attackCooldown && !isAttacking)
+                            {
+                                StartCoroutine(PerformShootAttack());
+                                lastShootTime = Time.time;
+                            }
+                        }
+                    }
                 }
             }
-            else if (!isMoving && !isAttacking)
+            else
             {
-                PlayIdleAnimation();
+                // Enemy thường
+                if (canShoot)
+                {
+                    if (distanceToPlayer > detectionRange)
+                    {
+                        Patrol();
+                    }
+                    else
+                    {
+                        // Nếu có animation attack thì đứng yên bắn, không thì vừa di chuyển vừa bắn
+                        if (canMoveWhileAttacking)
+                        {
+                            FlyToPlayer(); // Di chuyển về phía player
+                            if (Time.time - lastShootTime >= shootInterval)
+                            {
+                                Shoot();
+                                lastShootTime = Time.time;
+                            }
+                        }
+                        else
+                        {
+                            if (distanceToPlayer <= attackRange)
+                            {
+                                if (Time.time - lastShootTime >= attackCooldown && !isAttacking)
+                                {
+                                    StartCoroutine(PerformShootAttack());
+                                    lastShootTime = Time.time;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (canMove && !isAttacking)
+                    {
+                        if (distanceToPlayer > detectionRange)
+                        {
+                            Patrol();
+                        }
+                        else
+                        {
+                            HandleMovement();
+                        }
+                    }
+                    else if (!isMoving && !isAttacking)
+                    {
+                        PlayIdleAnimation();
+                    }
+                }
+                CheckObstacleAndJump();
             }
         }
-        CheckObstacleAndJump(); // Check for obstacles and jump if needed
     }
 
     void HandleMovement()
@@ -177,13 +284,23 @@ public class Enemy : MonoBehaviour
                 {
                     PlayWalkAnimation();
                     isMoving = true;
-
-                    // Play walk sound immediately
-                    if (audioSource != null && walkSound != null)
+                }
+                // Chỉ phát sound khi enemy active (trong camera) và KHÔNG tấn công
+                if (audioSource != null && walkSound != null && isMoving && gameObject.activeInHierarchy && !isAttacking)
+                {
+                    if (!audioSource.isPlaying || audioSource.clip != walkSound)
                     {
                         audioSource.clip = walkSound;
                         audioSource.loop = true;
                         audioSource.Play();
+                    }
+                }
+                else
+                {
+                    // Nếu không active hoặc đang tấn công, dừng walk sound ngay lập tức
+                    if (audioSource != null && audioSource.isPlaying && audioSource.clip == walkSound)
+                    {
+                        audioSource.Stop();
                     }
                 }
             }
@@ -527,17 +644,77 @@ public class Enemy : MonoBehaviour
             Player playerScript = collision.GetComponent<Player>();
             if (playerScript != null)
             {
-                if (hitbox != null && hitbox.activeSelf) // During attack
+                if (contactDamage)
                 {
-                    playerScript.TakeDamage(damage); // Deal damage when hitbox is active
-                    Debug.Log("Player hit by enemy attack.");
+                    // Quái gây sát thương khi đụng player
+                    playerScript.TakeDamage(damage);
+                    Debug.Log("Player collided with enemy (contactDamage=true).");
                 }
-                else // Collision with enemy body
+                else
                 {
-                    playerScript.TakeDamage(damage / 2); // Deal reduced damage for body collision
-                    Debug.Log("Player collided with enemy.");
+                    // Quái chỉ gây sát thương khi hitbox active (tung đòn)
+                    if (hitbox != null && hitbox.activeSelf)
+                    {
+                        playerScript.TakeDamage(damage);
+                        Debug.Log("Player hit by enemy attack (contactDamage=false).");
+                    }
                 }
             }
+        }
+    }
+    void FlyToPlayer()
+    {
+        if (player == null) return;
+        Vector2 direction = (player.position - transform.position).normalized;
+        transform.Translate(direction * moveSpeed * Time.deltaTime);
+        FlipSprite(direction.x);
+        if (!isMoving)
+        {
+            PlayWalkAnimation();
+            isMoving = true;
+        }
+    }
+
+    // Bắn đạn về phía player
+    void Shoot()
+    {
+        if (bulletPrefab == null || player == null) return;
+        Vector2 shootDir = (player.position - transform.position).normalized;
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = shootDir * bulletSpeed;
+            // Flip sprite viên đạn theo hướng bay
+            if (Mathf.Abs(shootDir.x) > 0.01f)
+            {
+                Vector3 scale = bullet.transform.localScale;
+                scale.x = shootDir.x > 0 ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
+                bullet.transform.localScale = scale;
+            }
+        }
+    }
+
+    // Kiểu có animation attack: đứng yên khi bắn
+    IEnumerator PerformShootAttack()
+    {
+        isAttacking = true;
+        PlayAttackAnimation();
+        yield return new WaitForSeconds(attackAnimationDuration * 0.3f);
+        Shoot();
+        yield return new WaitForSeconds(attackAnimationDuration * 0.7f);
+        lastShootTime = Time.time; // Đặt cooldown sau khi bắn xong
+        isAttacking = false;
+        if (!isMoving)
+        {
+            PlayIdleAnimation();
+        }
+    }
+    void OnBecameInvisible()
+    {
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
         }
     }
 }

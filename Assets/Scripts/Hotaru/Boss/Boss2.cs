@@ -154,7 +154,6 @@ public class Boss2 : MonoBehaviour
     {
         if (player != null && skill1Prefab != null)
         {
-            hitbox.SetActive(true);
             Vector3 spawnPosition = new Vector3(
                 player.position.x,                    // X: Chính xác vị trí X của player
                 player.position.y + skill1HeightOffset, // Y: Vị trí Y của player + offset (âm = dưới chân)
@@ -166,8 +165,6 @@ public class Boss2 : MonoBehaviour
 
             Debug.Log($"Boss2 Skill 1: Summoned object below player at {spawnPosition}");
 
-            // Tắt hitbox sau một khoảng thời gian ngắn
-            StartCoroutine(DisableHitboxAfterDelay(0.1f));
         }
         else
         {
@@ -289,23 +286,9 @@ public class Boss2 : MonoBehaviour
 
     void AttackPlayer()
     {
-        Debug.Log("Boss2 attacked Player! Player took damage!");
         if (hitbox != null)
         {
             hitbox.SetActive(true);
-            // Tắt hitbox sau một khoảng thời gian ngắn
-            StartCoroutine(DisableHitboxAfterDelay(0.2f));
-        }
-        // Có thể thêm logic damage ở đây
-        // player.GetComponent<PlayerHealth>().TakeDamage(damage);
-    }
-
-    IEnumerator DisableHitboxAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (hitbox != null)
-        {
-            hitbox.SetActive(false);
         }
     }
     void StopHitBoxAttack()
@@ -523,11 +506,6 @@ public class Boss2 : MonoBehaviour
                 {
                     playerHealth.TakeDamage(damage); // Deal damage when hitbox is active
                     Debug.Log("Player hit by enemy attack.");
-                }
-                else // Collision with enemy body
-                {
-                    playerHealth.TakeDamage(damage / 2); // Deal reduced damage for body collision
-                    Debug.Log("Player collided with enemy.");
                 }
             }
         }

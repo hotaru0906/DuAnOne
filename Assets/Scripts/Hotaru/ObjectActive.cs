@@ -21,7 +21,7 @@ public class ObjectActive : MonoBehaviour
         }
     }
 
-    void OnBecameInvisible()
+    public void OnBecameInvisible()
     {
         if (objectsToDeactivate != null)
         {

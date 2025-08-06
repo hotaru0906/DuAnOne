@@ -43,9 +43,10 @@ public class Boss3 : MonoBehaviour
     [Header("Coin Settings")]
     public GameObject coinPrefab; // Prefab for the coin to drop
     public int amount = 50; // Amount of gold the boss drops
-    public Cinemachine.CinemachineVirtualCamera virtualCamera; // Camera to follow the boss
-
-
+    public Cinemachine.CinemachineVirtualCamera virtualCamera;
+    public Cinemachine.CinemachineVirtualCamera playerCamera;
+    public GameObject playerObject; // Reference to the player object
+    public GameObject box1, box2;
     private Transform player;
     private bool isMoving = false;
     private bool isAttacking = false;
@@ -322,14 +323,7 @@ public class Boss3 : MonoBehaviour
         if (hitbox != null)
         {
             hitbox.SetActive(true);
-            // Tắt hitbox sau một khoảng thời gian ngắn
-            StartCoroutine(DisableHitboxAfterDelay(0.2f));
         }
-
-        // Không tạo viên đạn ở đây nữa - sẽ được tạo bởi animation event
-
-        // Có thể thêm logic damage ở đây
-        // player.GetComponent<PlayerHealth>().TakeDamage(damage);
     }
 
     // Animation Event Method: Tạo viên đạn (gọi từ animation event của attack animation)
@@ -360,15 +354,6 @@ public class Boss3 : MonoBehaviour
         else
         {
             Debug.LogWarning("Cannot create bullet: BulletPrefab is null");
-        }
-    }
-
-    IEnumerator DisableHitboxAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (hitbox != null)
-        {
-            hitbox.SetActive(false);
         }
     }
     void StopHitBoxAttack()
@@ -514,7 +499,16 @@ public class Boss3 : MonoBehaviour
         // Dừng tất cả coroutines để tránh xung đột
         StopAllCoroutines();
 
-        Debug.Log("Boss3 has died!");
+        virtualCamera.Follow.gameObject.SetActive(false);
+        if (playerCamera != null)
+        {
+            playerCamera.gameObject.SetActive(true);
+            playerCamera.Follow = player.transform;
+            playerCamera.LookAt = player.transform;
+            playerCamera.Priority = 20; // Đảm bảo cao hơn các camera khác nếu có
+        }
+        box1.SetActive(false);
+        box2.SetActive(false);
 
         // Chạy animation death
         PlayDeathAnimation();
@@ -533,7 +527,11 @@ public class Boss3 : MonoBehaviour
     {
         Debug.Log("Boss3 destroyed!");
         Destroy(gameObject);
-        virtualCamera.Follow.gameObject.SetActive(false); // Tắt camera theo dõi boss
+
+        if (BGMController.Instance != null)
+        {
+            BGMController.Instance.PlayBGMForScene("Forest");
+        }
 
         Player player = FindObjectOfType<Player>();
         if (player != null)
@@ -601,11 +599,6 @@ public class Boss3 : MonoBehaviour
                 {
                     playerScript.TakeDamage(damage); // Deal damage when hitbox is active
                     Debug.Log("Player hit by enemy attack.");
-                }
-                else // Collision with enemy body
-                {
-                    playerScript.TakeDamage(damage / 2); // Deal reduced damage for body collision
-                    Debug.Log("Player collided with enemy.");
                 }
             }
         }
