@@ -323,14 +323,7 @@ public class Boss3 : MonoBehaviour
         if (hitbox != null)
         {
             hitbox.SetActive(true);
-            // Tắt hitbox sau một khoảng thời gian ngắn
-            StartCoroutine(DisableHitboxAfterDelay(0.2f));
         }
-
-        // Không tạo viên đạn ở đây nữa - sẽ được tạo bởi animation event
-
-        // Có thể thêm logic damage ở đây
-        // player.GetComponent<PlayerHealth>().TakeDamage(damage);
     }
 
     // Animation Event Method: Tạo viên đạn (gọi từ animation event của attack animation)
@@ -361,15 +354,6 @@ public class Boss3 : MonoBehaviour
         else
         {
             Debug.LogWarning("Cannot create bullet: BulletPrefab is null");
-        }
-    }
-
-    IEnumerator DisableHitboxAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (hitbox != null)
-        {
-            hitbox.SetActive(false);
         }
     }
     void StopHitBoxAttack()

@@ -141,7 +141,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Enemy Update: enabled = {enabled}, canMove = {canMove}");
+        //Debug.Log($"Enemy Update: enabled = {enabled}, canMove = {canMove}");
 
         if (player != null && !isDead)
         {

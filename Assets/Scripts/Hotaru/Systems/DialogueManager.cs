@@ -96,10 +96,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         // Stop typing sound
-        if (audioSource != null && audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
+        StopSound();
 
         isTyping = false;
     }
@@ -121,6 +118,13 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("Calling OnDialogueEnded on currentNPC.");
             currentNPC.SendMessage("OnDialogueEnded", SendMessageOptions.DontRequireReceiver);
             currentNPC = null;
+        }
+    }
+    public void StopSound()
+    {
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
         }
     }
 

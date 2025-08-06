@@ -15,9 +15,10 @@ public class NPCDialogue : MonoBehaviour
 
     void Update()
     {
-        // Kiểm tra nếu player nhấn phím "E" để bắt đầu đối thoại
+        // Chỉ bắt đầu đối thoại nếu chưa bắt đầu
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E) && !isDialogueActive)
         {
+            isDialogueActive = true; // Đánh dấu đối thoại đang diễn ra ngay khi nhấn E
             StartDialogue();
             Invoke(nameof(ActivateObject), 2f);
         }
@@ -51,8 +52,10 @@ public class NPCDialogue : MonoBehaviour
             if (DialogueManager.Instance != null)
             {
                 DialogueManager.Instance.CloseDialogueBox();
+                DialogueManager.Instance.StopSound();
             }
             objectToActivate.SetActive(false); // Tắt GameObject nếu player rời khỏi vùng tương tác
+            CancelInvoke(nameof(ActivateObject)); // Hủy Invoke nếu player rời khỏi vùng
         }
     }
 

@@ -308,7 +308,6 @@ public class Boss4 : MonoBehaviour
         if (hitbox1 != null)
         {
             hitbox1.SetActive(true);
-            StartCoroutine(DisableHitbox1AfterDelay(0.3f));
         }
     }
     
@@ -341,7 +340,6 @@ public class Boss4 : MonoBehaviour
         if (hitbox2 != null)
         {
             hitbox2.SetActive(true);
-            StartCoroutine(DisableHitbox2AfterDelay(0.3f));
         }
     }
     
@@ -385,36 +383,9 @@ public class Boss4 : MonoBehaviour
         if (hitbox3 != null)
         {
             hitbox3.SetActive(true);
-            StartCoroutine(DisableHitbox3AfterDelay(0.3f));
         }
     }
-    
-    IEnumerator DisableHitbox1AfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (hitbox1 != null)
-        {
-            hitbox1.SetActive(false);
-        }
-    }
-    
-    IEnumerator DisableHitbox2AfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (hitbox2 != null)
-        {
-            hitbox2.SetActive(false);
-        }
-    }
-    
-    IEnumerator DisableHitbox3AfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (hitbox3 != null)
-        {
-            hitbox3.SetActive(false);
-        }
-    }
+
     
     void StopHitBoxAttack()
     {
