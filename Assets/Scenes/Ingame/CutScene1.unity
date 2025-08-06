@@ -839,7 +839,6 @@ MonoBehaviour:
   typeSpeed: 0.0175
   audioSource: {fileID: 890758233}
   typingSound: {fileID: 8300000, guid: 62ad8dd2f0b8f1446af64d3564993aea, type: 3}
-  skipOnClick: 1
 --- !u!82 &890758233
 AudioSource:
   m_ObjectHideFlags: 0
