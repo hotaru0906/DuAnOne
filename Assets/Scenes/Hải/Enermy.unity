@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 158979229}
   - component: {fileID: 158979228}
   m_Layer: 0
-  m_Name: Boss5
+  m_Name: Enermy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,7 +322,7 @@ Transform:
   m_GameObject: {fileID: 158979227}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3, y: -10.5, z: 0}
+  m_LocalPosition: {x: -7.8, y: -9.93, z: 0}
   m_LocalScale: {x: 4.032469, y: 4.1051, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -428,7 +428,7 @@ Transform:
   m_GameObject: {fileID: 196937388}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.8, y: -8.79, z: 0}
+  m_LocalPosition: {x: -15.28, y: -12.5, z: 0}
   m_LocalScale: {x: 2.648522, y: 3.0885203, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -445,7 +445,6 @@ GameObject:
   - component: {fileID: 369930450}
   - component: {fileID: 369930449}
   - component: {fileID: 369930448}
-  - component: {fileID: 369930447}
   - component: {fileID: 369930451}
   - component: {fileID: 369930452}
   m_Layer: 0
@@ -455,43 +454,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &369930447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369930446}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5889047ca6ec75c4c9f8fb3a0328a9d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  detectionRange: 10
-  attackRange: 2
-  canMove: 1
-  attackCooldown: 2
-  attackAnimationDuration: 1.5
-  damage: 10
-  hitbox: {fileID: 1669395027}
-  maxHealth: 100
-  currentHealth: 0
-  isDead: 0
-  walkAnimationName: run
-  idleAnimationName: ide
-  attackAnimationName: attack
-  deathAnimationName: Dead
-  animator: {fileID: 369930448}
-  frontCheckPoint: {fileID: 1669395028}
-  obstacleCheckDistance: 0.5
-  obstacleHeightCheck: 1
-  rb: {fileID: 369930451}
-  isGrounded: 1
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  jumpForce: 5
 --- !u!95 &369930448
 Animator:
   serializedVersion: 5
@@ -574,7 +536,7 @@ Transform:
   m_GameObject: {fileID: 369930446}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.99, y: 2.68, z: 0}
+  m_LocalPosition: {x: 9.92, y: 1.61, z: 0}
   m_LocalScale: {x: 1.973416, y: 2.1618516, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -893,7 +855,7 @@ GameObject:
   - component: {fileID: 663007865}
   - component: {fileID: 663007864}
   m_Layer: 0
-  m_Name: Boss3
+  m_Name: Enermy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -981,7 +943,7 @@ Transform:
   m_GameObject: {fileID: 663007863}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.45, y: -10.02, z: 0}
+  m_LocalPosition: {x: -11.54, y: -9.5, z: 0}
   m_LocalScale: {x: 3.5170133, y: 3.9268377, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -999,7 +961,7 @@ GameObject:
   - component: {fileID: 709854446}
   - component: {fileID: 709854445}
   m_Layer: 0
-  m_Name: Boss2
+  m_Name: Enermy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1087,7 +1049,7 @@ Transform:
   m_GameObject: {fileID: 709854444}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.19, y: -10.06, z: 0}
+  m_LocalPosition: {x: -15.13, y: -9.56, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1483,7 +1445,7 @@ GameObject:
   - component: {fileID: 1784877117}
   - component: {fileID: 1784877116}
   m_Layer: 0
-  m_Name: Boss4
+  m_Name: Boss2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1571,7 +1533,7 @@ Transform:
   m_GameObject: {fileID: 1784877115}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.88, y: -9.31, z: 0}
+  m_LocalPosition: {x: -11.88, y: -13.14, z: 0}
   m_LocalScale: {x: 3.6084, y: 3.9996, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1989,7 +1951,7 @@ SceneRoots:
   - {fileID: 103192768}
   - {fileID: 369930450}
   - {fileID: 196937391}
+  - {fileID: 1784877118}
   - {fileID: 709854447}
   - {fileID: 663007866}
-  - {fileID: 1784877118}
   - {fileID: 158979230}
