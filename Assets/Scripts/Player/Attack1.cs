@@ -31,8 +31,31 @@ public class Attack1 : MonoBehaviour
                     damage = Mathf.CeilToInt(damage * 1.5f);
                     Debug.Log("Critical Hit on Enemy!");
                 }
-
                 enemy.TakeDamage(damage);
+                Debug.Log($"Enemy {other.name} hit by Attack1, dealt {damage} damage.");
+            }
+            var imp = other.GetComponent<Imp>();
+            if (imp != null)
+            {
+                int damage = player.GetAttack1Damage();
+                if (player.IsCriticalHit())
+                {
+                    damage = Mathf.CeilToInt(damage * 1.5f);
+                    Debug.Log("Critical Hit on Enemy!");
+                }
+                imp.TakeDamage(damage);
+                Debug.Log($"Enemy {other.name} hit by Attack1, dealt {damage} damage.");
+            }
+            var nb = other.GetComponent<NightBorne>();
+            if (nb != null)
+            {
+                int damage = player.GetAttack1Damage();
+                if (player.IsCriticalHit())
+                {
+                    damage = Mathf.CeilToInt(damage * 1.5f);
+                    Debug.Log("Critical Hit on Enemy!");
+                }
+                nb.TakeDamage(damage);
                 Debug.Log($"Enemy {other.name} hit by Attack1, dealt {damage} damage.");
             }
             else
@@ -98,6 +121,32 @@ public class Attack1 : MonoBehaviour
                 Debug.Log("Boss4 hit by Attack1, dealt " + damage + " damage.");
                 return;
             }
+            Boss5 boss5 = other.GetComponent<Boss5>();
+            if (boss5 != null)
+            {
+                int damage = player.GetAttack1Damage();
+                if (player.IsCriticalHit())
+                {
+                    damage = Mathf.CeilToInt(damage * 1.5f);
+                    Debug.Log("Critical Hit on Enemy!");
+                }
+                boss5.TakeDamage(damage);
+                Debug.Log("Boss5 hit by Attack1, dealt " + damage + " damage.");
+                return;
+            }
+            Boss6 boss6 = other.GetComponent<Boss6>();
+            if (boss6 != null)
+            {
+                int damage = player.GetAttack1Damage();
+                if (player.IsCriticalHit())
+                {
+                    damage = Mathf.CeilToInt(damage * 1.5f);
+                    Debug.Log("Critical Hit on Enemy!");
+                }
+                boss6.TakeDamage(damage);
+                Debug.Log("Boss6 hit by Attack1, dealt " + damage + " damage.");
+                return;
+            }
             MiniBoss1 mb1 = other.GetComponent<MiniBoss1>();
             if (mb1 != null)
             {
@@ -110,6 +159,24 @@ public class Attack1 : MonoBehaviour
                 mb1.TakeDamage(damage);
                 Debug.Log("MiniBoss1 hit by Attack1, dealt " + damage + " damage.");
             }
+            else if (other.CompareTag("SummonBoss"))
+            {
+                // Hỗ trợ tất cả các loại Boss
+                Boss6 summonedBoss1 = other.GetComponent<Boss6>();
+                if (summonedBoss1 != null)
+                {
+                    int damage = player.GetAttack1Damage();
+                    if (player.IsCriticalHit())
+                    {
+                        damage = Mathf.CeilToInt(damage * 1.5f);
+                        Debug.Log("Critical Hit on Enemy!");
+                    }
+                    boss1.TakeDamage(damage);
+                    Debug.Log("Boss1 hit by Attack1, dealt " + damage + " damage.");
+                    return;
+                }
+            }
+
         }
     }
 }

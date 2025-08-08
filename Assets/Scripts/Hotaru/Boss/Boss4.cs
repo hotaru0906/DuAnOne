@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class Boss4 : MonoBehaviour
 {
+    [Header("Summon Settings")]
+    public Transform summonPoint; // Vị trí dịch chuyển khi summon
+    public GameObject portalType1;
+    public GameObject portalType2;
+    public GameObject portalType3;
+    public string summonAnimationName = "Boss4_Summon";
+    private GameObject currentSummonedBoss;
+    public Rigidbody2D rb;
+    private bool isSummoning = false;
     [Header("Boss Movement Settings")]
     public float moveSpeed = 3f;
     public float detectionRange = 10f; // Phạm vi phát hiện player
     public float attackRange = 2f; // Phạm vi tấn công
     public bool canMove = true;
-    
+
     [Header("Attack Settings")]
     public float attackCooldown = 2f;
     public float attackAnimationDuration = 1.5f; // Thời gian animation attack (điều chỉnh theo animation thực tế)
@@ -19,24 +28,24 @@ public class Boss4 : MonoBehaviour
     public float dashSpeed = 10f; // Tốc độ lướt trong attack 2
     public float dashDistance = 3f; // Khoảng cách lướt tối đa
     public int damage1 = 10, damage2 = 15, damage3 = 20;
-    
+
     [Header("Skill 1 Settings (Heal)")]
     public float skill1Cooldown = 10f; // Skill 1 mỗi 10 giây
     public float healAmount = 10f; // Hồi máu 10%
     public string healAnimationName = "Boss4_Heal"; // Animation hồi máu
     private bool[] healthThresholdUsed = new bool[3]; // Track các mốc máu đã dùng [75%, 50%, 25%]
-    
+
     [Header("Skill 2 Settings (Dash)")]
     public float skill2Cooldown = 20f; // Skill 2 cooldown 20s
     public float dashAwayDistance = 5f; // Khoảng cách dash ra xa
     public string dashAnimationName = "Boss4_Dash"; // Animation dash
     private float lastSkill2Time = -20f; // Cho phép dùng ngay từ đầu
-    
+
     [Header("Health Settings")]
     public float maxHealth = 100f;
     public float currentHealth;
     public bool isDead = false;
-    
+
     [Header("Animation Settings")]
     public string walkAnimationName = "Boss4_Walk";
     public string idleAnimationName = "Boss4_Idle";
@@ -49,7 +58,7 @@ public class Boss4 : MonoBehaviour
     public GameObject coinPrefab; // Prefab for the coin to drop
     public int amount = 50; // Amount of gold the boss drops
 
-    
+
     private Transform player;
     private bool isMoving = false;
     private bool isAttacking = false;
@@ -63,7 +72,7 @@ public class Boss4 : MonoBehaviour
 
     void Start()
     {
-        // Tìm player trong scene
+        rb = GetComponent<Rigidbody2D>();
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
@@ -100,15 +109,17 @@ public class Boss4 : MonoBehaviour
     {
         if (player != null && !isDead)
         {
-            // Debug states (tạm thời để debug)
-            if (Time.frameCount % 60 == 0) // Debug mỗi giây
+            if (Time.frameCount % 60 == 0)
             {
-                Debug.Log($"Boss4 States - Moving: {isMoving}, Attacking: {isAttacking}, UsingSkill1: {isUsingSkill1}, Health: {currentHealth}/{maxHealth}");
+                Debug.Log($"Boss4 States - Moving: {isMoving}, Attacking: {isAttacking}, UsingSkill1: {isUsingSkill1}, Health: {currentHealth}/{maxHealth}, Summoning: {isSummoning}");
             }
-            
+            // Nếu đang summon thì không làm gì cả
+            if (isSummoning)
+                return;
+
             // Kiểm tra Skill 1 cooldown (ưu tiên cao nhất)
             CheckSkill1();
-            
+
             // Logic di chuyển và tấn công bình thường (khi không dùng skill)
             if (canMove && !isAttacking && !isUsingSkill1 && !isUsingSkill2 && !isDashing)
             {
@@ -120,99 +131,200 @@ public class Boss4 : MonoBehaviour
             }
         }
     }
-    
+
     void CheckSkill1()
     {
         // Kiểm tra cooldown 10s
         bool cooldownReady = Time.time - lastSkill1Time >= skill1Cooldown;
-        
+
         // Kiểm tra các mốc máu
         bool healthThresholdMet = CheckHealthThresholds();
-        
+
         // Sử dụng skill nếu đủ điều kiện
         if ((cooldownReady || healthThresholdMet) && !isUsingSkill1 && !isAttacking && !isDead && !isUsingSkill2)
         {
             StartCoroutine(UseSkill1());
         }
     }
-    
+
     bool CheckHealthThresholds()
     {
         float healthPercent = (currentHealth / maxHealth) * 100f;
-        
-        // Kiểm tra mốc 75%
+        // 75% threshold
         if (healthPercent <= 75f && !healthThresholdUsed[0])
         {
             healthThresholdUsed[0] = true;
-            return true;
+            StartCoroutine(DoSummonPhase(0));
+            return false;
         }
-        
-        // Kiểm tra mốc 50%
+        // 50% threshold
         if (healthPercent <= 50f && !healthThresholdUsed[1])
         {
             healthThresholdUsed[1] = true;
-            return true;
+            StartCoroutine(DoSummonPhase(1));
+            return false;
         }
-        
-        // Kiểm tra mốc 25%
+        // 25% threshold
         if (healthPercent <= 25f && !healthThresholdUsed[2])
         {
             healthThresholdUsed[2] = true;
-            return true;
+            StartCoroutine(DoSummonPhase(2));
+            return false;
         }
-        
         return false;
     }
-    
+
+    // Coroutine thực hiện summon boss phụ và portal
+    IEnumerator DoSummonPhase(int phase)
+    {
+        isSummoning = true;
+        canMove = false;
+        isMoving = false;
+        isAttacking = false;
+        isUsingSkill1 = false;
+        isUsingSkill2 = false;
+        isDashing = false;
+        if (rb != null)
+        {
+            rb.gravityScale = 0f; // Tắt trọng lực trong khi summon
+        }
+
+        // Dịch chuyển boss về summonPoint nếu có
+        if (summonPoint != null)
+        {
+            transform.position = summonPoint.position;
+        }
+
+        // Chạy animation Summon và dừng toàn bộ animation lại
+        if (animator != null)
+        {
+            animator.Play(summonAnimationName);
+            animator.Update(0f); // Đảm bảo animation bắt đầu
+            animator.speed = 0f; // Dừng toàn bộ animation lại
+        }
+
+        // Spawn portal tại vị trí boss
+        GameObject portal = null;
+        switch (phase)
+        {
+            case 0:
+                if (portalType1 != null)
+                    portal = Instantiate(portalType1, transform.position, Quaternion.identity);
+                break;
+            case 1:
+                if (portalType2 != null)
+                    portal = Instantiate(portalType2, transform.position, Quaternion.identity);
+                break;
+            case 2:
+                if (portalType3 != null)
+                    portal = Instantiate(portalType3, transform.position, Quaternion.identity);
+                break;
+        }
+
+        // Nếu portal có script PortalSpawn và spawn ra boss phụ, chỉ theo dõi boss phụ với tag riêng biệt (ví dụ: "SummonedBoss")
+        if (portal != null)
+        {
+            PortalSpawn portalSpawn = portal.GetComponent<PortalSpawn>();
+            if (portalSpawn != null)
+            {
+                portalSpawn.SpawnObject();
+                // Đảm bảo prefab boss phụ (objectToSpawn) có tag "SummonedBoss" trong Unity Editor
+                if (portalSpawn.objectToSpawn != null)
+                {
+                    // Tìm boss phụ vừa spawn dựa trên tag "SummonedBoss"
+                    GameObject[] summonedBosses = GameObject.FindGameObjectsWithTag("SummonedBoss");
+                    float minDist = float.MaxValue;
+                    GameObject closest = null;
+                    foreach (var b in summonedBosses)
+                    {
+                        float dist = Vector3.Distance(b.transform.position, transform.position);
+                        if (dist < minDist)
+                        {
+                            minDist = dist;
+                            closest = b;
+                        }
+                    }
+                    if (closest != null)
+                    {
+                        currentSummonedBoss = closest;
+                        // Theo dõi boss phụ bị tiêu diệt
+                        StartCoroutine(WaitForSummonedBossDeath(currentSummonedBoss));
+                    }
+                }
+            }
+        }
+        yield break;
+    }
+
+    // Theo dõi boss phụ, khi chết thì boss 4 trở lại trạng thái bình thường
+    IEnumerator WaitForSummonedBossDeath(GameObject summonedBoss)
+    {
+        while (summonedBoss != null)
+        {
+            yield return null;
+        }
+        isSummoning = false;
+        canMove = true;
+        if (animator != null)
+        {
+            animator.speed = 1f; // Cho phép animation tiếp tục
+        }
+        if (rb != null)
+        {
+            rb.gravityScale = 1f; // Bật lại trọng lực
+        }
+        Debug.Log("Boss4: Summoned boss defeated, returning to normal state");
+    }
+
     IEnumerator UseSkill1()
     {
         isUsingSkill1 = true;
         lastSkill1Time = Time.time;
-        
+
         // Dừng di chuyển
         if (isMoving)
         {
             isMoving = false;
         }
-        
+
         // Chạy animation heal
         PlayHealAnimation();
-        
+
         // Animation event sẽ gọi HealBoss() khi cần
         // Animation event sẽ gọi EndSkill1() khi hoàn thành
-        
+
         yield return null; // Coroutine sẽ được kết thúc bởi EndSkill1()
     }
-    
+
     // Animation Event Method 1: Hồi máu
     public void HealBoss()
     {
         float healValue = maxHealth * (healAmount / 100f); // Tính 10% của max health
         currentHealth += healValue;
         currentHealth = Mathf.Min(currentHealth, maxHealth); // Không vượt quá max health
-        
+
         Debug.Log($"Boss4 healed {healValue} HP! Current health: {currentHealth}/{maxHealth}");
     }
-    
+
     // Animation Event Method 2: Kết thúc skill heal
     public void EndSkill1()
     {
         isUsingSkill1 = false;
         Debug.Log("Boss4 Heal skill ended, returning to normal state");
-        
+
         // Reset các state về bình thường
         isAttacking = false;
         isMoving = false;
-        
+
         // Quay về idle
         PlayIdleAnimation();
     }
-    
+
     void HandleMovement()
     {
         // Tính khoảng cách đến player
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        
+
         // Kiểm tra xem player có trong phạm vi tấn công không
         if (distanceToPlayer <= attackRange)
         {
@@ -221,11 +333,11 @@ public class Boss4 : MonoBehaviour
             {
                 isMoving = false;
             }
-            
+
             // Flip sprite hướng về player
             float directionX = player.position.x - transform.position.x;
             FlipSprite(directionX);
-            
+
             // Thực hiện tấn công
             HandleAttack();
         }
@@ -234,17 +346,17 @@ public class Boss4 : MonoBehaviour
         {
             // Tính hướng di chuyển chỉ theo trục X
             float directionX = player.position.x - transform.position.x;
-            
+
             // Kiểm tra xem có cần di chuyển không (tránh rung lắc khi quá gần)
             if (Mathf.Abs(directionX) > 0.1f)
             {
                 // Di chuyển theo hướng player
                 Vector2 moveDirection = new Vector2(Mathf.Sign(directionX), 0).normalized;
                 transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-                
+
                 // Flip sprite theo hướng di chuyển
                 FlipSprite(directionX);
-                
+
                 // Phát animation walk
                 if (!isMoving)
                 {
@@ -272,7 +384,7 @@ public class Boss4 : MonoBehaviour
             }
         }
     }
-    
+
     void HandleAttack()
     {
         // Kiểm tra cooldown tấn công (chỉ tấn công khi không dùng skill và không dead)
@@ -283,24 +395,24 @@ public class Boss4 : MonoBehaviour
             StartCoroutine(PerformAttack());
         }
     }
-    
+
     IEnumerator PerformAttack()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
-        
+
         // Phát animation tấn công (chung cho cả 3 loại)
         PlayAttackAnimation();
-        
+
         Debug.Log($"Boss4 performing attack type {currentAttackType}");
-        
+
         // Đợi animation hoàn thành
         yield return new WaitForSeconds(attackAnimationDuration);
-        
+
         // Kết thúc attack
         StopAttack();
     }
-    
+
     // Animation Event Method: Attack Type 1 - Mở hitbox1
     public void AttackType1()
     {
@@ -310,14 +422,14 @@ public class Boss4 : MonoBehaviour
             hitbox1.SetActive(true);
         }
     }
-    
+
     // Animation Event Method: Attack Type 2 - Dash to player (Part 1)
     public void AttackType2_StartDash()
     {
         if (player != null)
         {
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-            
+
             // Chỉ dash nếu không ở gần player
             if (distanceToPlayer > attackRange)
             {
@@ -332,7 +444,7 @@ public class Boss4 : MonoBehaviour
             }
         }
     }
-    
+
     // Animation Event Method: Attack Type 2 - Activate hitbox2 (Part 2)
     public void AttackType2_ActivateHitbox()
     {
@@ -342,21 +454,21 @@ public class Boss4 : MonoBehaviour
             hitbox2.SetActive(true);
         }
     }
-    
+
     IEnumerator DashToPlayer()
     {
         isDashing = true;
         Vector3 startPosition = transform.position;
         Vector3 targetPosition = player.position;
-        
+
         // Giới hạn khoảng cách dash
         Vector3 direction = (targetPosition - startPosition).normalized;
         float actualDistance = Mathf.Min(Vector3.Distance(startPosition, targetPosition), dashDistance);
         targetPosition = startPosition + direction * actualDistance;
-        
+
         float dashTime = actualDistance / dashSpeed;
         float elapsedTime = 0f;
-        
+
         while (elapsedTime < dashTime)
         {
             elapsedTime += Time.deltaTime;
@@ -364,10 +476,10 @@ public class Boss4 : MonoBehaviour
             transform.position = Vector3.Lerp(startPosition, targetPosition, progress);
             yield return null;
         }
-        
+
         transform.position = targetPosition;
         isDashing = false;
-        
+
         // Flip hướng về player sau khi dash
         if (player != null)
         {
@@ -375,7 +487,7 @@ public class Boss4 : MonoBehaviour
             FlipSprite(directionX);
         }
     }
-    
+
     // Animation Event Method: Attack Type 3 - Mở hitbox3
     public void AttackType3()
     {
@@ -386,7 +498,7 @@ public class Boss4 : MonoBehaviour
         }
     }
 
-    
+
     void StopHitBoxAttack()
     {
         // Tắt tất cả hitbox
@@ -406,7 +518,7 @@ public class Boss4 : MonoBehaviour
     void StopAttack()
     {
         isAttacking = false;
-        
+
         // Chỉ chuyển về idle nếu không đang dùng skill
         if (!isUsingSkill1)
         {
@@ -416,7 +528,7 @@ public class Boss4 : MonoBehaviour
             }
         }
     }
-    
+
     void FlipSprite(float directionX)
     {
         // Flip sprite dựa trên hướng di chuyển
@@ -433,7 +545,7 @@ public class Boss4 : MonoBehaviour
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
-    
+
     void PlayIdleAnimation()
     {
         if (animator != null)
@@ -441,7 +553,7 @@ public class Boss4 : MonoBehaviour
             animator.Play(idleAnimationName);
         }
     }
-    
+
     void PlayWalkAnimation()
     {
         if (animator != null)
@@ -449,7 +561,7 @@ public class Boss4 : MonoBehaviour
             animator.Play(walkAnimationName);
         }
     }
-    
+
     void PlayAttackAnimation()
     {
         if (animator != null)
@@ -457,7 +569,7 @@ public class Boss4 : MonoBehaviour
             animator.Play(attackAnimationName);
         }
     }
-    
+
     void PlaySkill1Animation()
     {
         if (animator != null)
@@ -465,7 +577,7 @@ public class Boss4 : MonoBehaviour
             animator.Play(healAnimationName);
         }
     }
-    
+
     void PlayHealAnimation()
     {
         if (animator != null)
@@ -473,7 +585,7 @@ public class Boss4 : MonoBehaviour
             animator.Play(healAnimationName);
         }
     }
-    
+
     void PlayDashAnimation()
     {
         if (animator != null)
@@ -481,7 +593,7 @@ public class Boss4 : MonoBehaviour
             animator.Play(dashAnimationName);
         }
     }
-    
+
     void PlayDeathAnimation()
     {
         if (animator != null)
@@ -489,7 +601,7 @@ public class Boss4 : MonoBehaviour
             animator.Play(deathAnimationName);
         }
     }
-    
+
     // Public method để bật/tắt di chuyển
     public void SetCanMove(bool canMoveState)
     {
@@ -500,16 +612,16 @@ public class Boss4 : MonoBehaviour
             isMoving = false;
         }
     }
-    
+
     // Method để force reset tất cả states (backup emergency)
     public void ForceResetStates()
     {
         isAttacking = false;
         isUsingSkill1 = false;
         isMoving = false;
-        
+
         PlayIdleAnimation();
-        
+
         Debug.Log("Boss4: Force reset all states to normal");
     }
 
@@ -517,10 +629,11 @@ public class Boss4 : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (isDead) return; // Không nhận damage nếu đã chết
-        
+        if (isSummoning) return; // Không nhận damage khi đang summon
+
         // Kiểm tra skill2 dash cooldown
         bool canDash = Time.time - lastSkill2Time >= skill2Cooldown;
-        
+
         if (canDash && !isUsingSkill1 && !isUsingSkill2 && !isDashing)
         {
             // Sử dụng skill2 để dash ra xa thay vì nhận damage
@@ -528,42 +641,42 @@ public class Boss4 : MonoBehaviour
             Debug.Log("Boss4 used Skill2 Dash to avoid damage!");
             return; // Không nhận damage
         }
-        
+
         // Nhận damage bình thường nếu skill2 trong cooldown
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth); // Không cho âm
-        
+
         Debug.Log($"Boss4 took {damage} damage! Health: {currentHealth}/{maxHealth}");
-        
+
         if (currentHealth <= 0)
         {
             Die();
         }
     }
-    
+
     IEnumerator UseSkill2DashAway()
     {
         isUsingSkill2 = true;
         isDashing = true;
         lastSkill2Time = Time.time;
-        
+
         // Dừng di chuyển
         if (isMoving)
         {
             isMoving = false;
         }
-        
+
         // Chạy animation dash
         PlayDashAnimation();
-        
+
         // Tính vị trí dash ra xa player
         Vector3 dashPosition = CalculateDashAwayPosition();
-        
+
         // Thực hiện dash
         Vector3 startPosition = transform.position;
         float dashTime = dashAwayDistance / dashSpeed;
         float elapsedTime = 0f;
-        
+
         while (elapsedTime < dashTime)
         {
             elapsedTime += Time.deltaTime;
@@ -571,33 +684,33 @@ public class Boss4 : MonoBehaviour
             transform.position = Vector3.Lerp(startPosition, dashPosition, progress);
             yield return null;
         }
-        
+
         transform.position = dashPosition;
-        
+
         // Flip hướng về player sau khi dash
         if (player != null)
         {
             float directionX = player.position.x - transform.position.x;
             FlipSprite(directionX);
         }
-        
+
         isUsingSkill2 = false;
         isDashing = false;
-        
+
         Debug.Log("Boss4 Skill2 Dash completed, returning to normal state");
         PlayIdleAnimation();
     }
-    
+
     Vector3 CalculateDashAwayPosition()
     {
         if (player == null) return transform.position;
-        
+
         // Tính hướng ra xa player
         Vector3 direction = (transform.position - player.position).normalized;
-        
+
         // Tính vị trí dash (chỉ theo trục X để tránh bay lên trời)
         Vector3 dashPosition = transform.position + new Vector3(direction.x * dashAwayDistance, 0, 0);
-        
+
         return dashPosition;
     }
 
@@ -632,7 +745,7 @@ public class Boss4 : MonoBehaviour
     {
         Debug.Log("Boss4 destroyed!");
         Destroy(gameObject);
-        
+
         // Check if the coinPrefab is assigned
         if (coinPrefab != null)
         {
@@ -661,16 +774,6 @@ public class Boss4 : MonoBehaviour
         }
     }
 
-    // Utility methods để control hitbox riêng biệt (có thể dùng cho animation events)
-    public void ActivateHitbox1()
-    {
-        if (hitbox1 != null)
-        {
-            hitbox1.SetActive(true);
-            Debug.Log("Boss4 Hitbox1 activated");
-        }
-    }
-    
     public void DeactivateHitbox1()
     {
         if (hitbox1 != null)
@@ -679,16 +782,7 @@ public class Boss4 : MonoBehaviour
             Debug.Log("Boss4 Hitbox1 deactivated");
         }
     }
-    
-    public void ActivateHitbox2()
-    {
-        if (hitbox2 != null)
-        {
-            hitbox2.SetActive(true);
-            Debug.Log("Boss4 Hitbox2 activated");
-        }
-    }
-    
+
     public void DeactivateHitbox2()
     {
         if (hitbox2 != null)
@@ -697,16 +791,7 @@ public class Boss4 : MonoBehaviour
             Debug.Log("Boss4 Hitbox2 deactivated");
         }
     }
-    
-    public void ActivateHitbox3()
-    {
-        if (hitbox3 != null)
-        {
-            hitbox3.SetActive(true);
-            Debug.Log("Boss4 Hitbox3 activated");
-        }
-    }
-    
+
     public void DeactivateHitbox3()
     {
         if (hitbox3 != null)
@@ -715,7 +800,7 @@ public class Boss4 : MonoBehaviour
             Debug.Log("Boss4 Hitbox3 deactivated");
         }
     }
-    
+
     // Method để tắt tất cả hitbox cùng lúc
     public void DeactivateAllHitboxes()
     {
@@ -724,18 +809,18 @@ public class Boss4 : MonoBehaviour
         DeactivateHitbox3();
         Debug.Log("Boss4 All hitboxes deactivated");
     }
-    
+
     // Vẽ gizmo để hiển thị phạm vi phát hiện và tấn công
     void OnDrawGizmosSelected()
     {
         // Vẽ phạm vi phát hiện player
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
-        
+
         // Vẽ phạm vi tấn công
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-        
+
         // Vẽ hướng đang face
         Gizmos.color = facingRight ? Color.green : Color.blue;
         Vector3 direction = facingRight ? Vector3.right : Vector3.left;

@@ -29,6 +29,18 @@ public class Skill1Ground : MonoBehaviour
                 enemy.TakeDamage(playerSkill.skill1Damage);
                 Debug.Log($"Enemy {other.name} hit by Skill1 Ground, dealt {playerSkill.skill1Damage} damage.");
             }
+            var imp = other.GetComponent<Imp>();
+            if (imp != null)
+            {
+                imp.TakeDamage(playerSkill.skill1Damage);
+                Debug.Log($"Enemy {other.name} hit by Skill1, dealt {playerSkill.skill1Damage} damage.");
+            }
+            var nb = other.GetComponent<NightBorne>();
+            if (nb != null)
+            {
+                nb.TakeDamage(playerSkill.skill1Damage);
+                Debug.Log($"Enemy {other.name} hit by Skill1, dealt {playerSkill.skill1Damage} damage.");
+            }
             else
             {
                 Debug.LogWarning($"Enemy {other.name} does not have an Enemy script attached.");

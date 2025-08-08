@@ -15,6 +15,7 @@ TagManager:
   - DeadEnd
   - Coin
   - Dead
+  - SummonBoss
   layers:
   - Default
   - TransparentFX

@@ -647,13 +647,6 @@ public class Player : MonoBehaviour
             audioSource.PlayOneShot(attack1);
         }
     }
-
-    public void EndAttack1HitBox()
-    {
-        if (Attack1HitBox != null)
-            Attack1HitBox.SetActive(false);
-    }
-
     public void StartAttack2HitBox()
     {
         if (Attack2HitBox != null)
@@ -663,13 +656,6 @@ public class Player : MonoBehaviour
             audioSource.PlayOneShot(attack2);
         }
     }
-
-    public void EndAttack2HitBox()
-    {
-        if (Attack2HitBox != null)
-            Attack2HitBox.SetActive(false);
-    }
-
     public void StartAttack3HitBox()
     {
         if (Attack3HitBox != null)
@@ -678,12 +664,6 @@ public class Player : MonoBehaviour
         {
             audioSource.PlayOneShot(attack3);
         }
-    }
-
-    public void EndAttack3HitBox()
-    {
-        if (Attack3HitBox != null)
-            Attack3HitBox.SetActive(false);
     }
     public void StartAttack4HitBox()
     {
@@ -694,15 +674,18 @@ public class Player : MonoBehaviour
             audioSource.PlayOneShot(attack4);
         }
     }
-    public void EndAttack4HitBox()
-    {
-        if (Attack4HitBox != null)
-            Attack4HitBox.SetActive(false);
-    }
 
     public void EndAttackAnimation()
     {
         isAttacking = false;
+        if (Attack1HitBox != null)
+            Attack1HitBox.SetActive(false);
+        if (Attack2HitBox != null)
+            Attack2HitBox.SetActive(false);
+        if (Attack3HitBox != null)
+            Attack3HitBox.SetActive(false);
+        if (Attack4HitBox != null)
+            Attack4HitBox.SetActive(false);
     }
 
     // ==================== SKILL SYSTEM ====================

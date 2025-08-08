@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4298533433480239558}
   m_Layer: 0
   m_Name: Boss 6
-  m_TagString: Boss
+  m_TagString: SummonBoss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331,7 +331,11 @@ MonoBehaviour:
   amount: 50
   virtualCamera: {fileID: 0}
   playerCamera: {fileID: 0}
+  cameraShakeAmplitude: 3
+  cameraShakeDuration: 0.3
+  cameraShakeFrequency: 2
   playerObject: {fileID: 0}
+  bossObject: {fileID: 0}
   box1: {fileID: 0}
   box2: {fileID: 0}
   iceySpearPrefab: {fileID: 3298712936764016907, guid: 3f30d6ec02ffd104aad43c44e1608f9c, type: 3}

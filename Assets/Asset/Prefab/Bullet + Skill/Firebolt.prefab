@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6746625539336317109}
   - component: {fileID: 7746050992294487174}
   - component: {fileID: 1485282927514269522}
+  - component: {fileID: 5218480881706038853}
   m_Layer: 0
   m_Name: Firebolt
   m_TagString: Untagged
@@ -165,5 +166,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b939a1d0878f314ea7cdb4e19954fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 45
   lifeTime: 3
+--- !u!50 &5218480881706038853
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4547271000091259120}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4

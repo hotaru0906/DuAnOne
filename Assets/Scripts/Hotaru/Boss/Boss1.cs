@@ -109,7 +109,7 @@ public class Boss1 : MonoBehaviour
 
     void CheckSkill1()
     {
-        // Kiểm tra xem đã đủ thời gian để dùng Skill 1 chưa (KHÔNG được dùng khi đang attack hoặc dead)
+        // Chỉ dùng skill 1 nếu KHÔNG đang attack, KHÔNG đang dùng skill, KHÔNG chết
         if (Time.time - lastSkill1Time >= skill1Cooldown && !isUsingSkill1 && !isAttacking && !isDead)
         {
             StartCoroutine(UseSkill1());
@@ -118,6 +118,11 @@ public class Boss1 : MonoBehaviour
 
     IEnumerator UseSkill1()
     {
+        // Đảm bảo không bị attack interrupt: nếu đang attack thì chờ đến khi attack xong mới dùng skill 1
+        while (isAttacking)
+        {
+            yield return null;
+        }
         isUsingSkill1 = true;
         lastSkill1Time = Time.time;
 
@@ -125,6 +130,12 @@ public class Boss1 : MonoBehaviour
         if (isMoving)
         {
             isMoving = false;
+        }
+
+        // Đảm bảo hitbox luôn tắt khi bắt đầu skill 1
+        if (hitbox != null)
+        {
+            hitbox.SetActive(false);
         }
 
         // Flip hướng về player
@@ -141,23 +152,33 @@ public class Boss1 : MonoBehaviour
     // Animation Event Method 1: Triệu hồi object
     public void SummonSkill1Object()
     {
+        // Bắt đầu coroutine spawn 5 object tại vị trí player, mỗi cái cách nhau 1 giây
         if (player != null && skill1Prefab != null)
         {
-            // Tạo position trên đầu player - giữ nguyên trục X của player
-            Vector3 spawnPosition = new Vector3(
-                player.position.x + 1.2f,                    // X: Chính xác vị trí X của player
-                player.position.y + skill1HeightOffset, // Y: Vị trí Y của player + offset
-                player.position.z                     // Z: Giữ nguyên Z của player
-            );
-
-            // Spawn object
-            GameObject spawnedObject = Instantiate(skill1Prefab, spawnPosition, Quaternion.identity);
-
-            Debug.Log($"Boss1 Skill 1: Summoned object above player at {spawnPosition}");
+            StartCoroutine(SpawnSkill1ObjectsRoutine());
         }
         else
         {
             Debug.LogWarning("Cannot summon Skill 1 object: Player or Skill1Prefab is null");
+        }
+    }
+
+    private IEnumerator SpawnSkill1ObjectsRoutine()
+    {
+        int count = 0;
+        while (count < 5)
+        {
+            if (player == null) yield break;
+            Vector3 spawnPosition = new Vector3(
+                player.position.x,
+                player.position.y + skill1HeightOffset,
+                player.position.z
+            );
+            Instantiate(skill1Prefab, spawnPosition, Quaternion.identity);
+            Debug.Log($"Boss1 Skill 1: Spawned object {count + 1}/5 at {spawnPosition}");
+            count++;
+            if (count < 5)
+                yield return new WaitForSeconds(1f);
         }
     }
 
@@ -257,19 +278,8 @@ public class Boss1 : MonoBehaviour
         // Phát animation tấn công
         PlayAttackAnimation();
 
-        // Đợi một chút để animation bắt đầu (khoảng 30% animation)
         yield return new WaitForSeconds(attackAnimationDuration * 0.3f);
-
-        // Thực hiện tấn công ở giữa animation (kiểm tra xem player vẫn còn trong tầm đánh không)
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        if (distanceToPlayer <= attackRange)
-        {
-            AttackPlayer();
-        }
-
-        // Đợi animation tấn công hoàn thành (70% còn lại)
         yield return new WaitForSeconds(attackAnimationDuration * 0.7f);
-        StopAttack();
     }
 
     void AttackPlayer()

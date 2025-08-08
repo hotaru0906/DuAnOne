@@ -252,7 +252,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6731632167613279348
 Transform:
   m_ObjectHideFlags: 0
@@ -263,7 +263,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.9522266, y: -0.6075172, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6408196117021596694}
@@ -448,7 +448,7 @@ MonoBehaviour:
   skill2Cooldown: 20
   dashAwayDistance: 5
   dashAnimationName: Boss4_Dash
-  maxHealth: 100
+  maxHealth: 500
   currentHealth: 0
   isDead: 0
   walkAnimationName: Boss4_Run
@@ -456,6 +456,9 @@ MonoBehaviour:
   attackAnimationName: Boss4_Attack
   deathAnimationName: Boss4_Death
   animator: {fileID: 417453452820371061}
+  exp: 100
+  coinPrefab: {fileID: 5191125823337282758, guid: dcae3e26a436f5948b32756c9fc22c36, type: 3}
+  amount: 50
 --- !u!60 &4137762845832753333
 PolygonCollider2D:
   m_ObjectHideFlags: 0

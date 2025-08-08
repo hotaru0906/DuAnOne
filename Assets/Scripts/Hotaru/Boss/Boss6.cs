@@ -43,7 +43,7 @@ public class Boss6 : MonoBehaviour
     public float cameraShakeAmplitude = 3f;
     public float cameraShakeDuration = 0.3f;
     public float cameraShakeFrequency = 2f;
-    public GameObject playerObject; // Reference to the player object
+    public GameObject playerObject, bossObject; // Reference to the player object
     public GameObject box1, box2;
     private Transform player;
     // ====== ICEY SPEAR SKILL 1 LOGIC ======
@@ -67,6 +67,16 @@ public class Boss6 : MonoBehaviour
     {
         // Tìm player trong scene
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        GameObject bossObj = GameObject.FindGameObjectWithTag("Boss");
+        if (bossObj != null)
+        {
+            // Nếu có, lấy transform của boss
+            bossObject = bossObj;
+        }
+        else
+        {
+            Debug.LogWarning("Boss6: Player object not found! Make sure player has 'Player' tag.");
+        }
         if (playerObj != null)
         {
             player = playerObj.transform;
@@ -93,6 +103,21 @@ public class Boss6 : MonoBehaviour
             if (playerCollider != null && enemyCollider != null)
             {
                 Physics2D.IgnoreCollision(enemyCollider, playerCollider);
+            }
+        }
+
+        // Ignore collision giữa tất cả các boss với nhau (tag "Boss")
+        Collider2D myCollider = GetComponent<Collider2D>();
+        GameObject[] allBosses = GameObject.FindGameObjectsWithTag("Boss");
+        foreach (GameObject boss in allBosses)
+        {
+            if (boss != this.gameObject)
+            {
+                Collider2D bossCollider = boss.GetComponent<Collider2D>();
+                if (myCollider != null && bossCollider != null)
+                {
+                    Physics2D.IgnoreCollision(myCollider, bossCollider);
+                }
             }
         }
         currentHealth = maxHealth; // Initialize health
@@ -436,7 +461,9 @@ public class Boss6 : MonoBehaviour
         // Dừng tất cả coroutines để tránh xung đột
         StopAllCoroutines();
 
-        virtualCamera.Follow.gameObject.SetActive(false);
+        hitbox.SetActive(false);
+        if (virtualCamera != null)
+            virtualCamera.Follow.gameObject.SetActive(false);
         if (playerCamera != null)
         {
             playerCamera.gameObject.SetActive(true);
@@ -444,8 +471,11 @@ public class Boss6 : MonoBehaviour
             playerCamera.LookAt = player.transform;
             playerCamera.Priority = 20; // Đảm bảo cao hơn các camera khác nếu có
         }
-        box1.SetActive(false);
-        box2.SetActive(false);
+        if (box1 != null && box2 != null)
+        {
+            box1.SetActive(false);
+            box2.SetActive(false);
+        }
 
         // Chạy animation death
         PlayDeathAnimation();

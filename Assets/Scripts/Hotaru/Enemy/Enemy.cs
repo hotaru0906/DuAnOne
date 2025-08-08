@@ -67,6 +67,9 @@ public class Enemy : MonoBehaviour
     [Header("Coin Settings")]
     public int amount = 10; // Amount of gold the enemy drops
 
+    [Header("Shooting Point")]
+    public Transform shootPoint; // Vị trí spawn đạn (có thể gán trong Inspector)
+
     private Transform player;
     private Transform boss;
     private bool isMoving = false;
@@ -75,6 +78,7 @@ public class Enemy : MonoBehaviour
     private float lastAttackTime = 0f;
     private float patrolFlipTimer = 0f; // Timer for flipping during patrol
     private float patrolFlipInterval = 0f; // Random interval for flipping
+    private Vector2 shootDirection; // Hướng bắn được lưu tại thời điểm bắt đầu animation attack
 
     void Start()
     {
@@ -202,26 +206,17 @@ public class Enemy : MonoBehaviour
                     }
                     else
                     {
-                        // Nếu có animation attack thì đứng yên bắn, không thì vừa di chuyển vừa bắn
-                        if (canMoveWhileAttacking)
+                        if (distanceToPlayer <= attackRange)
                         {
-                            FlyToPlayer(); // Di chuyển về phía player
-                            if (Time.time - lastShootTime >= shootInterval)
+                            if (Time.time - lastShootTime >= attackCooldown && !isAttacking)
                             {
-                                Shoot();
+                                StartCoroutine(PerformShootAttack());
                                 lastShootTime = Time.time;
                             }
                         }
-                        else
+                        else if (canMoveWhileAttacking)
                         {
-                            if (distanceToPlayer <= attackRange)
-                            {
-                                if (Time.time - lastShootTime >= attackCooldown && !isAttacking)
-                                {
-                                    StartCoroutine(PerformShootAttack());
-                                    lastShootTime = Time.time;
-                                }
-                            }
+                            FlyToPlayer();
                         }
                     }
                 }
@@ -637,7 +632,7 @@ public class Enemy : MonoBehaviour
             isGrounded = false; // Reset grounded state when leaving ground
         }
     }
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
@@ -678,18 +673,21 @@ public class Enemy : MonoBehaviour
     // Bắn đạn về phía player
     void Shoot()
     {
-        if (bulletPrefab == null || player == null) return;
-        Vector2 shootDir = (player.position - transform.position).normalized;
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        if (bulletPrefab == null) return;
+        // Dùng shootPoint nếu có, không thì dùng vị trí enemy
+        Vector3 spawnPos = shootPoint != null ? shootPoint.position : transform.position;
+        GameObject bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.velocity = shootDir * bulletSpeed;
+            // Đòn bắn theo hướng enemy đang hướng mặt về (không phụ thuộc player)
+            Vector2 dir = facingRight ? Vector2.right : Vector2.left;
+            rb.velocity = dir * bulletSpeed;
             // Flip sprite viên đạn theo hướng bay
-            if (Mathf.Abs(shootDir.x) > 0.01f)
+            if (Mathf.Abs(dir.x) > 0.01f)
             {
                 Vector3 scale = bullet.transform.localScale;
-                scale.x = shootDir.x > 0 ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
+                scale.x = dir.x > 0 ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
                 bullet.transform.localScale = scale;
             }
         }
@@ -699,10 +697,17 @@ public class Enemy : MonoBehaviour
     IEnumerator PerformShootAttack()
     {
         isAttacking = true;
+        // Lưu hướng bắn tại thời điểm bắt đầu animation attack
+        if (player != null)
+        {
+            shootDirection = (player.position - transform.position).normalized;
+        }
+        else
+        {
+            shootDirection = facingRight ? Vector2.right : Vector2.left;
+        }
         PlayAttackAnimation();
-        yield return new WaitForSeconds(attackAnimationDuration * 0.3f);
-        Shoot();
-        yield return new WaitForSeconds(attackAnimationDuration * 0.7f);
+        yield return new WaitForSeconds(attackAnimationDuration);
         lastShootTime = Time.time; // Đặt cooldown sau khi bắn xong
         isAttacking = false;
         if (!isMoving)

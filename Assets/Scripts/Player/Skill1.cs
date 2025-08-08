@@ -29,6 +29,18 @@ public class Skill1 : MonoBehaviour
                 enemy.TakeDamage(playerSkill.skill1Damage);
                 Debug.Log($"Enemy {other.name} hit by Skill1, dealt {playerSkill.skill1Damage} damage.");
             }
+            var imp = other.GetComponent<Imp>();
+            if (imp != null)
+            {
+                imp.TakeDamage(playerSkill.skill1Damage);
+                Debug.Log($"Enemy {other.name} hit by Skill1, dealt {playerSkill.skill1Damage} damage.");
+            }
+            var nb = other.GetComponent<NightBorne>();
+            if (nb != null)
+            {
+                nb.TakeDamage(playerSkill.skill1Damage);
+                Debug.Log($"Enemy {other.name} hit by Skill1, dealt {playerSkill.skill1Damage} damage.");
+            }
             else
             {
                 Debug.LogWarning($"Enemy {other.name} does not have an Enemy script attached.");
@@ -66,6 +78,20 @@ public class Skill1 : MonoBehaviour
             {
                 boss4.TakeDamage(playerSkill.skill1Damage);
                 Debug.Log("Boss4 hit by Skill1, dealt " + playerSkill.skill1Damage + " damage.");
+                return;
+            }
+            Boss5 boss5 = other.GetComponent<Boss5>();
+            if (boss5 != null)
+            {
+                boss5.TakeDamage(playerSkill.skill1Damage);
+                Debug.Log("Boss5 hit by Skill1, dealt " + playerSkill.skill1Damage + " damage.");
+                return;
+            }
+            Boss6 boss6 = other.GetComponent<Boss6>();
+            if (boss6 != null)
+            {
+                boss6.TakeDamage(playerSkill.skill1Damage);
+                Debug.Log("Boss6 hit by Skill1, dealt " + playerSkill.skill1Damage + " damage.");
                 return;
             }
             MiniBoss1 mb1 = other.GetComponent<MiniBoss1>();
