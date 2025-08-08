@@ -99,27 +99,20 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.625
-    functionName: StopHitBoxAttack
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.75
     functionName: SummonSkill1Object
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.875
+  - time: 0.75
     functionName: StopAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1
+  - time: 0.875
     functionName: EndSkill1
     data: 
     objectReferenceParameter: {fileID: 0}

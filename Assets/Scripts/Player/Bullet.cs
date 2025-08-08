@@ -80,6 +80,13 @@ public class Bullet : MonoBehaviour
                 Debug.Log("Boss4 hit by Bullet, dealt " + damage + " damage.");
                 return;
             }
+            MiniBoss1 mb1 = other.GetComponent<MiniBoss1>();
+            if (mb1 != null)
+            {
+                mb1.TakeDamage(damage);
+                Debug.Log("MiniBoss1 hit by Attack1, dealt " + damage + " damage.");
+                return;
+            }
         }
         Destroy(gameObject,3f);
     }
