@@ -395,7 +395,7 @@ public class Player : MonoBehaviour
 
     public void Control()
     {
-        if (isSkill2 || isSkill1 || isHit) return; // Prevent movement if in skill or hurt state
+        if (isSkill2 || isSkill1 || isHit) return;
 
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         Vector2 movement = new Vector2(moveHorizontal, 0f);
@@ -441,6 +441,7 @@ public class Player : MonoBehaviour
         {
             Flip();
         }
+        EndAttackAnimation();
     }
 
     private void PlayMoveSound()

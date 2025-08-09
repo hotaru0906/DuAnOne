@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Boss3 : MonoBehaviour
 {
+    [Header("UI Settings")]
+    public UnityEngine.UI.Slider bossHealthSlider;
     [Header("Boss Movement Settings")]
     public float moveSpeed = 3f;
     public float detectionRange = 10f; // Phạm vi phát hiện player
@@ -55,8 +57,27 @@ public class Boss3 : MonoBehaviour
     private float lastAttackTime = 0f;
     private float lastSkill1Time = 0f;
 
+    [Header("Sound Settings")]
+    public AudioClip attackSound;
+    public AudioClip tpSound;
+    public AudioSource audioSource;
+
     void Start()
     {
+        if (bossHealthSlider == null)
+        {
+            GameObject sliderObj = GameObject.Find("BossHealthSlider");
+            if (sliderObj != null)
+            {
+                bossHealthSlider = sliderObj.GetComponent<UnityEngine.UI.Slider>();
+            }
+        }
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.maxValue = maxHealth;
+            bossHealthSlider.value = currentHealth;
+        }
+
         // Tìm player trong scene
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
@@ -90,65 +111,73 @@ public class Boss3 : MonoBehaviour
         currentHealth = maxHealth; // Initialize health
     }
 
+
     void Update()
     {
-        if (player != null && !isDead)
+        // Cập nhật slider máu mỗi frame nếu có
+        if (bossHealthSlider != null)
         {
-            // Debug states (tạm thời để debug)
-            if (Time.frameCount % 60 == 0) // Debug mỗi giây
+            bossHealthSlider.value = currentHealth;
+        }
+        {
+            if (player != null && !isDead)
             {
-                Debug.Log($"Boss3 States - Moving: {isMoving}, Attacking: {isAttacking}, UsingSkill1: {isUsingSkill1}, Health: {currentHealth}/{maxHealth}");
+                // Debug states (tạm thời để debug)
+                if (Time.frameCount % 60 == 0) // Debug mỗi giây
+                {
+                    Debug.Log($"Boss3 States - Moving: {isMoving}, Attacking: {isAttacking}, UsingSkill1: {isUsingSkill1}, Health: {currentHealth}/{maxHealth}");
+                }
+
+                // Kiểm tra Skill 1 cooldown (ưu tiên cao nhất)
+                CheckSkill1();
+
+                // Logic di chuyển và tấn công bình thường (khi không dùng skill)
+                if (canMove && !isAttacking && !isUsingSkill1)
+                {
+                    HandleMovement();
+                }
+                else if (!isMoving && !isAttacking && !isUsingSkill1)
+                {
+                    PlayIdleAnimation();
+                }
+            }
+        }
+
+        void CheckSkill1()
+        {
+            // Kiểm tra xem đã đủ thời gian để dùng Skill 1 chưa (KHÔNG được dùng khi đang attack hoặc dead)
+            if (Time.time - lastSkill1Time >= skill1Cooldown && !isUsingSkill1 && !isAttacking && !isDead)
+            {
+                StartCoroutine(UseSkill1());
+            }
+        }
+
+        IEnumerator UseSkill1()
+        {
+            isUsingSkill1 = true;
+            lastSkill1Time = Time.time;
+
+            // Dừng di chuyển
+            if (isMoving)
+            {
+                isMoving = false;
             }
 
-            // Kiểm tra Skill 1 cooldown (ưu tiên cao nhất)
-            CheckSkill1();
-
-            // Logic di chuyển và tấn công bình thường (khi không dùng skill)
-            if (canMove && !isAttacking && !isUsingSkill1)
+            // Flip hướng về player trước khi teleport
+            if (player != null)
             {
-                HandleMovement();
+                float directionX = player.position.x - transform.position.x;
+                FlipSprite(directionX);
             }
-            else if (!isMoving && !isAttacking && !isUsingSkill1)
-            {
-                PlayIdleAnimation();
-            }
+
+            // Chạy animation teleport start (Boss3_TP1)
+            PlayTeleportStartAnimation();
+
+            // Animation event sẽ gọi TeleportBehindPlayer() khi cần
+            // Animation event sẽ gọi EndSkill1() khi hoàn thành
+
+            yield return null; // Coroutine sẽ được kết thúc bởi EndSkill1()
         }
-    }
-
-    void CheckSkill1()
-    {
-        // Kiểm tra xem đã đủ thời gian để dùng Skill 1 chưa (KHÔNG được dùng khi đang attack hoặc dead)
-        if (Time.time - lastSkill1Time >= skill1Cooldown && !isUsingSkill1 && !isAttacking && !isDead)
-        {
-            StartCoroutine(UseSkill1());
-        }
-    }
-
-    IEnumerator UseSkill1()
-    {
-        isUsingSkill1 = true;
-        lastSkill1Time = Time.time;
-
-        // Dừng di chuyển
-        if (isMoving)
-        {
-            isMoving = false;
-        }
-
-        // Flip hướng về player trước khi teleport
-        if (player != null)
-        {
-            float directionX = player.position.x - transform.position.x;
-            FlipSprite(directionX);
-        }
-
-        // Chạy animation teleport start (Boss3_TP1)
-        PlayTeleportStartAnimation();
-
-        // Animation event sẽ gọi TeleportBehindPlayer() khi cần
-        // Animation event sẽ gọi EndSkill1() khi hoàn thành
-
-        yield return null; // Coroutine sẽ được kết thúc bởi EndSkill1()
     }
 
     // Animation Event Method 1: Teleport đằng sau player
@@ -302,19 +331,8 @@ public class Boss3 : MonoBehaviour
 
         // Đợi một chút để animation bắt đầu (khoảng 30% animation)
         yield return new WaitForSeconds(attackAnimationDuration * 0.3f);
-
-        // Thực hiện tấn công ở giữa animation (kiểm tra xem player vẫn còn trong tầm đánh không)
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        if (distanceToPlayer <= attackRange)
-        {
-            AttackPlayer();
-        }
-
         // Đợi animation tấn công hoàn thành (70% còn lại)
         yield return new WaitForSeconds(attackAnimationDuration * 0.7f);
-
-        // Kết thúc attack
-        StopAttack();
     }
 
     void AttackPlayer()
@@ -366,6 +384,7 @@ public class Boss3 : MonoBehaviour
     void StopAttack()
     {
         isAttacking = false;
+        hitbox.SetActive(false);
 
         // Chỉ chuyển về idle nếu không đang dùng skill
         if (!isUsingSkill1)
@@ -416,6 +435,14 @@ public class Boss3 : MonoBehaviour
         {
             animator.Play(attackAnimationName);
         }
+        // Play only attack sound
+        if (audioSource != null && attackSound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(attackSound);
+        }
     }
 
     void PlaySkill1Animation()
@@ -423,6 +450,14 @@ public class Boss3 : MonoBehaviour
         if (animator != null)
         {
             animator.Play(teleportStartAnimationName);
+        }
+        // Play only tp sound
+        if (audioSource != null && tpSound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(tpSound);
         }
     }
 
@@ -432,6 +467,14 @@ public class Boss3 : MonoBehaviour
         {
             animator.Play(teleportStartAnimationName);
         }
+        // Play only tp sound
+        if (audioSource != null && tpSound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(tpSound);
+        }
     }
 
     void PlayTeleportEndAnimation()
@@ -439,6 +482,14 @@ public class Boss3 : MonoBehaviour
         if (animator != null)
         {
             animator.Play(teleportEndAnimationName);
+        }
+        // Play only tp sound
+        if (audioSource != null && tpSound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(tpSound);
         }
     }
 
@@ -481,6 +532,12 @@ public class Boss3 : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth); // Không cho âm
 
+        // Cập nhật slider máu khi nhận damage
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.value = currentHealth;
+        }
+
         Debug.Log($"Boss3 took {damage} damage! Health: {currentHealth}/{maxHealth}");
 
         if (currentHealth <= 0)
@@ -498,6 +555,15 @@ public class Boss3 : MonoBehaviour
 
         // Dừng tất cả coroutines để tránh xung đột
         StopAllCoroutines();
+
+        // Play only tp sound (death)
+        if (audioSource != null && tpSound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(tpSound);
+        }
 
         virtualCamera.Follow.gameObject.SetActive(false);
         if (playerCamera != null)
@@ -526,6 +592,11 @@ public class Boss3 : MonoBehaviour
     public void DestroyBoss()
     {
         Debug.Log("Boss3 destroyed!");
+        // Ẩn hoặc destroy UI máu boss nếu có
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.gameObject.SetActive(false);
+        }
         Destroy(gameObject);
 
         if (BGMController.Instance != null)

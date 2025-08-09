@@ -9,7 +9,13 @@ public class Boss1 : MonoBehaviour
     public float detectionRange = 10f; // Phạm vi phát hiện player
     public float attackRange = 2f; // Phạm vi tấn công
     public bool canMove = true;
-
+    [Header("Sound Settings")]
+    public AudioClip walkSound;
+    public AudioClip attackSound;
+    public AudioClip skill1Sound;
+    public AudioClip deathSound;
+    public AudioSource audioSource;
+    
     [Header("Attack Settings")]
     public float attackCooldown = 2f;
     public float attackAnimationDuration = 1.5f;
@@ -345,6 +351,20 @@ public class Boss1 : MonoBehaviour
         {
             animator.Play(walkAnimationName);
         }
+        // Play only walk sound
+        if (audioSource != null && walkSound != null)
+        {
+            if (audioSource.isPlaying && audioSource.clip != walkSound)
+            {
+                audioSource.Stop();
+            }
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = walkSound;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
+        }
     }
 
     void PlayAttackAnimation()
@@ -353,6 +373,14 @@ public class Boss1 : MonoBehaviour
         {
             animator.Play(attackAnimationName);
         }
+        // Play only attack sound
+        if (audioSource != null && attackSound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(attackSound);
+        }
     }
 
     void PlaySkill1Animation()
@@ -360,6 +388,14 @@ public class Boss1 : MonoBehaviour
         if (animator != null)
         {
             animator.Play(skill1AnimationName);
+        }
+        // Play only skill1 sound
+        if (audioSource != null && skill1Sound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(skill1Sound);
         }
     }
 
@@ -421,6 +457,15 @@ public class Boss1 : MonoBehaviour
         StopAllCoroutines();
 
         Debug.Log("Boss1 has died!");
+
+        // Play only death sound
+        if (audioSource != null && deathSound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(deathSound);
+        }
 
         // Chạy animation death
         PlayDeathAnimation();

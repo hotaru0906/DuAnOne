@@ -47,14 +47,14 @@ public class Boss5 : MonoBehaviour
     public GameObject box1, box2;
     private Transform player;
     // ====== ICEY SPEAR SKILL 1 LOGIC ======
-        [Header("Skill 1 - Fire Column")]
-        public GameObject fireColumnPrefab;
-        public int maxFireColumns = 10;
-        public float fireColumnInterval = 1f;
-        public float fireColumnHeightOffset = 2f; // offset y trên đầu boss/player
+    [Header("Skill 1 - Fire Column")]
+    public GameObject fireColumnPrefab;
+    public int maxFireColumns = 10;
+    public float fireColumnInterval = 1f;
+    public float fireColumnHeightOffset = 2f; // offset y trên đầu boss/player
 
-        private int fireColumnsSpawned = 0;
-        private Coroutine fireColumnCoroutine;
+    private int fireColumnsSpawned = 0;
+    private Coroutine fireColumnCoroutine;
 
     private bool isMoving = false;
     private bool isAttacking = false;
@@ -62,6 +62,13 @@ public class Boss5 : MonoBehaviour
     private bool facingRight = true;
     private float lastAttackTime = 0f;
     private float lastSkill1Time = 0f;
+
+    [Header("Sound Settings")]
+    public AudioClip walkSound;
+    public AudioClip attackSound;
+    public AudioClip skill1Sound;
+    public AudioClip deathSound;
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -303,6 +310,18 @@ public class Boss5 : MonoBehaviour
         {
             hitbox.SetActive(true);
         }
+        // Stop walk sound nếu đang phát
+        if (audioSource != null && audioSource.isPlaying && audioSource.clip == walkSound)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+        }
+        // Play only attack sound
+        if (audioSource != null && attackSound != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
     }
     void StopHitBoxAttack()
     {
@@ -356,6 +375,25 @@ public class Boss5 : MonoBehaviour
         {
             animator.Play(walkAnimationName);
         }
+        // Không phát sound walk ở đây nữa, sẽ phát ở PlayWalkSound
+    }
+
+    // Hàm riêng để phát âm thanh walk, gọi từ animation event
+    public void PlayWalkSound()
+    {
+        if (audioSource != null && walkSound != null)
+        {
+            if (audioSource.isPlaying && audioSource.clip != walkSound)
+            {
+                audioSource.Stop();
+            }
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = walkSound;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
+        }
     }
 
     void PlayAttackAnimation()
@@ -364,6 +402,7 @@ public class Boss5 : MonoBehaviour
         {
             animator.Play(attackAnimationName);
         }
+        // Không phát sound attack ở đây nữa, sẽ phát ở AttackPlayer
     }
 
     void PlaySkill1Animation()
@@ -371,6 +410,14 @@ public class Boss5 : MonoBehaviour
         if (animator != null)
         {
             animator.Play(skill1AnimationName);
+        }
+        // Play only skill1 sound
+        if (audioSource != null && skill1Sound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(skill1Sound);
         }
     }
     void PlaySkill2Animation()
@@ -436,7 +483,18 @@ public class Boss5 : MonoBehaviour
         // Dừng tất cả coroutines để tránh xung đột
         StopAllCoroutines();
 
-        virtualCamera.Follow.gameObject.SetActive(false);
+        // Play only death sound
+        if (audioSource != null && deathSound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(deathSound);
+        }
+
+        hitbox.SetActive(false);
+        if (virtualCamera != null)
+            virtualCamera.Follow.gameObject.SetActive(false);
         if (playerCamera != null)
         {
             playerCamera.gameObject.SetActive(true);
@@ -444,8 +502,11 @@ public class Boss5 : MonoBehaviour
             playerCamera.LookAt = player.transform;
             playerCamera.Priority = 20; // Đảm bảo cao hơn các camera khác nếu có
         }
-        box1.SetActive(false);
-        box2.SetActive(false);
+        if (box1 != null && box2 != null)
+        {
+            box1.SetActive(false);
+            box2.SetActive(false);
+        }
 
         // Chạy animation death
         PlayDeathAnimation();

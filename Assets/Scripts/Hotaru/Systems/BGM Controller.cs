@@ -7,7 +7,7 @@ public class BGMController : MonoBehaviour
 {
     public static BGMController Instance;
     public AudioSource bgmSource;
-    public AudioClip introBGM, castleBGM, forestBGM, bossBGM, gameOverBGM, endingBGM;
+    public AudioClip introBGM, castleBGM, forestBGM, bossBGM, gameOverBGM, endingBGM, towerBGM;
 
     void Awake()
     {
@@ -56,7 +56,7 @@ public class BGMController : MonoBehaviour
                 bgmSource.Play();
             }
         }
-        else if (sceneName == "Castle" || sceneName == "Village")
+        else if (sceneName == "Castle" || sceneName == "Village" || sceneName =="Tutorial")
         {
             if (bgmSource.clip != castleBGM)
             {
@@ -73,6 +73,14 @@ public class BGMController : MonoBehaviour
             if (bgmSource.clip != forestBGM)
             {
                 bgmSource.clip = forestBGM;
+                bgmSource.Play();
+            }
+        }
+        else if (sceneName == "tower1" || sceneName == "tower2" || sceneName == "tower3")
+        {
+            if (bgmSource.clip != towerBGM)
+            {
+                bgmSource.clip = towerBGM;
                 bgmSource.Play();
             }
         }

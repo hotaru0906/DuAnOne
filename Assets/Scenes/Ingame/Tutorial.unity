@@ -2544,7 +2544,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 355979611}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatsController, Assembly-CSharp
         m_MethodName: AddPointToStat
         m_Mode: 5
@@ -4721,7 +4721,7 @@ RectTransform:
   - {fileID: 404365992}
   - {fileID: 1920258542}
   - {fileID: 1244679719}
-  m_Father: {fileID: 1139407428}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5047,67 +5047,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &355979610
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 355979612}
-  - component: {fileID: 355979611}
-  m_Layer: 0
-  m_Name: Game Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &355979611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 355979610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3b89b1ba18bf64784f028d510f089b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  points: 3
-  str: 5
-  vit: 5
-  spd: 5
-  intStat: 5
-  crt: 5
-  pointsText: {fileID: 75427904}
-  strText: {fileID: 690757973}
-  vitText: {fileID: 1414434366}
-  spdText: {fileID: 790878690}
-  intText: {fileID: 1253216848}
-  crtText: {fileID: 746703885}
-  healthText: {fileID: 0}
-  manaText: {fileID: 0}
-  expText: {fileID: 0}
-  goldText: {fileID: 0}
---- !u!4 &355979612
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 355979610}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1004.99713, y: 504.5458, z: -5.3789473}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1139407428}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &388076839
 GameObject:
   m_ObjectHideFlags: 0
@@ -7306,6 +7245,107 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661360347}
   m_CullTransparentMesh: 1
+--- !u!1001 &673413239
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 215273241075921149, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1004.99713
+      objectReference: {fileID: 0}
+    - target: {fileID: 215273241075921149, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 504.5458
+      objectReference: {fileID: 0}
+    - target: {fileID: 215273241075921149, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.3789473
+      objectReference: {fileID: 0}
+    - target: {fileID: 215273241075921149, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 215273241075921149, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215273241075921149, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215273241075921149, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215273241075921149, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215273241075921149, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215273241075921149, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2261045837210868144, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1517971569}
+    - target: {fileID: 2261045837210868144, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: crtText
+      value: 
+      objectReference: {fileID: 746703885}
+    - target: {fileID: 2261045837210868144, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: expText
+      value: 
+      objectReference: {fileID: 1607943672}
+    - target: {fileID: 2261045837210868144, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: intText
+      value: 
+      objectReference: {fileID: 1253216848}
+    - target: {fileID: 2261045837210868144, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: spdText
+      value: 
+      objectReference: {fileID: 790878690}
+    - target: {fileID: 2261045837210868144, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: strText
+      value: 
+      objectReference: {fileID: 690757973}
+    - target: {fileID: 2261045837210868144, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: vitText
+      value: 
+      objectReference: {fileID: 1414434366}
+    - target: {fileID: 2261045837210868144, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: goldText
+      value: 
+      objectReference: {fileID: 2052211022}
+    - target: {fileID: 2261045837210868144, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: manaText
+      value: 
+      objectReference: {fileID: 214337574}
+    - target: {fileID: 2261045837210868144, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: healthText
+      value: 
+      objectReference: {fileID: 706716805}
+    - target: {fileID: 2261045837210868144, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: pointsText
+      value: 
+      objectReference: {fileID: 75427904}
+    - target: {fileID: 2908766344980362058, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
+      propertyPath: m_Name
+      value: Stats Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 99014cf29c5e7de47a75e83a5e1429dc, type: 3}
 --- !u!1 &677838644
 GameObject:
   m_ObjectHideFlags: 0
@@ -8218,7 +8258,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 355979611}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatsController, Assembly-CSharp
         m_MethodName: AddPointToStat
         m_Mode: 5
@@ -9101,6 +9141,10 @@ PrefabInstance:
     - target: {fileID: 2225877225140321427, guid: 10a253f8779d51243b23c3294a82384b, type: 3}
       propertyPath: m_Name
       value: Chest (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918175481683536036, guid: 10a253f8779d51243b23c3294a82384b, type: 3}
+      propertyPath: amount
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4391467677389844849, guid: 10a253f8779d51243b23c3294a82384b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9991,7 +10035,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 355979611}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatsController, Assembly-CSharp
         m_MethodName: AddPointToStat
         m_Mode: 5
@@ -10660,6 +10704,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest
       objectReference: {fileID: 0}
+    - target: {fileID: 2918175481683536036, guid: 10a253f8779d51243b23c3294a82384b, type: 3}
+      propertyPath: amount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4391467677389844849, guid: 10a253f8779d51243b23c3294a82384b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.779846
@@ -10882,7 +10930,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1007877040
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10898,7 +10946,7 @@ RectTransform:
   - {fileID: 811309212}
   - {fileID: 1442020087}
   - {fileID: 857246916}
-  m_Father: {fileID: 1139407428}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12126,10 +12174,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 209174644}
-  - {fileID: 355979612}
   - {fileID: 1569707864}
-  - {fileID: 340011484}
-  - {fileID: 1007877040}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1148223997
@@ -25398,6 +25443,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8901919809820661256, guid: 4981c269fea79ac41bad939756d03c6e, type: 3}
   m_PrefabInstance: {fileID: 1517971567}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1517971569 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6677229066937059620, guid: 4981c269fea79ac41bad939756d03c6e, type: 3}
+  m_PrefabInstance: {fileID: 1517971567}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517971568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15a7eb0f93eaa44484e0a2361d6bbc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1528964909
 GameObject:
   m_ObjectHideFlags: 0
@@ -35607,7 +35663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0faa483ceaff1a94c98eed22b35d94f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueLines: []
+  dialogueLines:
+  - "L\xEDnh h\u01B0\u1EDBng d\u1EABn: Xin ch\xE0o anh h\xF9ng \u0111\xE2y l\xE0
+    b\xE0i h\u1ECDc t\u1EA5n c\xF4ng c\u01A1 b\u1EA3n"
   objectToActivate: {fileID: 677838644}
   UIobject: {fileID: 1933506431}
 --- !u!1001 &1819795506
@@ -36038,7 +36096,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 355979611}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatsController, Assembly-CSharp
         m_MethodName: AddPointToStat
         m_Mode: 5
@@ -39515,9 +39573,9 @@ RectTransform:
   - {fileID: 1130707837}
   - {fileID: 1546199619}
   - {fileID: 677838645}
-  - {fileID: 536128085}
   - {fileID: 1765405772}
   - {fileID: 1933506432}
+  - {fileID: 536128085}
   - {fileID: 1886551267277932289}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -40207,7 +40265,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 355979611}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StatsController, Assembly-CSharp
         m_MethodName: AddPointToStat
         m_Mode: 5
@@ -41225,9 +41283,12 @@ SceneRoots:
   - {fileID: 1517971567}
   - {fileID: 1535786716}
   - {fileID: 1591020338}
+  - {fileID: 340011484}
+  - {fileID: 1007877040}
   - {fileID: 1139407428}
   - {fileID: 343637059}
   - {fileID: 2041278617}
   - {fileID: 532175714}
   - {fileID: 2100120822}
   - {fileID: 1496972868}
+  - {fileID: 673413239}

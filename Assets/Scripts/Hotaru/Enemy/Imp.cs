@@ -140,7 +140,6 @@ public class Imp : MonoBehaviour
             return;
         }
 
-        // Nếu không có player thì patrol
         if (player == null)
         {
             Patrol();
@@ -179,17 +178,20 @@ public class Imp : MonoBehaviour
         else
         {
             // Đã ở đúng vị trí phía trên player
-            if (!isAttacking && !isWaitingAfterAttack)
+            if (!isAttacking && !isWaitingAfterAttack && !isDiving)
             {
                 Patrol();
             }
             // Nếu đủ điều kiện tấn công thì bắt đầu dive
-            if (!isAttacking && !isWaitingAfterAttack && distanceToPlayer <= detectionRange)
+            if (!isAttacking && !isWaitingAfterAttack && !isDiving && distanceToPlayer <= detectionRange)
             {
                 if (Mathf.Abs(transform.position.x - player.position.x) < detectionRange)
                 {
                     if (Time.time - lastShootTime >= attackCooldown)
                     {
+                        // Flip hướng về phía player trước khi attack
+                        float directionX = player.position.x - transform.position.x;
+                        FlipSprite(directionX);
                         StartCoroutine(DiveAttack());
                     }
                 }
@@ -203,22 +205,19 @@ public class Imp : MonoBehaviour
         // Tính vị trí dive: x lệch player 2f, y = player
         float targetX = player.position.x + (transform.position.x < player.position.x ? -2f : 2f);
         Vector3 targetPos = new Vector3(targetX, player.position.y, transform.position.z);
-        // Flip hướng trước khi dive
-        float directionX = targetX - transform.position.x;
-        FlipSprite(directionX);
+        // Không flip trong lúc đang attack/dive
         // Bay xuống vị trí tấn công
         while (Vector3.Distance(transform.position, targetPos) > 0.05f)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * 2f * Time.deltaTime);
             yield return null;
         }
-        // Đã tới vị trí, chỉ chạy animation attack (không tự shoot)
         isAttacking = true;
         PlayAttackAnimation();
         yield return new WaitForSeconds(attackAnimationDuration);
         isAttacking = false;
         lastShootTime = Time.time;
-        // Đứng yên 3 giây (Idle)
+
         PlayIdleAnimation();
         isWaitingAfterAttack = true;
         yield return new WaitForSeconds(3f);
@@ -336,6 +335,20 @@ public class Imp : MonoBehaviour
                 scale.x = dir.x > 0 ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
                 bullet.transform.localScale = scale;
             }
+        }
+    }
+    void AttackSound()
+    {
+        if (audioSource != null && audioSource.isPlaying && audioSource.clip == walkSound)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+        }
+        // Play only attack sound
+        if (audioSource != null && attackSound != null)
+        {
+            audioSource.PlayOneShot(attackSound);
         }
     }
 
@@ -465,23 +478,40 @@ public class Imp : MonoBehaviour
 
     void Patrol()
     {
-        patrolFlipTimer -= Time.deltaTime;
+        // Không flip khi đang attack hoặc đang dive
+        if (isAttacking || isDiving) return;
 
+        patrolFlipTimer -= Time.deltaTime;
         if (patrolFlipTimer <= 0f)
         {
             FlipSprite(transform.localScale.x > 0 ? -1 : 1); // Flip direction
             patrolFlipInterval = Random.Range(3f, 5f);
             patrolFlipTimer = patrolFlipInterval;
         }
-
         // Move in the current direction
         Vector2 moveDirection = facingRight ? Vector2.right : Vector2.left;
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-
         if (!isMoving)
         {
             PlayWalkAnimation();
             isMoving = true;
+        }
+        // Play walk sound when patrolling
+        if (audioSource != null && walkSound != null && isMoving && !isAttacking)
+        {
+            if (!audioSource.isPlaying || audioSource.clip != walkSound)
+            {
+                audioSource.clip = walkSound;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource != null && audioSource.isPlaying && audioSource.clip == walkSound)
+            {
+                audioSource.Stop();
+            }
         }
     }
 }

@@ -45181,7 +45181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &382217987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55158,6 +55158,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1422820109}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &990740510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 990740512}
+  - component: {fileID: 990740511}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &990740511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990740510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa51930b040cf4449b12ce641375092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlockedSkill1: 0
+  unlockedSkill2: 0
+  unlockedBullet: 0
+  playerGold: 0
+  playerLevel: 1
+  playerStatPoints: 0
+  playerStr: 5
+  playerVit: 5
+  playerSpd: 5
+  playerInt: 5
+  playerCrt: 5
+  healthPotion: 0
+  manaPotion: 0
+  recallPotion: 0
+  currentExp: 0
+--- !u!4 &990740512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990740510}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1117.25, y: 583.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &991048503
 GameObject:
   m_ObjectHideFlags: 0
@@ -62785,7 +62844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c6fc657c180404c86a25d7b198ecab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Village
+  sceneName: Tutorial
   blackScreen: {fileID: 1346148840}
   fadeDuration: 1
 --- !u!114 &2026952983
@@ -63636,3 +63695,4 @@ SceneRoots:
   - {fileID: 937429398}
   - {fileID: 1402556792}
   - {fileID: 1256499831}
+  - {fileID: 990740512}

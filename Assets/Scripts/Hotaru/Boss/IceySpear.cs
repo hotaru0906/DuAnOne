@@ -10,25 +10,38 @@ public class IceySpear : MonoBehaviour
     public GameObject iceySpearGroundPrefab; // Prefab khi chạm ground
     public Animator animator;
 
+    [Header("Sound Settings")]
+    public AudioClip iceStartSound;
+    public AudioSource audioSource;
+
     private Rigidbody2D rb;
 
     private bool hasHitGround = false;
 
     void Start()
     {
-        if (animator == null)
-            animator = GetComponent<Animator>();
-        // Khi xuất hiện, chạy animation start
-        if (animator != null)
-            animator.Play("Ice2_Start");
-
-        // Xoay spear 90 độ
-        transform.rotation = Quaternion.Euler(0f, 0f, -90f);
-
-        rb = GetComponent<Rigidbody2D>();
-        if (rb != null)
+        if (audioSource != null && iceStartSound != null)
         {
-            rb.gravityScale = 0f;
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(iceStartSound);
+        }
+        {
+            if (animator == null)
+                animator = GetComponent<Animator>();
+            // Khi xuất hiện, chạy animation start
+            if (animator != null)
+                animator.Play("Ice2_Start");
+
+            // Xoay spear 90 độ
+            transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+
+            rb = GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.gravityScale = 0f;
+            }
         }
     }
 

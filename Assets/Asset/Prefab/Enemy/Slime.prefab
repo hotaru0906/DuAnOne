@@ -248,6 +248,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d19e18218cc1da346b8d6e8eb3f6b2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canShoot: 0
+  isFlyingEnemy: 0
+  canMoveWhileAttacking: 1
+  bulletPrefab: {fileID: 0}
+  bulletSpeed: 8
+  shootInterval: 3
   contactDamage: 1
   moveSpeed: 1
   detectionRange: 1.5
@@ -281,6 +287,7 @@ MonoBehaviour:
   audioSource: {fileID: 8612041901623788843}
   exp: 10
   amount: 1
+  shootPoint: {fileID: 0}
 --- !u!114 &637012073218292760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +314,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

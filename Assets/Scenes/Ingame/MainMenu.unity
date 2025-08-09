@@ -1055,6 +1055,7 @@ MonoBehaviour:
   bossBGM: {fileID: 8300000, guid: c3e4856264f6ee047a4197c3582a4392, type: 3}
   gameOverBGM: {fileID: 8300000, guid: 858023262d49f2e4a9f3cc6dce233d25, type: 3}
   endingBGM: {fileID: 8300000, guid: 80f1c42051cd1aa4199e602cdad539be, type: 3}
+  towerBGM: {fileID: 8300000, guid: 94793ec4b2946e94a945c4ad23296ec0, type: 3}
 --- !u!4 &458120196
 Transform:
   m_ObjectHideFlags: 0
@@ -2479,12 +2480,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156726989}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1743222103}
+  m_Father: {fileID: 2031522483}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3410,7 +3411,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1154678316}
-  - {fileID: 1156726990}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4375,6 +4375,7 @@ RectTransform:
   - {fileID: 1506113640}
   - {fileID: 182138435}
   - {fileID: 1765576132}
+  - {fileID: 1156726990}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

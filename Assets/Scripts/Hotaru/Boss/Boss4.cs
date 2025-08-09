@@ -102,6 +102,19 @@ public class Boss4 : MonoBehaviour
                 Physics2D.IgnoreCollision(enemyCollider, playerCollider);
             }
         }
+        Collider2D myCollider = GetComponent<Collider2D>();
+        GameObject[] allBosses = GameObject.FindGameObjectsWithTag("Boss");
+        foreach (GameObject boss in allBosses)
+        {
+            if (boss != this.gameObject)
+            {
+                Collider2D bossCollider = boss.GetComponent<Collider2D>();
+                if (myCollider != null && bossCollider != null)
+                {
+                    Physics2D.IgnoreCollision(myCollider, bossCollider);
+                }
+            }
+        }
         currentHealth = maxHealth; // Initialize health
     }
 
@@ -177,6 +190,7 @@ public class Boss4 : MonoBehaviour
     // Coroutine thực hiện summon boss phụ và portal
     IEnumerator DoSummonPhase(int phase)
     {
+        // Đặt trạng thái Boss4
         isSummoning = true;
         canMove = false;
         isMoving = false;
@@ -184,97 +198,102 @@ public class Boss4 : MonoBehaviour
         isUsingSkill1 = false;
         isUsingSkill2 = false;
         isDashing = false;
+
+        Vector3 portalSpawnPosition = transform.position; // Vị trí spawn portal
+
         if (rb != null)
-        {
             rb.gravityScale = 0f; // Tắt trọng lực trong khi summon
-        }
 
-        // Dịch chuyển boss về summonPoint nếu có
-        if (summonPoint != null)
-        {
-            transform.position = summonPoint.position;
-        }
-
-        // Chạy animation Summon và dừng toàn bộ animation lại
+        // Chạy animation summon
         if (animator != null)
         {
             animator.Play(summonAnimationName);
-            animator.Update(0f); // Đảm bảo animation bắt đầu
-            animator.speed = 0f; // Dừng toàn bộ animation lại
+            animator.Update(0f);
+            animator.speed = 0f;
         }
 
-        // Spawn portal tại vị trí boss
+        // 1. Spawn portal tại vị trí boss đang đứng
         GameObject portal = null;
         switch (phase)
         {
             case 0:
                 if (portalType1 != null)
-                    portal = Instantiate(portalType1, transform.position, Quaternion.identity);
+                    portal = Instantiate(portalType1, portalSpawnPosition, Quaternion.identity);
                 break;
             case 1:
                 if (portalType2 != null)
-                    portal = Instantiate(portalType2, transform.position, Quaternion.identity);
+                    portal = Instantiate(portalType2, portalSpawnPosition, Quaternion.identity);
                 break;
             case 2:
                 if (portalType3 != null)
-                    portal = Instantiate(portalType3, transform.position, Quaternion.identity);
+                    portal = Instantiate(portalType3, portalSpawnPosition, Quaternion.identity);
                 break;
         }
 
-        // Nếu portal có script PortalSpawn và spawn ra boss phụ, chỉ theo dõi boss phụ với tag riêng biệt (ví dụ: "SummonedBoss")
+        // 2. Ngay lập tức dịch Boss4 về giữa màn hình
+        if (summonPoint != null)
+            transform.position = summonPoint.position;
+
+        // 3. Nếu portal có script spawn boss phụ → chờ boss phụ chết
         if (portal != null)
         {
             PortalSpawn portalSpawn = portal.GetComponent<PortalSpawn>();
             if (portalSpawn != null)
             {
                 portalSpawn.SpawnObject();
-                // Đảm bảo prefab boss phụ (objectToSpawn) có tag "SummonedBoss" trong Unity Editor
-                if (portalSpawn.objectToSpawn != null)
+
+                // Tìm boss phụ gần nhất
+                GameObject[] summonedBosses = GameObject.FindGameObjectsWithTag("Boss");
+                float minDist = float.MaxValue;
+                GameObject closest = null;
+                foreach (var b in summonedBosses)
                 {
-                    // Tìm boss phụ vừa spawn dựa trên tag "SummonedBoss"
-                    GameObject[] summonedBosses = GameObject.FindGameObjectsWithTag("SummonedBoss");
-                    float minDist = float.MaxValue;
-                    GameObject closest = null;
-                    foreach (var b in summonedBosses)
+                    if (b == this.gameObject) continue; // bỏ qua Boss4
+                    float dist = Vector3.Distance(b.transform.position, portalSpawnPosition);
+                    if (dist < minDist)
                     {
-                        float dist = Vector3.Distance(b.transform.position, transform.position);
-                        if (dist < minDist)
-                        {
-                            minDist = dist;
-                            closest = b;
-                        }
-                    }
-                    if (closest != null)
-                    {
-                        currentSummonedBoss = closest;
-                        // Theo dõi boss phụ bị tiêu diệt
-                        StartCoroutine(WaitForSummonedBossDeath(currentSummonedBoss));
+                        minDist = dist;
+                        closest = b;
                     }
                 }
+
+                if (closest != null)
+                    yield return StartCoroutine(WaitForSummonedBossDeath(closest));
             }
         }
-        yield break;
-    }
 
+        // 4. Hoàn tất summon, trả lại trạng thái bình thường
+        isSummoning = false;
+        canMove = true;
+        if (animator != null)
+            animator.speed = 1f;
+        if (rb != null)
+            rb.gravityScale = 1f;
+
+        Debug.Log("Boss4: Summon phase ended, returning to normal state");
+    }
     // Theo dõi boss phụ, khi chết thì boss 4 trở lại trạng thái bình thường
     IEnumerator WaitForSummonedBossDeath(GameObject summonedBoss)
     {
+        // Chờ tới khi boss phụ biến mất hoặc bị xóa
         while (summonedBoss != null)
         {
             yield return null;
         }
+
+        // Reset trạng thái
         isSummoning = false;
         canMove = true;
+
         if (animator != null)
-        {
-            animator.speed = 1f; // Cho phép animation tiếp tục
-        }
+            animator.speed = 1f;
+
         if (rb != null)
-        {
-            rb.gravityScale = 1f; // Bật lại trọng lực
-        }
+            rb.gravityScale = 1f;
+
         Debug.Log("Boss4: Summoned boss defeated, returning to normal state");
     }
+
 
     IEnumerator UseSkill1()
     {

@@ -252,14 +252,12 @@ public class Enemy : MonoBehaviour
             if (isMoving)
             {
                 isMoving = false;
-
                 // Stop walk sound immediately
                 if (audioSource != null && audioSource.clip == walkSound)
                 {
                     audioSource.Stop();
                 }
             }
-
             float directionX = player.position.x - transform.position.x;
             FlipSprite(directionX);
             HandleAttack();
@@ -280,8 +278,8 @@ public class Enemy : MonoBehaviour
                     PlayWalkAnimation();
                     isMoving = true;
                 }
-                // Chỉ phát sound khi enemy active (trong camera) và KHÔNG tấn công
-                if (audioSource != null && walkSound != null && isMoving && gameObject.activeInHierarchy && !isAttacking)
+                // Chỉ phát walk sound khi di chuyển và không attack
+                if (audioSource != null && walkSound != null && isMoving && !isAttacking)
                 {
                     if (!audioSource.isPlaying || audioSource.clip != walkSound)
                     {
@@ -292,7 +290,6 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    // Nếu không active hoặc đang tấn công, dừng walk sound ngay lập tức
                     if (audioSource != null && audioSource.isPlaying && audioSource.clip == walkSound)
                     {
                         audioSource.Stop();
@@ -305,8 +302,6 @@ public class Enemy : MonoBehaviour
                 {
                     PlayIdleAnimation();
                     isMoving = false;
-
-                    // Stop walk sound immediately
                     if (audioSource != null && audioSource.clip == walkSound)
                     {
                         audioSource.Stop();
@@ -378,6 +373,23 @@ public class Enemy : MonoBehaviour
             PlayWalkAnimation();
             isMoving = true;
         }
+        // Play walk sound when patrolling
+        if (audioSource != null && walkSound != null && isMoving && !isAttacking)
+        {
+            if (!audioSource.isPlaying || audioSource.clip != walkSound)
+            {
+                audioSource.clip = walkSound;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource != null && audioSource.isPlaying && audioSource.clip == walkSound)
+            {
+                audioSource.Stop();
+            }
+        }
     }
 
     void HandleAttack()
@@ -395,24 +407,22 @@ public class Enemy : MonoBehaviour
 
         PlayAttackAnimation();
 
-        // Play attack sound immediately
+        yield return new WaitForSeconds(attackAnimationDuration * 0.3f);
+
+        yield return new WaitForSeconds(attackAnimationDuration * 0.7f);
+    }
+    void PlayAttackSound()
+    {
+        if (audioSource != null && audioSource.isPlaying && audioSource.clip == walkSound)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+        }
         if (audioSource != null && attackSound != null)
         {
             audioSource.PlayOneShot(attackSound);
         }
-
-        // Đợi một chút để animation bắt đầu (khoảng 30% animation)
-        yield return new WaitForSeconds(attackAnimationDuration * 0.3f);
-
-        // Thực hiện tấn công ở giữa animation (kiểm tra xem player vẫn còn trong tầm đánh không)
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        if (distanceToPlayer <= attackRange)
-        {
-            AttackPlayer();
-        }
-
-        yield return new WaitForSeconds(attackAnimationDuration * 0.7f);
-        StopAttack();
     }
 
     void AttackPlayer()
@@ -515,11 +525,7 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth); // Không cho âm
 
-        // Play hit sound immediately
-        if (audioSource != null && hitSound != null)
-        {
-            audioSource.PlayOneShot(hitSound);
-        }
+        // Không phát hit sound nữa
 
         if (currentHealth <= 0)
         {
