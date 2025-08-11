@@ -171,23 +171,37 @@ public class TimelineCutsceneEvents : MonoBehaviour
     }
     public void BossActive()
     {
-        boss.GetComponent<Boss3>().enabled = true;
+        if (boss != null)
+        {
+            var b3 = boss.GetComponent<Boss3>();
+            if (b3 != null) b3.enabled = true;
+            var b6 = boss.GetComponent<Boss6>();
+            if (b6 != null) b6.enabled = true;
+            var b5 = boss.GetComponent<Boss5>();
+            if (b5 != null) b5.enabled = true;
+            var b4 = boss.GetComponent<Boss4>();
+            if (b4 != null) b4.enabled = true;
+            var b1 = boss.GetComponent<Boss1>();
+            if (b1 != null) b1.enabled = true;
+        }
     }
 
     public void ChangeBGM(AudioClip newBGM)
     {
-        if (BGMController.Instance != null && BGMController.Instance.bgmSource != null)
         {
-            // Stop the current BGM
-            BGMController.Instance.bgmSource.Stop();
+            if (BGMController.Instance != null && BGMController.Instance.bgmSource != null)
+            {
+                // Stop the current BGM
+                BGMController.Instance.bgmSource.Stop(); BGMController.Instance.bgmSource.Stop();
 
-            // Set and play the new BGM
-            BGMController.Instance.bgmSource.clip = newBGM;
-            BGMController.Instance.bgmSource.Play();
-        }
-        else
-        {
-            Debug.LogWarning("BGMController or its AudioSource is not set up correctly.");
+                // Set and play the new BGM   // Set and play the new BGM
+                BGMController.Instance.bgmSource.clip = newBGM;
+                BGMController.Instance.bgmSource.Play(); BGMController.Instance.bgmSource.Play();
+            }
+            else
+            {
+                Debug.LogWarning("BGMController or its AudioSource is not set up correctly.");
+            }
         }
     }
 }

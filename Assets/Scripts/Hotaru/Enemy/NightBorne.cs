@@ -51,7 +51,7 @@ public class NightBorne : MonoBehaviour
 
     [Header("Sound Effects")]
     public AudioClip walkSound;
-    public AudioClip hitSound;
+    public AudioClip boomSound;
     public AudioClip attackSound;
     public AudioSource audioSource;
 
@@ -196,7 +196,6 @@ public class NightBorne : MonoBehaviour
             {
                 PlayIdleAnimation();
                 isMoving = false;
-                // Stop walk sound immediately
                 if (audioSource != null && audioSource.clip == walkSound)
                 {
                     audioSource.Stop();
@@ -212,8 +211,6 @@ public class NightBorne : MonoBehaviour
             if (isMoving)
             {
                 isMoving = false;
-
-                // Stop walk sound immediately
                 if (audioSource != null && audioSource.clip == walkSound)
                 {
                     audioSource.Stop();
@@ -384,6 +381,10 @@ public class NightBorne : MonoBehaviour
             rb.gravityScale = 0f;
         }
         boomhitbox.SetActive(true);
+        if(audioSource != null && boomSound != null)
+        {
+            audioSource.PlayOneShot(boomSound);
+        }
     }
     public void Unboom()
     {
@@ -478,11 +479,6 @@ public class NightBorne : MonoBehaviour
         if (isDead) return;
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth); // Không cho âm
-        // Play hit sound immediately
-        if (audioSource != null && hitSound != null)
-        {
-            audioSource.PlayOneShot(hitSound);
-        }
         if (currentHealth <= 0)
         {
             Die();
@@ -631,7 +627,13 @@ public class NightBorne : MonoBehaviour
         }
     }
 
-    // Kiểu có animation attack: đứng yên khi bắn
+    void AttackSound()
+    {
+        if (audioSource != null && attackSound != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
+    }
     IEnumerator PerformShootAttack()
     {
         isAttacking = true;

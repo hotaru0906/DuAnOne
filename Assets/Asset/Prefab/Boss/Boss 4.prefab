@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2658026689562667094}
   - component: {fileID: 667713917048127894}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hitbox 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6408196117021596694}
   - component: {fileID: 3954047756528009896}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hitbox 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2826666932694257108}
   - component: {fileID: 4412572487542767469}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hitbox 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,13 +246,13 @@ GameObject:
   - component: {fileID: 1296898437655909365}
   - component: {fileID: 1110681059076728630}
   - component: {fileID: 4137762845832753333}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Boss 4
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6731632167613279348
 Transform:
   m_ObjectHideFlags: 0
@@ -428,6 +428,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178674b277036a849abfe7ddfea94825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  summonPoint: {fileID: 0}
+  portalType1: {fileID: 4257288893026518779, guid: 02a153cac69831744b8caca8dd18ac74, type: 3}
+  portalType2: {fileID: 2832813501887211244, guid: f82933166c0eaa044950c43eee05cb24, type: 3}
+  portalType3: {fileID: 1415514483229685217, guid: f444d956ad7649043bccc09a43baead3, type: 3}
+  summonAnimationName: Boss4_Summon
+  rb: {fileID: 1296898437655909365}
   moveSpeed: 3
   detectionRange: 10
   attackRange: 0.8
@@ -448,7 +454,7 @@ MonoBehaviour:
   skill2Cooldown: 20
   dashAwayDistance: 5
   dashAnimationName: Boss4_Dash
-  maxHealth: 500
+  maxHealth: 1200
   currentHealth: 0
   isDead: 0
   walkAnimationName: Boss4_Run

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Boss6 : MonoBehaviour
 {
+    [Header("UI Settings")]
+    public UnityEngine.UI.Slider bossHealthSlider;
     [Header("Boss Movement Settings")]
     public float moveSpeed = 3f;
     public float detectionRange = 10f; // Phạm vi phát hiện player
@@ -63,20 +65,29 @@ public class Boss6 : MonoBehaviour
     private float lastAttackTime = 0f;
     private float lastSkill1Time = 0f;
 
+    [Header("Sound Settings")]
+    public AudioClip walkSound;
+    public AudioClip attackSound;
+    public AudioClip skill1Sound;
+    public AudioClip deathSound;
+    public AudioSource audioSource;
+
     void Start()
     {
-        // Tìm player trong scene
+        if (bossHealthSlider == null)
+        {
+            GameObject sliderObj = GameObject.Find("BossHealthSlider"); // Đổi tên này theo tên GameObject của bạn
+            if (sliderObj != null)
+            {
+                bossHealthSlider = sliderObj.GetComponent<UnityEngine.UI.Slider>();
+            }
+        }
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.maxValue = maxHealth;
+            bossHealthSlider.value = currentHealth;
+        }
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        GameObject bossObj = GameObject.FindGameObjectWithTag("Boss");
-        if (bossObj != null)
-        {
-            // Nếu có, lấy transform của boss
-            bossObject = bossObj;
-        }
-        else
-        {
-            Debug.LogWarning("Boss6: Player object not found! Make sure player has 'Player' tag.");
-        }
         if (playerObj != null)
         {
             player = playerObj.transform;
@@ -85,16 +96,9 @@ public class Boss6 : MonoBehaviour
         {
             Debug.LogWarning("Player not found! Make sure player has 'Player' tag.");
         }
-
-        // Lấy Animator component
-        if (animator == null)
+        if (animator != null)
         {
-            animator = GetComponent<Animator>();
-        }
-
-        if (animator == null)
-        {
-            Debug.LogWarning($"No Animator found on {gameObject.name}. Animation will not work.");
+            animator.Play(walkAnimationName);
         }
         if (player != null)
         {
@@ -105,28 +109,49 @@ public class Boss6 : MonoBehaviour
                 Physics2D.IgnoreCollision(enemyCollider, playerCollider);
             }
         }
+        currentHealth = maxHealth;
 
-        // Ignore collision giữa tất cả các boss với nhau (tag "Boss")
-        Collider2D myCollider = GetComponent<Collider2D>();
-        GameObject[] allBosses = GameObject.FindGameObjectsWithTag("Boss");
-        foreach (GameObject boss in allBosses)
+    }
+    public void PlayWalkSound()
+    {
+        if (audioSource != null && walkSound != null)
         {
-            if (boss != this.gameObject)
+            if (audioSource.isPlaying && audioSource.clip != walkSound)
             {
-                Collider2D bossCollider = boss.GetComponent<Collider2D>();
-                if (myCollider != null && bossCollider != null)
-                {
-                    Physics2D.IgnoreCollision(myCollider, bossCollider);
-                }
+                audioSource.Stop();
+            }
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = walkSound;
+                audioSource.loop = true;
+                audioSource.Play();
             }
         }
-        currentHealth = maxHealth; // Initialize health
+
+        if (animator == null)
+        {
+            Debug.LogWarning($"No Animator found on {gameObject.name}. Animation will not work.");
+        }
+
     }
 
     void Update()
     {
+        // Cập nhật slider máu mỗi frame nếu có
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.value = currentHealth;
+        }
+
         if (player != null && !isDead)
         {
+            // Luôn flip hướng về player khi đang dùng skill
+            if (isUsingSkill1)
+            {
+                float directionX = player.position.x - transform.position.x;
+                FlipSprite(directionX);
+            }
+
             CheckSkill1();
 
             // Logic di chuyển và tấn công bình thường (khi không dùng skill)
@@ -328,6 +353,14 @@ public class Boss6 : MonoBehaviour
         {
             hitbox.SetActive(true);
         }
+        // Play only attack sound
+        if (audioSource != null && attackSound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(attackSound);
+        }
     }
     void StopHitBoxAttack()
     {
@@ -381,6 +414,8 @@ public class Boss6 : MonoBehaviour
         {
             animator.Play(walkAnimationName);
         }
+
+        // Hàm riêng để phát âm thanh walk, gọi từ animation event
     }
 
     void PlayAttackAnimation()
@@ -389,6 +424,7 @@ public class Boss6 : MonoBehaviour
         {
             animator.Play(attackAnimationName);
         }
+        // Không phát sound attack ở đây nữa, sẽ phát ở AttackPlayer
     }
 
     void PlaySkill1Animation()
@@ -396,6 +432,14 @@ public class Boss6 : MonoBehaviour
         if (animator != null)
         {
             animator.Play(skill1AnimationName);
+        }
+        // Play only skill1 sound
+        if (audioSource != null && skill1Sound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(skill1Sound);
         }
     }
     void PlaySkill2Animation()
@@ -445,6 +489,12 @@ public class Boss6 : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth); // Không cho âm
 
+        // Cập nhật slider máu khi nhận damage
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.value = currentHealth;
+        }
+
         if (currentHealth <= 0)
         {
             Die();
@@ -453,6 +503,9 @@ public class Boss6 : MonoBehaviour
 
     void Die()
     {
+        if (bossHealthSlider != null)
+
+            bossHealthSlider.gameObject.SetActive(false);
         isDead = true;
         isMoving = false;
         isAttacking = false;
@@ -460,6 +513,15 @@ public class Boss6 : MonoBehaviour
 
         // Dừng tất cả coroutines để tránh xung đột
         StopAllCoroutines();
+
+        // Play only death sound
+        if (audioSource != null && deathSound != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.PlayOneShot(deathSound);
+        }
 
         hitbox.SetActive(false);
         if (virtualCamera != null)
@@ -494,10 +556,14 @@ public class Boss6 : MonoBehaviour
     {
         Debug.Log("Boss3 destroyed!");
         Destroy(gameObject);
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.gameObject.SetActive(false);
+        }
 
         if (BGMController.Instance != null)
         {
-            BGMController.Instance.PlayBGMForScene("Forest");
+            BGMController.Instance.PlayBGMForScene("tower1");
         }
 
         Player player = FindObjectOfType<Player>();
