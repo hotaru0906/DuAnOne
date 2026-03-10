@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 1296898437655909365}
   - component: {fileID: 1110681059076728630}
   - component: {fileID: 4137762845832753333}
+  - component: {fileID: 2704661372946957064}
   m_Layer: 12
   m_Name: Boss 4
   m_TagString: Boss
@@ -423,11 +424,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8927560859411260039}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 178674b277036a849abfe7ddfea94825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossHealthSlider: {fileID: 0}
   summonPoint: {fileID: 0}
   portalType1: {fileID: 4257288893026518779, guid: 02a153cac69831744b8caca8dd18ac74, type: 3}
   portalType2: {fileID: 2832813501887211244, guid: f82933166c0eaa044950c43eee05cb24, type: 3}
@@ -445,16 +447,16 @@ MonoBehaviour:
   hitbox3: {fileID: 350965616936232764}
   dashSpeed: 20
   dashDistance: 3.5
-  damage1: 10
-  damage2: 15
-  damage3: 20
+  damage1: 50
+  damage2: 50
+  damage3: 50
   skill1Cooldown: 10
-  healAmount: 10
+  healAmount: 120
   healAnimationName: Boss4_Skill1
   skill2Cooldown: 20
   dashAwayDistance: 5
   dashAnimationName: Boss4_Dash
-  maxHealth: 1200
+  maxHealth: 3000
   currentHealth: 0
   isDead: 0
   walkAnimationName: Boss4_Run
@@ -462,9 +464,9 @@ MonoBehaviour:
   attackAnimationName: Boss4_Attack
   deathAnimationName: Boss4_Death
   animator: {fileID: 417453452820371061}
-  exp: 100
+  exp: 10000
   coinPrefab: {fileID: 5191125823337282758, guid: dcae3e26a436f5948b32756c9fc22c36, type: 3}
-  amount: 50
+  amount: 10000
 --- !u!60 &4137762845832753333
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -515,3 +517,33 @@ PolygonCollider2D:
       - {x: -0.26719886, y: -0.5056436}
       - {x: 0.20876877, y: -0.5147037}
   m_UseDelaunayMesh: 0
+--- !u!114 &2704661372946957064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8927560859411260039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 30fc384dd2026ad4bb5d2ffcdf6ca06e, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8927560859411260039}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

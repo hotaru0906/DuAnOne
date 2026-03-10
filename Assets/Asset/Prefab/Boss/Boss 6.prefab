@@ -308,6 +308,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce9ed7bf81b36e40929a37b93a5aebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeBGMOnDeath: 0
+  bossHealthSlider: {fileID: 0}
   moveSpeed: 3
   detectionRange: 10
   attackRange: 2
@@ -315,10 +317,10 @@ MonoBehaviour:
   attackCooldown: 2
   attackAnimationDuration: 1.5
   hitbox: {fileID: 2686833186559895325}
-  damage: 10
+  damage: 30
   skill1Cooldown: 10
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 1000
+  currentHealth: 1000
   isDead: 0
   walkAnimationName: run
   idleAnimationName: idle
@@ -327,9 +329,9 @@ MonoBehaviour:
   skill1AnimationName: skill
   skill2AnimationName: skill2
   animator: {fileID: 1952573401188571474}
-  exp: 100
+  exp: 300
   coinPrefab: {fileID: 5191125823337282758, guid: dcae3e26a436f5948b32756c9fc22c36, type: 3}
-  amount: 50
+  amount: 150
   virtualCamera: {fileID: 0}
   playerCamera: {fileID: 0}
   cameraShakeAmplitude: 3

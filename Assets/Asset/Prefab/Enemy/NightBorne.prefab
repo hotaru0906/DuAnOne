@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2922932342932263610}
   - component: {fileID: 7376039497618744831}
   - component: {fileID: 8501871415297107428}
+  - component: {fileID: 5903740322501223468}
   m_Layer: 0
   m_Name: NightBorne
   m_TagString: Enemy
@@ -245,10 +246,10 @@ MonoBehaviour:
   canMove: 1
   attackCooldown: 2
   attackAnimationDuration: 1.5
-  damage: 10
+  damage: 30
   hitbox: {fileID: 6153540564015522590}
   boomhitbox: {fileID: 4209433914352406689}
-  maxHealth: 10
+  maxHealth: 500
   currentHealth: 0
   isDead: 0
   walkAnimationName: run
@@ -368,6 +369,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5903740322501223468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400018915091651912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a310f7a7bda4342a38fdc7f8a590a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToDeactivate: {fileID: 7376039497618744831}
+  hasBeenActivated: 0
 --- !u!1 &2221702951491552715
 GameObject:
   m_ObjectHideFlags: 0

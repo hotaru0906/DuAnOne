@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 472471591
+  m_SortingLayerID: 405872981
   m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: -826730335, guid: 0a0c87f77623d6d4e844940d3cedbdfb, type: 3}
@@ -260,6 +260,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 2048
+  moveRight: 1
 --- !u!1 &4194031257646466649
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +332,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 472471591
+  m_SortingLayerID: 405872981
   m_SortingLayer: 1
   m_SortingOrder: 3
   m_Sprite: {fileID: -1286869904, guid: 7de73e39c7dd6f145823065ed9c8bf87, type: 3}
@@ -437,7 +438,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 472471591
+  m_SortingLayerID: 405872981
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -229116679, guid: bb6d125d39c73f342b38938b7eaab6e6, type: 3}
@@ -543,7 +544,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 472471591
+  m_SortingLayerID: 405872981
   m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 767974741, guid: 74ca1877cab362b44945b6b0141a220b, type: 3}
@@ -649,7 +650,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 472471591
+  m_SortingLayerID: 405872981
   m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: -622991024, guid: 004e72fefeb12ef47bd238b1d09ae657, type: 3}
@@ -755,7 +756,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 472471591
+  m_SortingLayerID: 405872981
   m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: -744600908, guid: d431cb4f17149954382d84a380bafa0a, type: 3}

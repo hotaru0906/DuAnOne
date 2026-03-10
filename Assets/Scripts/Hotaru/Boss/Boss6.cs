@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Boss6 : MonoBehaviour
 {
+    [Header("BGM Control")]
+    public bool changeBGMOnDeath = true; // Nếu true thì boss chết sẽ chuyển BGM, nếu false thì giữ nguyên
+
     [Header("UI Settings")]
     public UnityEngine.UI.Slider bossHealthSlider;
     [Header("Boss Movement Settings")]
@@ -555,26 +558,27 @@ public class Boss6 : MonoBehaviour
     public void DestroyBoss()
     {
         Debug.Log("Boss3 destroyed!");
-        Destroy(gameObject);
+
         if (bossHealthSlider != null)
         {
             bossHealthSlider.gameObject.SetActive(false);
         }
 
-        if (BGMController.Instance != null)
+        if (changeBGMOnDeath && BGMController.Instance != null)
         {
             BGMController.Instance.PlayBGMForScene("tower1");
         }
 
-        Player player = FindObjectOfType<Player>();
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.unlockedSkill1 = true;
+            GameManager.Instance.SaveSkillUnlocks(true, GameManager.Instance.unlockedSkill2, GameManager.Instance.unlockedBullet);
+        }
+
+        var player = FindObjectOfType<Player>();
         if (player != null)
         {
-            player.UnlockSkillByBoss("Boss3");
-            GameManager.Instance.SaveSkillUnlocks(
-                player.canUseSkill1,
-                player.canUseSkill2,
-                player.canShootBullet
-            );
+            player.canUseSkill1 = true;
         }
         // Check if the coinPrefab is assigned
         if (coinPrefab != null)
@@ -602,6 +606,7 @@ public class Boss6 : MonoBehaviour
         {
             Debug.LogWarning("Coin prefab is not assigned. No coin will be dropped.");
         }
+        Destroy(gameObject);
     }
 
     // Vẽ gizmo để hiển thị phạm vi phát hiện và tấn công

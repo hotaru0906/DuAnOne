@@ -49,7 +49,13 @@ public class GameManager : MonoBehaviour
     }
 
     void Update()
-    {
+{
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            ResetPlayerData();
+            Debug.Log("Player data reset to default!");
+        }
+    
         if (Input.GetKeyDown(KeyCode.E))
         {
             var player = FindObjectOfType<Player>();
@@ -63,6 +69,27 @@ public class GameManager : MonoBehaviour
                 SavePlayerPotions(player.healthPotionCount, player.manaPotionCount, player.teleportPotionCount);
             }
         }
+    }
+
+    // Hàm reset player data về mặc định
+    public void ResetPlayerData()
+    {
+        playerGold = 0;
+        playerLevel = 1;
+        playerStatPoints = 0;
+        playerStr = 5;
+        playerVit = 5;
+        playerSpd = 5;
+        playerInt = 5;
+        playerCrt = 5;
+        healthPotion = 0;
+        manaPotion = 0;
+        recallPotion = 0;
+        currentExp = 0;
+        unlockedSkill1 = false;
+        unlockedSkill2 = false;
+        unlockedBullet = false;
+        SavePlayerData();
     }
     public void SavePlayerData()
     {

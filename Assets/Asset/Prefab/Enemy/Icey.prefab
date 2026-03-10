@@ -209,7 +209,7 @@ MonoBehaviour:
   attackAnimationDuration: 1.5
   damage: 10
   hitbox: {fileID: 0}
-  maxHealth: 25
+  maxHealth: 75
   currentHealth: 0
   isDead: 0
   walkAnimationName: Icey_Walk

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine; // Ensure UnityEngine namespace is included for Player class reference
 
 public class NightBorne : MonoBehaviour
+
 {
     [Header("Shooting Settings")]
     public bool canShoot = false; // Nếu true thì enemy thường sẽ bắn đạn thay vì đánh cận chiến
@@ -70,6 +71,8 @@ public class NightBorne : MonoBehaviour
     private float patrolFlipTimer = 0f; // Timer for flipping during patrol
     private float patrolFlipInterval = 0f; // Random interval for flipping
     private Vector2 shootDirection; // Hướng bắn được lưu tại thời điểm bắt đầu animation attack
+    private Vector3 originalPosition;
+
 
     void Start()
     {
@@ -100,7 +103,9 @@ public class NightBorne : MonoBehaviour
             Debug.LogWarning($"No Animator found on {gameObject.name}. Animation will not work.");
         }
 
-        currentHealth = maxHealth;
+    currentHealth = maxHealth;
+    // Lưu vị trí gốc khi khởi tạo
+    originalPosition = transform.position;
 
         // Initialize patrol flip interval
         patrolFlipInterval = Random.Range(3f, 5f);
@@ -140,12 +145,6 @@ public class NightBorne : MonoBehaviour
 
         if (player != null && !isDead)
         {
-            if (currentHealth <= maxHealth * 0.2f)
-            {
-                FleeFromPlayer();
-                return;
-            }
-
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
             if (distanceToPlayer > detectionRange)
@@ -373,9 +372,10 @@ public class NightBorne : MonoBehaviour
     // Animation Event: Boom khi die
     public void Boom()
     {
-        Vector3 pos = transform.position;
-        pos.y = 2f;
-        transform.position = pos;
+    // Khi Boom, giữ nguyên x và z, chỉ tăng y lên 2 đơn vị so với vị trí gốc
+    Vector3 pos = originalPosition;
+    pos.y += 2f;
+    transform.position = pos;
         if (rb != null)
         {
             rb.gravityScale = 0f;
@@ -507,13 +507,14 @@ public class NightBorne : MonoBehaviour
 
     public void DestroyEnemy()
     {
-        // Destroy the enemy game object
-        Destroy(gameObject);
+        // Lưu lại vị trí enemy trước khi destroy
+        Vector3 deathPosition = transform.position;
+
         // Check if the coinPrefab is assigned
         if (coinPrefab != null)
         {
-            // Instantiate a single coin at the enemy's position
-            GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            // Instantiate a single coin at vị trí enemy vừa chết
+            GameObject coin = Instantiate(coinPrefab, deathPosition, Quaternion.identity);
             // Set the coin's value if the Coin script is attached
             Coin coinScript = coin.GetComponent<Coin>();
             if (coinScript != null)
@@ -533,6 +534,9 @@ public class NightBorne : MonoBehaviour
         {
             Debug.LogWarning("Coin prefab is not assigned. No coin will be dropped.");
         }
+
+        // Destroy the enemy game object cuối cùng
+        Destroy(gameObject);
     }
 
     void OnDrawGizmosSelected()
@@ -554,23 +558,6 @@ public class NightBorne : MonoBehaviour
         Gizmos.color = Color.red;
         Vector2 dir = facingRight ? Vector2.right : Vector2.left;
         Gizmos.DrawRay(transform.position, dir * 0.5f); // Horizontal raycast
-    }
-
-    void FleeFromPlayer()
-    {
-        Vector2 fleeDirection = (transform.position - player.position).normalized;
-        transform.Translate(fleeDirection * moveSpeed * Time.deltaTime);
-
-        if (fleeDirection.x > 0 && !facingRight)
-        {
-            FlipSprite(1);
-        }
-        else if (fleeDirection.x < 0 && facingRight)
-        {
-            FlipSprite(-1);
-        }
-
-        Debug.Log("Enemy is fleeing from the player.");
     }
 
     void OnCollisionStay2D(Collision2D collision)

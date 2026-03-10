@@ -129,18 +129,18 @@ MonoBehaviour:
   skill1Sound: {fileID: 8300000, guid: 7001ef7b72703a14da8a9318683ff4ef, type: 3}
   deathSound: {fileID: 8300000, guid: d526b57eabb7571499554d468c83d6c7, type: 3}
   audioSource: {fileID: 6005684545603512954}
-  moveSpeed: 2
+  moveSpeed: 2.5
   detectionRange: 10
   attackRange: 2
   canMove: 1
-  attackCooldown: 1
+  attackCooldown: 2
   attackAnimationDuration: 1.5
   hitbox: {fileID: 4816579016196070664}
-  damage: 20
-  skill1Cooldown: 5
+  damage: 50
+  skill1Cooldown: 10
   skill1Prefab: {fileID: 1909175805546304478, guid: 71a941f18f7b1a5418d22895d6171535, type: 3}
   skill1HeightOffset: 0.5
-  maxHealth: 500
+  maxHealth: 2000
   currentHealth: 0
   isDead: 0
   walkAnimationName: Boss2_Walk
@@ -150,10 +150,10 @@ MonoBehaviour:
   hitAnimationName: Boss2_Hit
   deathAnimationName: Boss2_Death
   animator: {fileID: 4217879001086846540}
-  exp: 50
+  exp: 600
   camPlayer: {fileID: 0}
   coinPrefab: {fileID: 0}
-  amount: 50
+  amount: 300
 --- !u!50 &9087283355808573384
 Rigidbody2D:
   serializedVersion: 4

@@ -645,7 +645,7 @@ public class Enemy : MonoBehaviour
             Player playerScript = collision.GetComponent<Player>();
             if (playerScript != null)
             {
-                if (contactDamage)
+                if (contactDamage && !isDead)
                 {
                     // Quái gây sát thương khi đụng player
                     playerScript.TakeDamage(damage);

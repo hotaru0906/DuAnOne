@@ -489,16 +489,6 @@ public class Boss2 : MonoBehaviour
         Debug.Log("Boss2 destroyed!");
         Destroy(gameObject);
         camPlayer.gameObject.SetActive(false);
-        Player player = FindObjectOfType<Player>();
-        if (player != null)
-        {
-            player.UnlockSkillByBoss("Boss2");
-            GameManager.Instance.SaveSkillUnlocks(
-                player.canUseSkill1,
-                player.canUseSkill2,
-                player.canShootBullet
-            );
-        }
 
         // Check if the coinPrefab is assigned
         if (coinPrefab != null)

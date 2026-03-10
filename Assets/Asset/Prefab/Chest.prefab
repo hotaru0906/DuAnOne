@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 5191125823337282758, guid: dcae3e26a436f5948b32756c9fc22c36, type: 3}
-  amount: 25
+  amount: 10
 --- !u!61 &6951250850992082148
 BoxCollider2D:
   m_ObjectHideFlags: 0

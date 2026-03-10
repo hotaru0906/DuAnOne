@@ -597,22 +597,22 @@ public class Boss3 : MonoBehaviour
         {
             bossHealthSlider.gameObject.SetActive(false);
         }
-        Destroy(gameObject);
 
         if (BGMController.Instance != null)
         {
             BGMController.Instance.PlayBGMForScene("Forest");
         }
 
-        Player player = FindObjectOfType<Player>();
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.unlockedBullet = true;
+            GameManager.Instance.SaveSkillUnlocks(GameManager.Instance.unlockedSkill1, GameManager.Instance.unlockedSkill2, true);
+        }
+
+        var player = FindObjectOfType<Player>();
         if (player != null)
         {
-            player.UnlockSkillByBoss("Boss3");
-            GameManager.Instance.SaveSkillUnlocks(
-                player.canUseSkill1,
-                player.canUseSkill2,
-                player.canShootBullet
-            );
+            player.canShootBullet = true;
         }
         // Check if the coinPrefab is assigned
         if (coinPrefab != null)
@@ -640,6 +640,7 @@ public class Boss3 : MonoBehaviour
         {
             Debug.LogWarning("Coin prefab is not assigned. No coin will be dropped.");
         }
+        Destroy(gameObject);
     }
 
     // Vẽ gizmo để hiển thị phạm vi phát hiện và tấn công

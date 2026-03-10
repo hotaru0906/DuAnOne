@@ -245,7 +245,7 @@ MonoBehaviour:
   attackAnimationDuration: 1.5
   damage: 20
   hitbox: {fileID: 0}
-  maxHealth: 100
+  maxHealth: 150
   currentHealth: 0
   isDead: 0
   walkAnimationName: b5run
@@ -269,6 +269,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   exp: 30
   amount: 20
+  shootPoint: {fileID: 0}
 --- !u!1 &3288289635720352042
 GameObject:
   m_ObjectHideFlags: 0

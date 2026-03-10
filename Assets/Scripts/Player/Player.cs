@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
 
         dashTime = dashDuration;
         isDashing = false;
-        Health = MaxHealth;
+        
 
         // Initialize sliders if assigned
         if (healthSlider != null)
@@ -153,6 +153,8 @@ public class Player : MonoBehaviour
         Run = GetRunSpeed();
         dashForce = GetDashForce();
         skill1Damage = GetSkill1Damage();
+        Health = MaxHealth;
+        Mana = MaxMana;
 
         // Bỏ qua va chạm với Enemy
         GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");

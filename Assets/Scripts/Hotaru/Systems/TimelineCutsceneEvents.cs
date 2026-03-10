@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
@@ -5,6 +6,8 @@ using UnityEngine.Playables;
 
 public class TimelineCutsceneEvents : MonoBehaviour
 {
+    // Hàm chờ người chơi (ví dụ: chờ player đến vị trí hoặc thực hiện hành động)
+
     [System.Serializable]
     public class DialogueBlock
     {
@@ -24,7 +27,16 @@ public class TimelineCutsceneEvents : MonoBehaviour
 
     private int currentIndex = 0;
     private bool waitingForStatus = false;
-
+    public IEnumerator WaitForPlayer(System.Func<bool> condition)
+    {
+        // Lặp cho đến khi điều kiện thỏa mãn
+        while (!condition())
+        {
+            yield return null;
+        }
+        // Khi điều kiện đúng, tiếp tục cutscene
+        Debug.Log("Player đã sẵn sàng, tiếp tục cutscene.");
+    }
     public void DisablePlayerControl()
     {
         // Disable the Player script

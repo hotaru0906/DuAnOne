@@ -1,3 +1,5 @@
+#if UNITY_EDITOR  // ✅ Only compile this script in the Unity Editor
+
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -172,3 +174,5 @@ public class QuickSceneSwitcher : EditorWindow
         }
     }
 }
+
+#endif  // ✅ End of UNITY_EDITOR conditional compilation

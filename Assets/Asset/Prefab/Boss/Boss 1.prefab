@@ -110,7 +110,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.028, y: -0.293, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: -2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1273025956119546854}
@@ -268,11 +268,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8143704894912173975}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75b311dc06ad92648acdac02496df98a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossHealthSlider: {fileID: 0}
+  box1: {fileID: 0}
+  box2: {fileID: 0}
+  virtualCamera: {fileID: 0}
+  playerCamera: {fileID: 0}
   moveSpeed: 2
   detectionRange: 10
   attackRange: 2
@@ -284,12 +289,12 @@ MonoBehaviour:
   audioSource: {fileID: 4480095603595631909}
   attackCooldown: 2
   attackAnimationDuration: 1.5
-  damage: 10
+  damage: 40
   hitbox: {fileID: 2952420431567430459}
   skill1Cooldown: 2
   skill1Prefab: {fileID: 2503404056356877013, guid: ea40f939c3bae864bbac9ee4d946c788, type: 3}
   skill1HeightOffset: 0.45
-  maxHealth: 100
+  maxHealth: 2000
   currentHealth: 0
   isDead: 0
   walkAnimationName: Boss1_Walk
@@ -298,9 +303,9 @@ MonoBehaviour:
   skill1AnimationName: Boss1_Skill
   deathAnimationName: Boss1_Death
   animator: {fileID: 8322933978336615298}
-  exp: 50
+  exp: 500
   coinPrefab: {fileID: 5191125823337282758, guid: dcae3e26a436f5948b32756c9fc22c36, type: 3}
-  amount: 50
+  amount: 250
 --- !u!60 &9182528284936592726
 PolygonCollider2D:
   m_ObjectHideFlags: 0

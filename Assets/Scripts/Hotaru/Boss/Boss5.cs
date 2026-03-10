@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Boss5 : MonoBehaviour
 {
+    [Header("BGM Control")]
+    public bool changeBGMOnDeath = true; // Nếu true thì boss chết sẽ chuyển BGM, nếu false thì giữ nguyên
+    [Header("UI Settings")]
+    public UnityEngine.UI.Slider bossHealthSlider;
     [Header("Boss Movement Settings")]
     public float moveSpeed = 3f;
     public float detectionRange = 10f; // Phạm vi phát hiện player
@@ -72,6 +76,21 @@ public class Boss5 : MonoBehaviour
 
     void Start()
     {
+        // Tìm slider máu nếu chưa gán
+        if (bossHealthSlider == null)
+        {
+            GameObject sliderObj = GameObject.Find("BossHealthSlider");
+            if (sliderObj != null)
+            {
+                bossHealthSlider = sliderObj.GetComponent<UnityEngine.UI.Slider>();
+            }
+        }
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.maxValue = maxHealth;
+            bossHealthSlider.value = maxHealth;
+        }
+
         // Tìm player trong scene
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
@@ -107,6 +126,11 @@ public class Boss5 : MonoBehaviour
 
     void Update()
     {
+        // Cập nhật slider máu mỗi frame nếu có
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.value = currentHealth;
+        }
         if (player != null && !isDead)
         {
             CheckSkill1();
@@ -467,6 +491,12 @@ public class Boss5 : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth); // Không cho âm
 
+        // Cập nhật slider máu khi nhận damage
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.value = currentHealth;
+        }
+
         if (currentHealth <= 0)
         {
             Die();
@@ -523,23 +553,29 @@ public class Boss5 : MonoBehaviour
     // Animation Event Method: Destroy Boss (gọi từ animation event của death animation)
     public void DestroyBoss()
     {
-        Debug.Log("Boss3 destroyed!");
-        Destroy(gameObject);
-
-        if (BGMController.Instance != null)
+        // Ẩn hoặc destroy UI máu boss nếu có
+        if (bossHealthSlider != null)
         {
-            BGMController.Instance.PlayBGMForScene("Forest");
+            bossHealthSlider.gameObject.SetActive(false);
+        }
+        Debug.Log("Boss3 destroyed!");
+
+
+        if (changeBGMOnDeath && BGMController.Instance != null)
+        {
+            BGMController.Instance.PlayBGMForScene("tower1");
         }
 
-        Player player = FindObjectOfType<Player>();
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.unlockedSkill2 = true;
+            GameManager.Instance.SaveSkillUnlocks(GameManager.Instance.unlockedSkill1, true, GameManager.Instance.unlockedBullet);
+        }
+
+        var player = FindObjectOfType<Player>();
         if (player != null)
         {
-            player.UnlockSkillByBoss("Boss3");
-            GameManager.Instance.SaveSkillUnlocks(
-                player.canUseSkill1,
-                player.canUseSkill2,
-                player.canShootBullet
-            );
+            player.canUseSkill2 = true;
         }
         // Check if the coinPrefab is assigned
         if (coinPrefab != null)
@@ -567,6 +603,7 @@ public class Boss5 : MonoBehaviour
         {
             Debug.LogWarning("Coin prefab is not assigned. No coin will be dropped.");
         }
+        Destroy(gameObject);
     }
 
     // Vẽ gizmo để hiển thị phạm vi phát hiện và tấn công

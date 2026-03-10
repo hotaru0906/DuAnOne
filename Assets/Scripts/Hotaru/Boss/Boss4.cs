@@ -1,9 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Boss4 : MonoBehaviour
 {
+    private bool canUseB1 = false;
+    private bool canUseB2 = false;
+    private bool canUseB3 = false;
+    private float lastSkillB1Time = -15f;
+    private float lastSkillB2Time = -10f;
+    private float lastSkillB3Time = -5f;
+    private float skillB1Cooldown = 15f;
+    private float skillB2Cooldown = 10f;
+    private float skillB3Cooldown = 5f;
+    [Header("UI Settings")]
+    public UnityEngine.UI.Slider bossHealthSlider;
+    [Header("SkillB1 - Icey Spear")]
+    public GameObject iceySpearPrefab;
+    public int maxSpears = 10;
+    public float spearInterval = 1f;
+    public float spearHeightOffset = 2f;
+    private int spearsSpawned = 0;
+    private Coroutine spearCoroutine;
+    [Header("SkillB2 - Fire Column")]
+    public GameObject fireColumnPrefab;
+    public int maxFireColumns = 10;
+    public float fireColumnInterval = 1f;
+    public float fireColumnHeightOffset = 2f;
+    private int fireColumnsSpawned = 0;
+    private Coroutine fireColumnCoroutine;
+
+    // Biến cho SkillB3 (Skill1 Object)
+    [Header("SkillB3 - Skill1 Object")]
+    public GameObject skill1Prefab;
+    public float skill1HeightOffset = 2f;
+
     [Header("Summon Settings")]
     public Transform summonPoint; // Vị trí dịch chuyển khi summon
     public GameObject portalType1;
@@ -69,10 +101,26 @@ public class Boss4 : MonoBehaviour
     private float lastAttackTime = 0f;
     private float lastSkill1Time = 0f;
     private int currentAttackType = 1; // Loại attack hiện tại (1, 2, hoặc 3)
+    private int summonedBossesDead = 0;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        // Tìm slider máu nếu chưa gán
+        if (bossHealthSlider == null)
+        {
+            GameObject sliderObj = GameObject.Find("BossHealthSlider");
+            if (sliderObj != null)
+            {
+                bossHealthSlider = sliderObj.GetComponent<UnityEngine.UI.Slider>();
+            }
+        }
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.maxValue = maxHealth;
+            bossHealthSlider.value = maxHealth;
+        }
+
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
@@ -120,6 +168,11 @@ public class Boss4 : MonoBehaviour
 
     void Update()
     {
+        // Cập nhật slider máu mỗi frame nếu có
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.value = currentHealth;
+        }
         if (player != null && !isDead)
         {
             if (Time.frameCount % 60 == 0)
@@ -132,8 +185,10 @@ public class Boss4 : MonoBehaviour
 
             // Kiểm tra Skill 1 cooldown (ưu tiên cao nhất)
             CheckSkill1();
+            CheckSkillB1();
+            CheckSkillB2();
+            CheckSkillB3();
 
-            // Logic di chuyển và tấn công bình thường (khi không dùng skill)
             if (canMove && !isAttacking && !isUsingSkill1 && !isUsingSkill2 && !isDashing)
             {
                 HandleMovement();
@@ -160,6 +215,45 @@ public class Boss4 : MonoBehaviour
         }
     }
 
+    void CheckSkillB1()
+    {
+        // Kiểm tra cooldown 10s
+        if (canUseB1 && Time.time - lastSkillB1Time >= skillB1Cooldown)
+        {
+            lastSkillB1Time = Time.time;
+            SkillB1();
+        }
+        else
+        {
+            Debug.Log($"SkillB1 is on cooldown: {skillB1Cooldown - (Time.time - lastSkillB1Time):F1}s left");
+        }
+    }
+    void CheckSkillB2()
+    {
+        // Kiểm tra cooldown 10s
+        if (canUseB2 && Time.time - lastSkillB2Time >= skillB2Cooldown)
+        {
+            lastSkillB2Time = Time.time;
+            SkillB2();
+        }
+        else
+        {
+            Debug.Log($"SkillB2 is on cooldown: {skillB2Cooldown - (Time.time - lastSkillB2Time):F1}s left");
+        }
+    }
+    void CheckSkillB3()
+    {
+        // Kiểm tra cooldown 10s
+        if (canUseB3 && Time.time - lastSkillB3Time >= skillB3Cooldown)
+        {
+            lastSkillB3Time = Time.time;
+            SkillB3();
+        }
+        else
+        {
+            Debug.Log($"SkillB3 is on cooldown: {skillB3Cooldown - (Time.time - lastSkillB3Time):F1}s left");
+        }
+    }
     bool CheckHealthThresholds()
     {
         float healthPercent = (currentHealth / maxHealth) * 100f;
@@ -199,7 +293,8 @@ public class Boss4 : MonoBehaviour
         isUsingSkill2 = false;
         isDashing = false;
 
-        Vector3 portalSpawnPosition = transform.position; // Vị trí spawn portal
+        Vector3 portalSpawnPosition = transform.position;
+        portalSpawnPosition.y += 1f; // Tăng y lên 1f cho portal và boss triệu hồi
 
         if (rb != null)
             rb.gravityScale = 0f; // Tắt trọng lực trong khi summon
@@ -212,7 +307,7 @@ public class Boss4 : MonoBehaviour
             animator.speed = 0f;
         }
 
-        // 1. Spawn portal tại vị trí boss đang đứng
+        // 1. Spawn portal tại vị trí boss đang đứng (y + 1f)
         GameObject portal = null;
         switch (phase)
         {
@@ -240,7 +335,8 @@ public class Boss4 : MonoBehaviour
             PortalSpawn portalSpawn = portal.GetComponent<PortalSpawn>();
             if (portalSpawn != null)
             {
-                portalSpawn.SpawnObject();
+                // Truyền vị trí spawn boss phụ (y + 1f)
+                portalSpawn.SpawnObjectAtPosition(portalSpawnPosition);
 
                 // Tìm boss phụ gần nhất
                 GameObject[] summonedBosses = GameObject.FindGameObjectsWithTag("Boss");
@@ -284,6 +380,7 @@ public class Boss4 : MonoBehaviour
         // Reset trạng thái
         isSummoning = false;
         canMove = true;
+        OnSummonedBossDead();
 
         if (animator != null)
             animator.speed = 1f;
@@ -293,8 +390,24 @@ public class Boss4 : MonoBehaviour
 
         Debug.Log("Boss4: Summoned boss defeated, returning to normal state");
     }
+    public void OnSummonedBossDead()
+    {
+        summonedBossesDead++;
+        if (summonedBossesDead == 1)
+        {
+            canUseB1 = true;
+        }
+        else if (summonedBossesDead == 2)
+        {
+            canUseB2 = true;
+        }
+        else if (summonedBossesDead == 3)
+        {
+            canUseB3 = true;
+        }
+    }
 
-
+    // Removed unused cooldown/delay coroutines for skills
     IEnumerator UseSkill1()
     {
         isUsingSkill1 = true;
@@ -309,9 +422,6 @@ public class Boss4 : MonoBehaviour
         // Chạy animation heal
         PlayHealAnimation();
 
-        // Animation event sẽ gọi HealBoss() khi cần
-        // Animation event sẽ gọi EndSkill1() khi hoàn thành
-
         yield return null; // Coroutine sẽ được kết thúc bởi EndSkill1()
     }
 
@@ -320,12 +430,109 @@ public class Boss4 : MonoBehaviour
     {
         float healValue = maxHealth * (healAmount / 100f); // Tính 10% của max health
         currentHealth += healValue;
-        currentHealth = Mathf.Min(currentHealth, maxHealth); // Không vượt quá max health
+        currentHealth = Mathf.Min(currentHealth, maxHealth);
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.value = currentHealth;
+        }
 
         Debug.Log($"Boss4 healed {healValue} HP! Current health: {currentHealth}/{maxHealth}");
     }
+    // ====== SkillB1, SkillB2, SkillB3 cho các boss triệu hồi chết ======
+    public void SkillB1()
+    {
+        StartCoroutine(SpawnSpearsRoutine());
+        lastSkillB1Time = Time.time;
+    }
 
-    // Animation Event Method 2: Kết thúc skill heal
+    private IEnumerator SpawnSpearsRoutine()
+    {
+        spearsSpawned = 0;
+        while (spearsSpawned < maxSpears)
+        {
+            SpawnSingleSpear();
+            spearsSpawned++;
+            yield return new WaitForSeconds(spearInterval);
+        }
+        // Cooldown bắt đầu khi spear cuối cùng spawn ra
+        lastSkill1Time = Time.time;
+        spearCoroutine = null;
+    }
+
+    private void SpawnSingleSpear()
+    {
+        if (player == null) return;
+        float minX = Mathf.Min(transform.position.x, player.position.x);
+        float maxX = Mathf.Max(transform.position.x, player.position.x);
+        float randomX = Random.Range(minX, maxX);
+        float y = transform.position.y + spearHeightOffset;
+        Vector3 spawnPos = new Vector3(randomX, y, transform.position.z);
+        if (iceySpearPrefab != null)
+        {
+            Instantiate(iceySpearPrefab, spawnPos, Quaternion.identity);
+        }
+    }
+
+    public void SkillB2()
+    {
+
+        if (fireColumnCoroutine == null)
+        {
+            fireColumnCoroutine = StartCoroutine(SpawnFireColumnsRoutine());
+            lastSkillB2Time = Time.time;
+            canUseB2 = true;
+        }
+    }
+    private IEnumerator SpawnFireColumnsRoutine()
+    {
+        fireColumnsSpawned = 0;
+        yield return new WaitForSeconds(1f);
+        while (fireColumnsSpawned < maxFireColumns)
+        {
+            SpawnSingleFireColumn();
+            fireColumnsSpawned++;
+            yield return new WaitForSeconds(fireColumnInterval);
+        }
+        lastSkill1Time = Time.time;
+        fireColumnCoroutine = null;
+    }
+
+    private void SpawnSingleFireColumn()
+    {
+        if (player == null) return;
+        // Spawn ngay dưới chân player
+        float x = player.position.x;
+        float y = player.position.y + fireColumnHeightOffset;
+        Vector3 spawnPos = new Vector3(x, y, transform.position.z);
+        if (fireColumnPrefab != null)
+        {
+            Instantiate(fireColumnPrefab, spawnPos, Quaternion.identity);
+        }
+    }
+
+    public void SkillB3()
+    {
+        StartCoroutine(SpawnSkill1ObjectsRoutine());
+        lastSkillB3Time = Time.time;
+    }
+    private IEnumerator SpawnSkill1ObjectsRoutine()
+    {
+        int count = 0;
+        while (count < 5)
+        {
+            if (player == null) yield break;
+            Vector3 spawnPosition = new Vector3(
+                player.position.x,
+                player.position.y + skill1HeightOffset,
+                player.position.z
+            );
+            Instantiate(skill1Prefab, spawnPosition, Quaternion.identity);
+            Debug.Log($"Boss2 Skill 1: Spawned object {count + 1}/5 at {spawnPosition}");
+            count++;
+            if (count < 5)
+                yield return new WaitForSeconds(1f);
+        }
+    }
     public void EndSkill1()
     {
         isUsingSkill1 = false;
@@ -665,6 +872,12 @@ public class Boss4 : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth); // Không cho âm
 
+        // Cập nhật slider máu khi nhận damage
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.value = currentHealth;
+        }
+
         Debug.Log($"Boss4 took {damage} damage! Health: {currentHealth}/{maxHealth}");
 
         if (currentHealth <= 0)
@@ -678,6 +891,7 @@ public class Boss4 : MonoBehaviour
         isUsingSkill2 = true;
         isDashing = true;
         lastSkill2Time = Time.time;
+        DeactivateAllHitboxes(); // Tắt tất cả hitbox trước khi dash
 
         // Dừng di chuyển
         if (isMoving)
@@ -763,34 +977,14 @@ public class Boss4 : MonoBehaviour
     public void DestroyBoss()
     {
         Debug.Log("Boss4 destroyed!");
+        // Ẩn hoặc destroy UI máu boss nếu có
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.gameObject.SetActive(false);
+        }
         Destroy(gameObject);
 
-        // Check if the coinPrefab is assigned
-        if (coinPrefab != null)
-        {
-            // Instantiate a single coin at the boss's position
-            GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
-
-            // Set the coin's value if the Coin script is attached
-            Coin coinScript = coin.GetComponent<Coin>();
-            if (coinScript != null)
-            {
-                coinScript.value = amount; // Set the coin's value to the boss's amount property
-            }
-
-            // Apply random force to the coin
-            Rigidbody2D coinRb = coin.GetComponent<Rigidbody2D>();
-            if (coinRb != null)
-            {
-                float randomXForce = Random.Range(-2f, 2f); // Random horizontal force
-                float upwardForce = Random.Range(3f, 5f);   // Random upward force
-                coinRb.AddForce(new Vector2(randomXForce, upwardForce), ForceMode2D.Impulse);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Coin prefab is not assigned. No coin will be dropped.");
-        }
+        SceneManager.LoadScene("Ending 0");
     }
 
     public void DeactivateHitbox1()

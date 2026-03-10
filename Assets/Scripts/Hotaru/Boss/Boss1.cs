@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Boss1 : MonoBehaviour
 {
+    [Header("UI Settings")]
+    public UnityEngine.UI.Slider bossHealthSlider;
+    public GameObject box1, box2;
+    public Cinemachine.CinemachineVirtualCamera virtualCamera;
+    public Cinemachine.CinemachineVirtualCamera playerCamera;
     [Header("Boss Movement Settings")]
     public float moveSpeed = 3f;
     public float detectionRange = 10f; // Phạm vi phát hiện player
@@ -15,7 +20,7 @@ public class Boss1 : MonoBehaviour
     public AudioClip skill1Sound;
     public AudioClip deathSound;
     public AudioSource audioSource;
-    
+
     [Header("Attack Settings")]
     public float attackCooldown = 2f;
     public float attackAnimationDuration = 1.5f;
@@ -55,41 +60,63 @@ public class Boss1 : MonoBehaviour
 
     void Start()
     {
-        // Tìm player trong scene
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
         {
-            player = playerObj.transform;
-        }
-        else
-        {
-            Debug.LogWarning("Player not found! Make sure player has 'Player' tag.");
-        }
-
-        // Lấy Animator component
-        if (animator == null)
-        {
-            animator = GetComponent<Animator>();
-        }
-
-        if (animator == null)
-        {
-            Debug.LogWarning($"No Animator found on {gameObject.name}. Animation will not work.");
-        }
-        if (player != null)
-        {
-            Collider2D playerCollider = player.GetComponent<Collider2D>();
-            Collider2D enemyCollider = GetComponent<Collider2D>();
-            if (playerCollider != null && enemyCollider != null)
+            // Tìm slider máu nếu chưa gán
+            if (bossHealthSlider == null)
             {
-                Physics2D.IgnoreCollision(enemyCollider, playerCollider);
+                GameObject sliderObj = GameObject.Find("BossHealthSlider");
+                if (sliderObj != null)
+                {
+                    bossHealthSlider = sliderObj.GetComponent<UnityEngine.UI.Slider>();
+                }
             }
+            if (bossHealthSlider != null)
+            {
+                bossHealthSlider.maxValue = maxHealth;
+                bossHealthSlider.value = maxHealth;
+            }
+
+            // Tìm player trong scene
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+            {
+                player = playerObj.transform;
+            }
+            else
+            {
+                Debug.LogWarning("Player not found! Make sure player has 'Player' tag.");
+            }
+
+            // Lấy Animator component
+            if (animator == null)
+            {
+                animator = GetComponent<Animator>();
+            }
+
+            if (animator == null)
+            {
+                Debug.LogWarning($"No Animator found on {gameObject.name}. Animation will not work.");
+            }
+            if (player != null)
+            {
+                Collider2D playerCollider = player.GetComponent<Collider2D>();
+                Collider2D enemyCollider = GetComponent<Collider2D>();
+                if (playerCollider != null && enemyCollider != null)
+                {
+                    Physics2D.IgnoreCollision(enemyCollider, playerCollider);
+                }
+            }
+            currentHealth = maxHealth; // Initialize health
         }
-        currentHealth = maxHealth; // Initialize health
     }
 
     void Update()
     {
+        // Cập nhật slider máu mỗi frame nếu có
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.value = currentHealth;
+        }
         if (player != null && !isDead)
         {
             // Debug states (tạm thời để debug)
@@ -438,6 +465,12 @@ public class Boss1 : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth); // Không cho âm
 
+        // Cập nhật slider máu khi nhận damage
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.value = currentHealth;
+        }
+
         Debug.Log($"Boss1 took {damage} damage! Health: {currentHealth}/{maxHealth}");
 
         if (currentHealth <= 0)
@@ -467,6 +500,24 @@ public class Boss1 : MonoBehaviour
             audioSource.PlayOneShot(deathSound);
         }
 
+        // Tắt camera follow boss, chuyển về camera player
+        if (virtualCamera != null && virtualCamera.Follow != null)
+        {
+            virtualCamera.Follow.gameObject.SetActive(false);
+        }
+        if (playerCamera != null)
+        {
+            playerCamera.gameObject.SetActive(true);
+            if (player != null)
+            {
+                playerCamera.Follow = player.transform;
+                playerCamera.LookAt = player.transform;
+            }
+            playerCamera.Priority = 20;
+        }
+        if (box1 != null) box1.SetActive(false);
+        if (box2 != null) box2.SetActive(false);
+
         // Chạy animation death
         PlayDeathAnimation();
         if (player != null)
@@ -483,7 +534,18 @@ public class Boss1 : MonoBehaviour
     public void DestroyBoss()
     {
         Debug.Log("Boss1 destroyed!");
+        // Ẩn hoặc destroy UI máu boss nếu có
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.gameObject.SetActive(false);
+        }
         Destroy(gameObject);
+
+        if (BGMController.Instance != null)
+        {
+            BGMController.Instance.PlayBGMForScene("dungeon");
+        }
+
         Player player = FindObjectOfType<Player>();
         if (player != null)
         {

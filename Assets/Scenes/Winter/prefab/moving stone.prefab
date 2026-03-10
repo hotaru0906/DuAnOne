@@ -163,10 +163,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d89e5a334afa83946a564ade7a7997ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  MovePoints: {fileID: 0}
-  Points: []
-  waitDuration: 0
+  speed: 3
+  MovePoints: {fileID: 1237537839227341781}
+  Points:
+  - {fileID: 2901761864675894755}
+  - {fileID: 4975859777231199333}
+  waitDuration: 2
 --- !u!61 &8635764558833872182
 BoxCollider2D:
   m_ObjectHideFlags: 0

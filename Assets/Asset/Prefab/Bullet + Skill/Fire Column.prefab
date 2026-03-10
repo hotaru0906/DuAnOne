@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd6f3a1194b32f4a898b9fad7d77a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 40
+  damage: 30
   animator: {fileID: 2086247196783815061}
   fireCollider: {fileID: 2320525248737019250}
 --- !u!82 &8538642630031894187

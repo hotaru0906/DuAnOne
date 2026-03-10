@@ -22,14 +22,29 @@ EditorBuildSettings:
     guid: f953bb4b9c010f9468260d4560237081
   - enabled: 1
     path: Assets/Scenes/Ingame/Forest.unity
-    guid: fea39873a7c98d549aaa6527c32c1d76
+    guid: 89639838823a1a343bf3f02903e66826
   - enabled: 1
     path: Assets/Scenes/Ingame/tower1.unity
-    guid: 629eb46c94f462344aa3000a897f83ed
+    guid: d97435fe859a4ed4daff4e688ed76741
+  - enabled: 1
+    path: Assets/Scenes/Ingame/tower2.unity
+    guid: 9169a610ce44c2547baaeb9527d2c188
+  - enabled: 1
+    path: Assets/Scenes/Ingame/dungeon.unity
+    guid: 11b03f56d40804d46a8d11b84e415aeb
+  - enabled: 1
+    path: Assets/Scenes/Ingame/dungeon 1.unity
+    guid: 4288f73d0e6513d4a8cb2d795a450973
   - enabled: 1
     path: Assets/Scenes/Ingame/DeathMenu.unity
     guid: 8f47c7caee85f73468bfbc257d57cf34
   - enabled: 1
-    path: Assets/Scenes/Ingame/Demo.unity
-    guid: 6517b59c4b2c73e47978e261dc678541
+    path: Assets/Scenes/Ingame/Ending 0.unity
+    guid: c52046dbab251e549bff685c06e4cbc4
+  - enabled: 1
+    path: Assets/Scenes/Ingame/Ending 1.unity
+    guid: 6630e646b8795f648b2f97e95c1fecbb
+  - enabled: 1
+    path: Assets/Scenes/Ingame/Ending 2.unity
+    guid: f4657d1153f275245aa71c5e1691bd53
   m_configObjects: {}
