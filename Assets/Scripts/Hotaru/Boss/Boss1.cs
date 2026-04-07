@@ -60,54 +60,52 @@ public class Boss1 : MonoBehaviour
 
     void Start()
     {
+        // Tìm slider máu nếu chưa gán
+        if (bossHealthSlider == null)
         {
-            // Tìm slider máu nếu chưa gán
-            if (bossHealthSlider == null)
+            GameObject sliderObj = GameObject.Find("BossHealthSlider");
+            if (sliderObj != null)
             {
-                GameObject sliderObj = GameObject.Find("BossHealthSlider");
-                if (sliderObj != null)
-                {
-                    bossHealthSlider = sliderObj.GetComponent<UnityEngine.UI.Slider>();
-                }
+                bossHealthSlider = sliderObj.GetComponent<UnityEngine.UI.Slider>();
             }
-            if (bossHealthSlider != null)
-            {
-                bossHealthSlider.maxValue = maxHealth;
-                bossHealthSlider.value = maxHealth;
-            }
-
-            // Tìm player trong scene
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-            if (playerObj != null)
-            {
-                player = playerObj.transform;
-            }
-            else
-            {
-                Debug.LogWarning("Player not found! Make sure player has 'Player' tag.");
-            }
-
-            // Lấy Animator component
-            if (animator == null)
-            {
-                animator = GetComponent<Animator>();
-            }
-
-            if (animator == null)
-            {
-                Debug.LogWarning($"No Animator found on {gameObject.name}. Animation will not work.");
-            }
-            if (player != null)
-            {
-                Collider2D playerCollider = player.GetComponent<Collider2D>();
-                Collider2D enemyCollider = GetComponent<Collider2D>();
-                if (playerCollider != null && enemyCollider != null)
-                {
-                    Physics2D.IgnoreCollision(enemyCollider, playerCollider);
-                }
-            }
-            currentHealth = maxHealth; // Initialize health
         }
+        if (bossHealthSlider != null)
+        {
+            bossHealthSlider.maxValue = maxHealth;
+            bossHealthSlider.value = maxHealth;
+        }
+
+        // Tìm player trong scene
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
+        else
+        {
+            Debug.LogWarning("Player not found! Make sure player has 'Player' tag.");
+        }
+
+        // Lấy Animator component
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
+
+        if (animator == null)
+        {
+            Debug.LogWarning($"No Animator found on {gameObject.name}. Animation will not work.");
+        }
+        if (player != null)
+        {
+            Collider2D playerCollider = player.GetComponent<Collider2D>();
+            Collider2D enemyCollider = GetComponent<Collider2D>();
+            if (playerCollider != null && enemyCollider != null)
+            {
+                Physics2D.IgnoreCollision(enemyCollider, playerCollider);
+            }
+        }
+        currentHealth = maxHealth; // Initialize health
     }
 
     void Update()

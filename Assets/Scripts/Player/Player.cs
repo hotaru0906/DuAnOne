@@ -103,14 +103,14 @@ public class Player : MonoBehaviour
 
     // Private State Variables
     private int comboStep = 0;
-    private float dashTime;
+    public float dashTime;
     private float comboTimer = 0f;
-    private bool isDashing = false;
-    private bool isAttacking = false;
+    public bool isDashing = false;
+    public bool isAttacking = false;
     private bool isSkill1 = false;
     private bool isSkill2 = false;
     private bool isSkill1InAir = false;
-    private bool isHit = false;
+    public bool isHit = false;
     private bool isDeath = false;
     public bool isInvincible = false; // Flag for invincibility
     private Collider2D playerCollider;
@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
 
         dashTime = dashDuration;
         isDashing = false;
-        
+
 
         // Initialize sliders if assigned
         if (healthSlider != null)
@@ -371,7 +371,7 @@ public class Player : MonoBehaviour
     }
 
     // ==================== BASIC FUNCTIONS ====================
-    void Flip()
+    public void Flip()
     {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         // Do not stop the move sound when flipping
@@ -502,6 +502,7 @@ public class Player : MonoBehaviour
 
         if (Health <= 0)
         {
+            Health = 0; // Ensure health doesn't go below 0
             Debug.Log("Health is 0 or less. Calling Die method.");
             Die();
         }
@@ -509,6 +510,7 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
+        Health = 0; // Ensure health is set to 0
         isDeath = true;
         StopMoveSound();
         if (animator != null)
@@ -905,7 +907,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void LevelUp()
+    public void LevelUp()
     {
         currentExp -= expToNextLevel;
         level++;
@@ -1010,6 +1012,11 @@ public class Player : MonoBehaviour
 
     public void RecoverHealth()
     {
+        if (Health <= 0)
+        {
+            Debug.Log("Cannot use health potion when dead.");
+            return;
+        }
         Health = Mathf.Min(Health + Mathf.CeilToInt(MaxHealth * 0.25f), MaxHealth);
         healthPotionCount--;
         UpdatePotionUI(); // Update UI after using a potion
@@ -1022,10 +1029,15 @@ public class Player : MonoBehaviour
 
     public void RecoverMana()
     {
+        if (Mana <= 0)
+        {
+            Debug.Log("Cannot use mana potion when out of mana.");
+            return;
+        }
         Mana = Mathf.Min(Mana + Mathf.CeilToInt(MaxMana * 0.25f), MaxMana);
-        if (manaSlider != null)
-            manaPotionCount--;
+        manaPotionCount--;
         UpdatePotionUI();
+        if (manaSlider != null)
         {
             manaSlider.value = Mana;
         }
@@ -1035,7 +1047,11 @@ public class Player : MonoBehaviour
     public void Recall()
     {
         teleportPotionCount--;
-        UpdatePotionUI();
+        //UpdatePotionUI();
+        //SaveData(); // Ensure data is saved before teleporting
+    }
+    public void SaveData()
+    {
         // Cập nhật dữ liệu từ Player sang GameManager trước khi lưu
         GameManager.Instance.playerGold = gold;
         GameManager.Instance.playerStr = str;

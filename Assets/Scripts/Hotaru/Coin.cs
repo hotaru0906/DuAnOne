@@ -4,7 +4,7 @@ public class Coin : MonoBehaviour
 {
     public int value = 1; // The amount of gold this coin represents
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
